@@ -57,7 +57,7 @@ public class Juego {
             } else {
                 System.out.println("Opción no válida.");
             }
-            System.out.println("HOLA TU PADRE");
+            System.out.println("HOLA TU PADRE, HASTA LA POLLA");
         }
     }
 }
