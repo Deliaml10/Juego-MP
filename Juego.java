@@ -7,7 +7,7 @@ public class Juego {
         // Mensaje de bienvenida
         try (Scanner scanner = new Scanner(System.in)) {
             // Mensaje de bienvenida
-            System.out.println("Bienvenido  a Sangre y Luna, serás vampiro, licántropo, o quizás... cazador.");
+            System.out.println("Bienvenido a Sangre y Luna, serás vampiro, licántropo, o quizás... cazador.");
             System.out.println("Adéntrate en esta aventura y desafía a otros jugadores.");
 
             // Solicitar acción al usuario
