@@ -55,7 +55,7 @@ public class Juego {
                     System.out.println("Opción no válida.");
                 }
             } else {
-                System.out.println("Opción no válida.");
+                System.out.println("Opción no válida");
             }
         }
     }
