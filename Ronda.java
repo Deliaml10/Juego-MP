@@ -9,15 +9,20 @@ public class Ronda {
     private int saludDesafiado;
 
     // Constructor
-    public Ronda(int defensaDesafiante, int defensaDesafiado, int ataqueDesafiante, int ataqueDesafiado, int exitosDesafiante, int exitosDesafiado, int saludDesafiante, int saludDesafiado) {
-        this.defensaDesafiante = defensaDesafiante;
-        this.defensaDesafiado = defensaDesafiado;
-        this.ataqueDesafiante = ataqueDesafiante;
-        this.ataqueDesafiado = ataqueDesafiado;
-        this.exitosDesafiante = exitosDesafiante;
-        this.exitosDesafiado = exitosDesafiado;
-        this.saludDesafiante = saludDesafiante;
-        this.saludDesafiado = saludDesafiado;
+    public Ronda(Personaje desafiante, Personaje desafiado) {
+        // Calcular y asignar valores de ataque y defensa para el desafiante
+        ataqueDesafiante = desafiante.calcularPotencialAtaque();
+        defensaDesafiante = desafiante.calcularPotencialDefensa();
+
+        // Calcular y asignar valores de ataque y defensa para el desafiado
+        ataqueDesafiado = desafiado.calcularPotencialAtaque();
+        defensaDesafiado = desafiado.calcularPotencialDefensa();
+
+        // Inicializar otras propiedades
+        exitosDesafiante = 0;
+        exitosDesafiado = 0;
+        saludDesafiante = desafiante.getSalud();
+        saludDesafiado = desafiado.getSalud();
     }
 
     // Getter y Setter para defensaDesafiante
@@ -45,51 +50,6 @@ public class Ronda {
 
     public void setAtaqueDesafiante(int ataqueDesafiante) {
         this.ataqueDesafiante = ataqueDesafiante;
-    }
-
-    // Getter y Setter para ataqueDesafiado
-    public int getAtaqueDesafiado() {
-        return ataqueDesafiado;
-    }
-
-    public void setAtaqueDesafiado(int ataqueDesafiado) {
-        this.ataqueDesafiado = ataqueDesafiado;
-    }
-
-    // Getter y Setter para exitosDesafiante
-    public int getExitosDesafiante() {
-        return exitosDesafiante;
-    }
-
-    public void setExitosDesafiante(int exitosDesafiante) {
-        this.exitosDesafiante = exitosDesafiante;
-    }
-
-    // Getter y Setter para exitosDesafiado
-    public int getExitosDesafiado() {
-        return exitosDesafiado;
-    }
-
-    public void setExitosDesafiado(int exitosDesafiado) {
-        this.exitosDesafiado = exitosDesafiado;
-    }
-
-    // Getter y Setter para saludDesafiante
-    public int getSaludDesafiante() {
-        return saludDesafiante;
-    }
-
-    public void setSaludDesafiante(int saludDesafiante) {
-        this.saludDesafiante = saludDesafiante;
-    }
-
-    // Getter y Setter para saludDesafiado
-    public int getSaludDesafiado() {
-        return saludDesafiado;
-    }
-
-    public void setSaludDesafiado(int saludDesafiado) {
-        this.saludDesafiado = saludDesafiado;
     }
 
     // Método para guardar la ronda

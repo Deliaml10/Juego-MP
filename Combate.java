@@ -1,98 +1,84 @@
 import java.util.Date;
 
 public class Combate {
-    private Ronda[] rondas;
     private Jugador desafiante;
     private Jugador desafiado;
     private Date fecha;
     private Jugador vencedor;
-    private Esbirro[] esbirros;
-    private int oroGanado;
+    private int oroApostado;
 
     // Constructor
-    public Combate(Ronda[] rondas, Jugador desafiante, Jugador desafiado, Date fecha, Jugador vencedor, Esbirro[] esbirros, int oroGanado) {
-        this.rondas = rondas;
+    public Combate(Jugador desafiante, Jugador desafiado, int oroApostado) {
         this.desafiante = desafiante;
         this.desafiado = desafiado;
-        this.fecha = fecha;
-        this.vencedor = vencedor;
-        this.esbirros = esbirros;
-        this.oroGanado = oroGanado;
+        this.fecha = new Date(); // Fecha actual
+        this.oroApostado = oroApostado;
     }
 
-    // Métodos
-    public void guardarCombate() {
-        // Lógica para guardar el combate en algún repositorio de datos
-        System.out.println("El combate ha sido guardado.");
-    }
+    // Método para iniciar el combate
+    public void iniciarCombate() {
+        System.out.println("¡El combate ha comenzado!");
 
-    public void crearRondas(int numeroRondas) {
-        this.rondas = new Ronda[numeroRondas];
-        for (int i = 0; i < numeroRondas; i++) {
-            this.rondas[i] = new Ronda(); // Suponiendo que Ronda tiene un constructor por defecto
+        while (desafiante.getSalud() > 0 && desafiado.getSalud() > 0) {
+            // Crear nueva ronda
+            Ronda ronda = new Ronda();
+
+            // Guardar la ronda
+            ronda.guardarRonda();
+
+            // Verificar si uno de los jugadores ha perdido
+            if (desafiante.getSalud() <= 0 && desafiado.getSalud() <= 0) {
+                System.out.println("¡El combate termina en empate!");
+                vencedor = null; // Empate
+                break;
+            } else if (desafiante.getSalud() <= 0) {
+                System.out.println("¡El desafiado ha ganado el combate!");
+                vencedor = desafiado;
+                break;
+            } else if (desafiado.getSalud() <= 0) {
+                System.out.println("¡El desafiante ha ganado el combate!");
+                vencedor = desafiante;
+                break;
+            }
         }
-        System.out.println("Se han creado " + numeroRondas + " rondas.");
+
+        // Asignar oro al ganador y al perdedor
+        asignarOro();
     }
 
-    // Getters y setters
-    // Getter y Setter para desafiante
+    // Método para asignar oro al ganador y al perdedor
+    private void asignarOro() {
+        if (vencedor == desafiante) {
+            desafiante.incrementarOro(oroApostado);
+            desafiado.incrementarOro(-oroApostado);
+            if (vencedor == null) {
+                desafiado.incrementarOro(oroApostado / 2);
+                desafiante.incrementarOro(oroApostado / 2);
+            } else {
+                desafiante.incrementarOro(-oroApostado);
+                desafiado.incrementarOro(oroApostado);
+            }
+        }
+    }
+
+    // Getters
     public Jugador getDesafiante() {
         return desafiante;
     }
 
-    public void setDesafiante(Jugador desafiante) {
-        this.desafiante = desafiante;
-    }
-
-    // Getter y Setter para desafiado
     public Jugador getDesafiado() {
         return desafiado;
     }
 
-    public void setDesafiado(Jugador desafiado) {
-        this.desafiado = desafiado;
-    }
-
-    // Getter y Setter para fecha
     public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    // Getter y Setter para vencedor
     public Jugador getVencedor() {
         return vencedor;
     }
 
-    public void setVencedor(Jugador vencedor) {
-        this.vencedor = vencedor;
+    public int getOroApostado() {
+        return oroApostado;
     }
-
-    // Getter y Setter para esbirros
-    public Esbirro[] getEsbirros() {
-        return esbirros;
-    }
-
-    public void setEsbirros(Esbirro[] esbirros) {
-        this.esbirros = esbirros;
-    }
-
-    // Getter y Setter para oroGanado
-    public int getOroGanado() {
-        return oroGanado;
-    }
-
-    public void setOroGanado(int oroGanado) {
-        this.oroGanado = oroGanado;
-    }
-
-    // Métodos
-    public void guardarCombate() {
-        // Lógica para guardar el combate en algún repositorio de datos
-        System.out.println("El combate ha sido guardado.");
-    }
-    
 }
