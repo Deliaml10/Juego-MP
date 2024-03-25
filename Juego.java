@@ -27,6 +27,7 @@ public class Juego {
                 if (opcionJuego.equalsIgnoreCase("C") || opcionJuego.equalsIgnoreCase("c")) {
                     // Crear un nuevo usuario
                     System.out.println("Seleccionaste crear un nuevo usuario.");
+                    //Pedir que elija entre ser un administrador o ser un jugador
                     System.out.println("Presiona J para ser un jugador o A para ser un nuevo administrador");
                     String eleccion = scanner.nextLine();
                     if (eleccion.equalsIgnoreCase("A") || eleccion.equalsIgnoreCase("a")) {
@@ -54,7 +55,7 @@ public class Juego {
                     }
                     while (!contrasena1.equals(contrasena));
 
-         //           Jugador jugador = new Jugador(String nombre, String contrasena, String nick);
+                    Jugador jugador = new Jugador(String nombre, String contrasena, String nick);
                     System.out.println("¡Usuario creado exitosamente!");
 
                 } else if (opcionJuego.equalsIgnoreCase("I") || opcionJuego.equalsIgnoreCase("i")) {      //OPCION DE INICIAR SESIÓN
