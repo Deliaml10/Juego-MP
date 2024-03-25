@@ -17,12 +17,12 @@ public class Juego {
             String opcion = scanner.nextLine();
 
             if (opcion.equalsIgnoreCase("R") || opcion.equalsIgnoreCase("r")) {
-                // Mostrar las reglas del juego
-                System.out.println("El juego consiste en combates contra otros jugadores. Cada combate debe ser validado por un administrador.\nSi decides aceptar un desafío, podrás elegir tus armas y armaduras; el ganador se lleva el oro apostado.\nPor otro lado, si decides no aceptarlo, deberás pagar un 10% de lo que haya apostado el desafiante. ¡SUERTE! ");
-            } else if (opcion.equalsIgnoreCase("J") || (opcion.equalsIgnoreCase("j"))) {
-                // Opción de jugar
-                System.out.println("Seleccionaste jugar.");
 
+                System.out.println("El juego consiste en combates contra otros jugadores. Cada combate debe ser validado por un administrador.\nSi decides aceptar un desafío, podrás elegir tus armas y armaduras; el ganador se lleva el oro apostado.\nPor otro lado, si decides no aceptarlo, deberás pagar un 10% de lo que haya apostado el desafiante. ¡SUERTE! ");
+                } else if (opcion.equalsIgnoreCase("J") || (opcion.equalsIgnoreCase("j"))) {
+
+                System.out.println("Seleccionaste jugar.");
+            }
                 // Pedir al usuario que elija entre crear nuevo usuario o iniciar sesión
                 System.out.println("Presiona C para crear un nuevo usuario o I para iniciar sesión:");
                 String opcionJuego = scanner.nextLine();
@@ -102,19 +102,14 @@ public class Juego {
                     String contrasena1 = scanner.nextLine();
 
                     for (Usuario usuario : usuarios) {
-                        if ((usuarios.getNick().equals(nick1)) && (usuarios.getContrasena().equals(contrasena1))) {
+                        if ((usuario.getNick().equals(nick1)) && (usuario.getContrasena().equals(contrasena1))) {
                             System.out.println("¡Inicio de sesión exitoso!");
+                        } else {
+                            System.out.println("Nick o contraseña incorrectos");
                         }
                     }
 
-
-
-
-
-                    else {
-                    System.out.println("Opción no válida.");
-                }
-            } else {
+                } else {
                 System.out.println("Opción no válida.");
             }
 
