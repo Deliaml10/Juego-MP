@@ -2,6 +2,7 @@
 import java.sql.SQLOutput;
 import java.util.Scanner;
 public class Juego {
+    private Usuario usuarios[];
     public static void main(String[] args) {
         // Mensaje de bienvenida
         try (Scanner scanner = new Scanner(System.in)) {
@@ -34,30 +35,30 @@ public class Juego {
                         System.out.println("Seleccionaste ser un administrador.\n");
                         //  Administrador admin = new Administrador();
                     } else {
-                        System.out.println("Seleccionaste ser un nuevo jugador");
-                        //  Jugador jugador = new Jugador();  //ESTO FUNCIONARÁ CUANDO LA CLASE PERSONAJE ESTÉ CREADA
-                    }
-                    // Pedir datos al usuario para crear el nuevo usuario
-                    System.out.println("Ingresa tu nombre:");
-                    String nombre = scanner.nextLine();
-                    System.out.println("Ingresa tu nick:");
-                    String nick = scanner.nextLine();
-                    String contrasena1;
-                    String contrasena;
-                    do {
-                        System.out.println("Ingresa tu contraseña:");
-                        contrasena = scanner.nextLine();
-                        System.out.println("Repite tu contreseña:");
-                        contrasena1 = scanner.nextLine();
-                        if (!contrasena1.equals(contrasena)) {
-                            System.out.println("Las contraseñas no coindicen");
+                        System.out.println("Seleccionaste ser un nuevo jugador\n");
+
+
+                        // Pedir datos al usuario para crear el nuevo usuario
+                        System.out.println("Ingresa tu nombre:");
+                        String nombre = scanner.nextLine();
+                        System.out.println("Ingresa tu nick:");
+                        String nick = scanner.nextLine();
+                        String contrasena1;
+                        String contrasena;
+                        do {
+                            System.out.println("Ingresa tu contraseña:");
+                            contrasena = scanner.nextLine();
+                            System.out.println("Repite tu contreseña:");
+                            contrasena1 = scanner.nextLine();
+                            if (!contrasena1.equals(contrasena)) {
+                                System.out.println("Las contraseñas no coindicen");
+                            }
                         }
+                        while (!contrasena1.equals(contrasena));
+
+                        Jugador jugador = new Jugador(nombre, contrasena, nick);
+                        System.out.println("¡Usuario creado exitosamente!");
                     }
-                    while (!contrasena1.equals(contrasena));
-
-                    Jugador jugador = new Jugador(String nombre, String contrasena, String nick);
-                    System.out.println("¡Usuario creado exitosamente!");
-
                 } else if (opcionJuego.equalsIgnoreCase("I") || opcionJuego.equalsIgnoreCase("i")) {      //OPCION DE INICIAR SESIÓN
                     // Iniciar sesión con un usuario existente
                     System.out.println("Seleccionaste iniciar sesión.");
