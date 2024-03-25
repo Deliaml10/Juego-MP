@@ -41,5 +41,5 @@ public class Jugador extends Usuario {
         this.setNombre("");
         this.setContrasena("");
         this.setNick("");
-        this.setNumeroRegistro("");
+        this.numero = "";
     }
