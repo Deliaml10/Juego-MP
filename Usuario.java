@@ -8,4 +8,5 @@ public class Usuario {
         this.nick = nick;
         this.contrasena = contrasena;
     }
+
 }
