@@ -1,12 +1,16 @@
 import java.util.Random;
 public class Jugador extends Usuario {
     private String numero;
+    private Personaje personaje;
+    private int oro;
 
     public Jugador (String nombre, String contrasena, String nick){
         super(nombre, contrasena, nick);
-        this.numero = CrearNumero();
+        this.numero = numeroRegistro();
+        this.personaje = null;
+        this.oro = 0;
     }
-    public String CrearNumero()
+    public String numeroRegistro()
 
     {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -29,4 +33,13 @@ public class Jugador extends Usuario {
 
             return codigo.toString();
     }
-}
+    public void registrarPersonaje(Personaje personaje) {
+        this.personaje = personaje;
+    }
+
+    public void eliminarPersonaje() {
+        this.setNombre("");
+        this.setContrasena("");
+        this.setNick("");
+        this.setNumeroRegistro("");
+    }
