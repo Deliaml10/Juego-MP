@@ -97,13 +97,21 @@ public class Juego {
 
                     // Pedir datos al usuario para iniciar sesión
                     System.out.println("Ingresa tu nick:");
-                    String nick = scanner.nextLine();
+                    String nick1 = scanner.nextLine();
                     System.out.println("Ingresa tu contraseña:");
-                    String contrasena = scanner.nextLine();
+                    String contrasena1 = scanner.nextLine();
+
+                    for (Usuario usuario : usuarios) {
+                        if ((usuarios.getNick().equals(nick1)) && (usuarios.getContrasena().equals(contrasena1))) {
+                            System.out.println("¡Inicio de sesión exitoso!");
+                        }
+                    }
 
 
-                    System.out.println("¡Inicio de sesión exitoso!");
-                } else {
+
+
+
+                    else {
                     System.out.println("Opción no válida.");
                 }
             } else {
