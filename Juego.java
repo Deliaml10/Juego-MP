@@ -34,9 +34,6 @@ public class Juego {
                     System.out.println("Presiona J para ser un jugador o A para ser un nuevo administrador");
                     String eleccion = scanner.nextLine();
 
-
-
-
                     if (eleccion.equalsIgnoreCase("A") || eleccion.equalsIgnoreCase("a")) {
                         System.out.println("Seleccionaste ser un administrador.\n");
 
@@ -85,11 +82,6 @@ public class Juego {
                         usuarios.add(jugador);
                         System.out.println("¡Usuario creado exitosamente!");
                     }
-
-
-
-
-
 
                 } else if (opcionJuego.equalsIgnoreCase("I") || opcionJuego.equalsIgnoreCase("i")) {      //OPCION DE INICIAR SESIÓN
                     // Iniciar sesión con un usuario existente
