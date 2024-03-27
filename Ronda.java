@@ -25,10 +25,10 @@ public class Ronda {
         // Inicializar otras propiedades
         exitosAtaqueDesafiante = exitosAtaque(ataqueDesafiante);
         exitosDefensaDesafiante = exitosDefensa(defensaDesafiante);
-        exitosAtaqueDesafiante = exitosAtaque(ataqueDesafiado);
-        exitosDefensaDesafiante = exitosDefensa(defensaDesafiado);
-        saludDesafiante = desafiante.getSalud();
-        saludDesafiado = desafiado.getSalud();
+        exitosAtaqueDesafiado = exitosAtaque(ataqueDesafiado);
+        exitosDefensaDesafiado = exitosDefensa(defensaDesafiado);
+        saludDesafiante = calcularVida(desafiante, exitosDefensaDesafiante, exitosAtaqueDesafiado);
+        saludDesafiado = calcularVida(desafiado, exitosDefensaDesafiado, exitosAtaqueDesafiante);
     }
 
 
@@ -96,9 +96,13 @@ public class Ronda {
 
 
     // Método para calcular la vida restante de cada jugador
-    public void calcularVida() {
-        this.saludDesafiante -= this.ataqueDesafiado - this.defensaDesafiante;
-        this.saludDesafiado -= this.ataqueDesafiante - this.defensaDesafiante;
-        System.out.println("La vida restante de los jugadores ha sido calculada.");
+    public int calcularVida(Personaje personaje, int defensa, int ataque) {
+        int diferencia = ataque - defensa;
+        int vidaRestante;
+
+        if (diferencia > 0) {
+            vidaRestante = personaje.setSalud(personaje.getSalud()-1);
+        }
+        return vidaRestante;
     }
 }

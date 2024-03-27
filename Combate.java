@@ -22,7 +22,7 @@ public class Combate {
         while (desafiante.getSalud() > 0 && desafiado.getSalud() > 0) {
             // Crear nueva ronda
             Ronda ronda = new Ronda();
-            
+
             // Guardar la ronda
             ronda.guardarRonda();
 
@@ -49,17 +49,13 @@ public class Combate {
     // Método para asignar oro al ganador y al perdedor
     private void asignarOro() {
         if (vencedor == desafiante) {
-            desafiante.incrementarOro(oroApostado);
-            desafiado.incrementarOro(-oroApostado);
-            if (vencedor == null) {
-                desafiado.incrementarOro(oroApostado / 2);
-                desafiante.incrementarOro(oroApostado / 2);
+            desafiante.incrementarOro(oroApostado/2);
+            desafiado.incrementarOro(-oroApostado/2);
             } else {
-                desafiante.incrementarOro(-oroApostado);
-                desafiado.incrementarOro(oroApostado);
+                desafiante.incrementarOro(-oroApostado/2);
+                desafiado.incrementarOro(oroApostado/2);
             }
         }
-    }
 
     // Getters
     public Jugador getDesafiante() {
