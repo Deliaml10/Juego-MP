@@ -2,13 +2,9 @@ import java.util.Random;
 public class Jugador extends Usuario {
     private String numero;
 
-    @Override
-    private Jugador nuevo(String nombre, String contrasena, String nick){
-        this.nombre = nombre;
-        this.contrasena = contrasena;
-        this.nick = nick;
+    public Jugador (String nombre, String contrasena, String nick){
+        super(nombre, contrasena, nick);
         this.numero = CrearNumero();
-        return new Jugador();
     }
     public String CrearNumero()
 
