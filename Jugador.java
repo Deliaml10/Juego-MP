@@ -6,11 +6,12 @@ public class Jugador extends Usuario {
     private String numero;
     private Personaje personaje;
     private int oro;
-
+    private ArrayList<String> desafiosPendientes;
     public Jugador(String nombre, String contrasena, String nick) {
         super(nombre, contrasena, nick);
         this.numero = numeroRegistro();
         this.personaje = null;
+        this.desafiosPendientes = new ArrayList<>();
         this.oro = 0;
     }
 
@@ -48,18 +49,61 @@ public class Jugador extends Usuario {
         this.numero = "";
     }
 
-    public boolean aceptarDesafio() {
-        return hayDesafioPendiente();
+    public class Jugador extends Usuario {
+        private int oro;
+
+        // Otros atributos y métodos de la clase Jugador...
+
+        public void aceptarDesafio() {
+            if (desafiosPendientes.isEmpty()) {
+                System.out.println("No hay desafíos pendientes.");
+                return;
+            }
+
+            System.out.println("Desafíos pendientes:");
+            for (int i = 0; i < desafiosPendientes.size(); i++) {
+                String desafio = desafiosPendientes.get(i);
+                System.out.println((i + 1) + ". " + desafio);
+            }
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Seleccione el número del desafío que desea aceptar: ");
+            int seleccion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer
+
+            if (seleccion < 1 || seleccion > desafiosPendientes.size()) {
+                System.out.println("Selección inválida.");
+                return;
+            }
+
+            String desafioSeleccionado = desafiosPendientes.get(seleccion - 1);
+
+            System.out.println("Desafío aceptado: " + desafioSeleccionado);
+
+            if (oro < desafioSeleccionado.getOro()) {
+                System.out.println("No tienes suficiente oro para aceptar este desafío.");
+                return;
+            }
+
+            System.out.println("Desafío de " + desafioSeleccionado.getNickOponente() + " aceptado.");
+            // Lógica para aceptar el desafío
+        }
+
+        public void setDesafiosPendientes(ArrayList<String> desafiosPendientes) {
+            this.desafiosPendientes = desafiosPendientes;
+        }
     }
 
-    public boolean rechazarDesafio() {
-        return hayDesafioPendiente();
+    public void setDesafiosPendientes(ArrayList<String> desafiosPendientes) {
+        this.desafiosPendientes = desafiosPendientes;
     }
 
-    private boolean hayDesafioPendiente() {
-        // Implementa la lógica real para verificar si hay un desafío pendiente
-        // Este método debe devolver true o false dependiendo de la situación
-        return true; // Por ahora, simplemente devolvemos true para simular que hay un desafío pendiente
+    public int getOro() {
+        return oro;
+    }
+
+    public void setOro(int oro) {
+        this.oro = oro;
     }
 
     public int consultarOro() {
@@ -89,9 +133,9 @@ public class Jugador extends Usuario {
     private boolean validarNick(String nick, ArrayList<Usuario> usuarios) {
         for (Usuario usuario : usuarios) {
             if (usuario instanceof Jugador && ((Jugador) usuario).getNick().equals(nick)) {
-                return true; // El nick ya está en uso
+                return true;
             }
         }
-        return false; // El nick es único
+        return false;
     }
 }
