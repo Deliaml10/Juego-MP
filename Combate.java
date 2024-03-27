@@ -22,7 +22,7 @@ public class Combate {
         while (desafiante.getSalud() > 0 && desafiado.getSalud() > 0) {
             // Crear nueva ronda
             Ronda ronda = new Ronda();
-
+            
             // Guardar la ronda
             ronda.guardarRonda();
 
