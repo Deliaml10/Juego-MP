@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Administrador extends Usuario {
     private HashMap<String, Integer> debilidades;
     private HashMap<String, Integer> fortalezas;
+    private LocalDateTime ultimoCombatePerdido;
 
     public Administrador(String nombre, String nick, String contrasena) {
         super(nombre, nick, contrasena);
@@ -79,63 +80,104 @@ public class Administrador extends Usuario {
 
     public void editarPersonaje(Personaje personaje) {
         Scanner scanner = new Scanner(System.in);
-        String nombre, habilidades, armas, armadura, armasActivas, armadurasActivas, esbirros;
-        int oro, salud, poder, debilidades, fortalezas;
+        int opcion;
 
         System.out.println("Editando personaje: " + personaje.getNombre());
+        System.out.println("Seleccione la característica que desea cambiar:");
+        System.out.println("1. Nombre");
+        System.out.println("2. Habilidades");
+        System.out.println("3. Armas");
+        System.out.println("4. Armadura");
+        System.out.println("5. Armas Activas");
+        System.out.println("6. Armaduras Activas");
+        System.out.println("7. Esbirros");
+        System.out.println("8. Oro");
+        System.out.println("9. Salud");
+        System.out.println("10. Poder");
+        System.out.println("11. Debilidades");
+        System.out.println("12. Fortalezas");
 
-        System.out.print("Nuevo nombre del personaje: ");
-        nombre = scanner.nextLine().trim();
+        opcion = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer
 
-        System.out.print("Nuevas habilidades: ");
-        habilidades = scanner.nextLine().trim();
-
-        System.out.print("Nuevas armas: ");
-        armas = scanner.nextLine().trim();
-
-        System.out.print("Nueva armadura: ");
-        armadura = scanner.nextLine().trim();
-
-        System.out.print("Nuevas armas Activas: ");
-        armasActivas = scanner.nextLine().trim();
-
-        System.out.print("Nuevas armaduras Activas: ");
-        armadurasActivas = scanner.nextLine().trim();
-
-        System.out.print("Nuevos Esbirros: ");
-        esbirros = scanner.nextLine().trim();
-
-        System.out.print("Nuevo Oro: ");
-        oro = scanner.nextInt();
-
-        System.out.print("Nueva Salud: ");
-        salud = scanner.nextInt();
-
-        System.out.print("Nuevo Poder: ");
-        poder = scanner.nextInt();
-
-        System.out.print("Nuevas Debilidades: ");
-        debilidades = scanner.nextInt();
-
-        System.out.print("Nuevas Fortalezas: ");
-        fortalezas = scanner.nextInt();
-
-        personaje.setNombre(nombre);
-        personaje.setHabilidades(habilidades);
-        personaje.setArmas(armas);
-        personaje.setArmadura(armadura);
-        personaje.setArmasActivas(armasActivas);
-        personaje.setArmadurasActivas(armadurasActivas);
-        personaje.setEsbirros(esbirros);
-        personaje.setOro(oro);
-        personaje.setSalud(salud);
-        personaje.setPoder(poder);
-        personaje.setDebilidades(debilidades);
-        personaje.setFortalezas(fortalezas);
-
-        System.out.println("Personaje '" + nombre + "' editado correctamente.");
+        switch (opcion) {
+            case 1:
+                System.out.print("Nuevo nombre del personaje: ");
+                String nombre = scanner.nextLine().trim();
+                personaje.setNombre(nombre);
+                System.out.println("Nombre del personaje cambiado correctamente a: " + nombre);
+                break;
+            case 2:
+                System.out.print("Nuevas habilidades: ");
+                String habilidades = scanner.nextLine().trim();
+                personaje.setHabilidades(habilidades);
+                System.out.println("Habilidades del personaje cambiadas correctamente a: " + habilidades);
+                break;
+            case 3:
+                System.out.print("Nuevas armas: ");
+                String armas = scanner.nextLine().trim();
+                personaje.setArmas(armas);
+                System.out.println("Armas del personaje cambiadas correctamente a: " + armas);
+                break;
+            case 4:
+                System.out.print("Nueva armadura: ");
+                String armadura = scanner.nextLine().trim();
+                personaje.setArmadura(armadura);
+                System.out.println("Armadura del personaje cambiada correctamente a: " + armadura);
+                break;
+            case 5:
+                System.out.print("Nuevas armas activas: ");
+                String armasActivas = scanner.nextLine().trim();
+                personaje.setArmasActivas(armasActivas);
+                System.out.println("Armas activas del personaje cambiadas correctamente a: " + armasActivas);
+                break;
+            case 6:
+                System.out.print("Nuevas armaduras activas: ");
+                String armadurasActivas = scanner.nextLine().trim();
+                personaje.setArmadurasActivas(armadurasActivas);
+                System.out.println("Armaduras activas del personaje cambiadas correctamente a: " + armadurasActivas);
+                break;
+            case 7:
+                System.out.print("Nuevos esbirros: ");
+                String esbirros = scanner.nextLine().trim();
+                personaje.setEsbirros(esbirros);
+                System.out.println("Esbirros del personaje cambiados correctamente a: " + esbirros);
+                break;
+            case 8:
+                System.out.print("Nuevo oro: ");
+                int oro = scanner.nextInt();
+                personaje.setOro(oro);
+                System.out.println("Oro del personaje cambiado correctamente a: " + oro);
+                break;
+            case 9:
+                System.out.print("Nueva salud: ");
+                int salud = scanner.nextInt();
+                personaje.setSalud(salud);
+                System.out.println("Salud del personaje cambiada correctamente a: " + salud);
+                break;
+            case 10:
+                System.out.print("Nuevo poder: ");
+                int poder = scanner.nextInt();
+                personaje.setPoder(poder);
+                System.out.println("Poder del personaje cambiado correctamente a: " + poder);
+                break;
+            case 11:
+                System.out.print("Nuevas debilidades: ");
+                int debilidades = scanner.nextInt();
+                personaje.setDebilidades(debilidades);
+                System.out.println("Debilidades del personaje cambiadas correctamente a: " + debilidades);
+                break;
+            case 12:
+                System.out.print("Nuevas fortalezas: ");
+                int fortalezas = scanner.nextInt();
+                personaje.setFortalezas(fortalezas);
+                System.out.println("Fortalezas del personaje cambiadas correctamente a: " + fortalezas);
+                break;
+            default:
+                System.out.println("Opción inválida.");
+        }
     }
-
+}
 
     public boolean validarDesafio(Jugador desafiante, Jugador desafiado, HashSet<Desafio> desafiosPendientes) {
         for (Desafio desafio : desafiosPendientes) {
@@ -193,6 +235,10 @@ public class Administrador extends Usuario {
             jugador.bloqueado = false;
             System.out.println("El jugador ha sido desbloqueado.");
         }
-    }
+
+        public void crearCombate(Jugador oponente){
+            Combate combate = new Combate(this, oponente);
+            combate.iniciarCombate();
+        }
 }
 
