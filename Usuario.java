@@ -8,4 +8,13 @@ public class Usuario {
         this.nick = nick;
         this.contrasena = contrasena;
     }
+
+    public String getNick(){
+        return this.nick;
+    }
+
+    public String getContrasena(){
+        return this.contrasena;
+    }
+
 }
