@@ -7,6 +7,7 @@ public class Jugador extends Usuario {
     private Personaje personaje;
     private int oro;
     private ArrayList<String> desafiosPendientes;
+
     public Jugador(String nombre, String contrasena, String nick) {
         super(nombre, contrasena, nick);
         this.numero = numeroRegistro();
@@ -143,71 +144,5 @@ public class Jugador extends Usuario {
 
     public void setDesafiosPendientes(ArrayList<String> desafiosPendientes) {
         this.desafiosPendientes = desafiosPendientes;
-    }
-}
-
-    public void setDesafiosPendientes(ArrayList<String> desafiosPendientes) {
-        this.desafiosPendientes = desafiosPendientes;
-    }
-
-    public int getOro() {
-        return oro;
-    }
-
-    public void setOro(int oro) {
-        this.oro = oro;
-    }
-
-    public int consultarOro() {
-        return personaje.getOro();
-    }
-
-    public void actualizarOro(int cantidad) {
-        personaje.setOro(cantidad);
-    }
-
-    public void generarNickUnico(ArrayList<Usuario> usuarios) {
-        boolean nickUnico = false;
-        Scanner scanner = new Scanner(System.in);
-
-        while (!nickUnico) {
-            System.out.print("Por favor, elija su nick: ");
-            String nick = scanner.nextLine().trim();
-            if (!validarNick(nick, usuarios)) {
-                this.setNick(nick);
-                nickUnico = true;
-            } else {
-                System.out.println("El nick ya existe. Por favor, elija otro.");
-            }
-        }
-    }
-
-    private boolean validarNick(String nick, ArrayList<Usuario> usuarios) {
-        for (Usuario usuario : usuarios) {
-            if (usuario instanceof Jugador && ((Jugador) usuario).getNick().equals(nick)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void consultarRanking(ArrayList<Jugador> jugadores) {
-        Collections.sort(jugadores, new Comparator<Jugador>() {
-            @Override
-            public int compare(Jugador jugador1, Jugador jugador2) {
-                return jugador2.getPuntos() - jugador1.getPuntos();
-            }
-        });
-
-        // Imprimir el ranking
-        System.out.println("Ranking de Jugadores:");
-        System.out.println("=======================");
-        System.out.printf("%-10s %-15s %-10s%n", "Posición", "Nick", "Puntos");
-        System.out.println("=======================");
-        for (int i = 0; i < jugadores.size(); i++) {
-            Jugador jugador = jugadores.get(i);
-            System.out.printf("%-10d %-15s %-10d%n", i + 1, jugador.getNick(), jugador.getPuntos());
-        }
-        System.out.println("=======================");
     }
 }
