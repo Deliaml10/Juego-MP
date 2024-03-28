@@ -54,7 +54,7 @@ public class Juego {
                         }
                         while (!contrasena1.equals(contrasena));
 
-                        Administrador administrador = new Administrador(nombre, contrasena, nick);
+                        Administrador administrador = new Administrador(nombre, nick, contrasena);
                         usuarios.add(administrador);
                         System.out.println("¡Administrador creado exitosamente!");
 
@@ -103,6 +103,79 @@ public class Juego {
 
                 } else {
                 System.out.println("Opción no válida.");
+                System.out.println("¡Empieza el juego!");
+                if (usuario.numero == null) {  //esto es que es un Administrador
+
+                        System.out.println("¿Qué quieres hacer?\n 1. Editar un personaje. \n 2. Añadir armas, armaduras, debilidades o esbirros a un personaje. \n 3. Validar desafíos. \n 4. Bloquear usuarios. \n 5. Desbloquear usuarios. \n6. Salir del juego. ");
+                        opcion = scanner.nextLine();
+                        if(opcion.equals("1")) {
+                            administrador.editar();
+
+                        }else if (opcion.equals("2")){
+                            administrador.modificarJugador();
+
+                        }else if(opcion.equals("3")){
+                            administrador.validarDesafios();
+
+                        }else if (opcion.equals("4")){
+                            administrador.bloquear();
+
+                        }else if(opcion.equals("5")){
+                            administrador.desbloquear();
+
+                        }else if (opcion.equals("6")){
+                            System.out.println("¡Hasta luego!");
+                        }else{
+                            System.out.println("Opción no válida");
+                        }
+
+
+                }
+
+                if (usuario.numero != null) {  //esto es que es un Jugador
+
+                    if (!desafiospendientes) {
+
+                        System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
+                        String op = scanner.nextLine();
+                        if(op.equals("1")) {
+                            jugador.elegirArmasyArmaduras();
+
+                        }else if (op.equals("2")){
+                            Jugador.desafiar();
+
+                        }else if(op.equals("3")){
+                            Jugador.rankingOro();
+
+                        }else if (op.equals("4")){
+                            Jugador.rankingGlobal();
+
+                        }else if(op.equals("5")){
+                            Jugador.registrarPersonaje();
+
+                        }else if(op.equals("6")) {
+                            jugador.darBajaPersoanje();
+
+                        }else if (op.equals("7")){
+                            jugador.darBajaCuenta();
+
+                        }else if (op.equals("8")){
+                            System.out.println("¡Hasta luego!");
+                        }else {
+                            System.out.println("Opción no válida");
+                        }
+
+                    }
+                    else{
+                        System.out.println("Tienes desafios pendientes. \n Pulsa A para aceptarlo o pulsa N para rechazarlo. \n Si rechazas un desafío tendrás que pagar el 10% del oro apostado.");
+                        String eleccion = scanner.nextLine();
+                        if(eleccion.equalsIgnoreCase("A")){
+                            jugador.aceptarDesafio();
+                        }else{
+                            jugador.rechazarDesafio();
+                        }
+                    }
+                }
             }
 
         }
