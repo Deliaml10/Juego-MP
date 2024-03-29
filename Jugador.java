@@ -145,4 +145,8 @@ public class Jugador extends Usuario {
     public void setDesafiosPendientes(ArrayList<String> desafiosPendientes) {
         this.desafiosPendientes = desafiosPendientes;
     }
+
+    public String getNumero(){
+        return this.numero;
+    }
 }

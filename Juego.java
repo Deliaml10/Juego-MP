@@ -105,7 +105,7 @@ public class Juego {
                 } else {
                 System.out.println("Opción no válida.");
                 System.out.println("¡Empieza el juego!");
-                if (jugador.numero == null) {  //esto es que es un Administrador
+                if (jugador.getNumero() == null) {  //esto es que es un Administrador
 
                     System.out.println("¿Qué quieres hacer?\n 1. Editar un personaje. \n 2. Añadir armas, armaduras, debilidades o esbirros a un personaje. \n 3. Validar desafíos. \n 4. Bloquear usuarios. \n 5. Desbloquear usuarios. \n6. Salir del juego. ");
                     opcion = scanner.nextLine();
