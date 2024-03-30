@@ -116,13 +116,16 @@ public class Juego {
         String nick1 = scanner.nextLine();
         System.out.println("Ingresa tu contraseña:");
         String contrasena1 = scanner.nextLine();
+        boolean existeUsuario = usuarios.containsKey(nick1);
         Usuario usuarioJuego = usuarios.get(nick1);
-        if (usuarioJuego.getContrasena().equals(contrasena1)) {
-            System.out.println("¡Inicio de sesión exitoso!");
-        }else{
-            System.out.println("Nick o contraseña incorrectos");
-        }
 
+        if (existeUsuario) {
+            if (usuarioJuego.getContrasena().equals(contrasena1)) {
+                System.out.println("¡Inicio de sesión exitoso!");
+            } else {
+                System.out.println("Nick o contraseña incorrectos");
+            }
+        }
         return usuarioJuego;
     }
 
