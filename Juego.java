@@ -28,7 +28,9 @@ public class Juego {
 
                 } else if (opcionJuego.equalsIgnoreCase("I")) {      //OPCION DE INICIAR SESIÓN
                     Usuario usuarioJuego = iniciarSesion(scanner);
-                    jugar(usuarioJuego, scanner);
+                    if (usuarioJuego != null){
+                        jugar(usuarioJuego, scanner);
+                    }
 
                 } else if (opcionJuego.equalsIgnoreCase("S")) {
                     System.out.println("Gracias por jugar a Sangre y Luna");
@@ -124,6 +126,7 @@ public class Juego {
                 System.out.println("¡Inicio de sesión exitoso!");
             } else {
                 System.out.println("Nick o contraseña incorrectos");
+                return null;
             }
         }
         return usuarioJuego;
