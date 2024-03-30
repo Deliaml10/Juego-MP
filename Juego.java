@@ -18,10 +18,11 @@ public class Juego {
             } else if (opcion.equalsIgnoreCase("J")) {
                 System.out.println("Seleccionaste jugar.");
             }
-            System.out.println("Presiona C para crear un nuevo usuario, I para iniciar sesión o S para salir del juego:");
-            String opcionJuego = scanner.nextLine();
+            String opcionJuego = null;
 
             do {
+                System.out.println("Presiona C para crear un nuevo usuario, I para iniciar sesión o S para salir del juego:");
+                opcionJuego = scanner.nextLine();
                 if (opcionJuego.equalsIgnoreCase("C")) {
                     crearCuenta(scanner);
 
