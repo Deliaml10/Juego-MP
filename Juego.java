@@ -103,7 +103,7 @@ public class Juego {
             }
             while (!contrasena1.equals(contrasena));
 
-            Jugador jugador = new Jugador(nombre, contrasena, nick);
+            Jugador jugador = new Jugador(nombre, nick, contrasena);
             usuarios.put(nick, jugador);
             System.out.println("¡Jugador creado exitosamente!");
         }
