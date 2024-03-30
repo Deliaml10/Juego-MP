@@ -245,13 +245,13 @@ public class Administrador extends Usuario {
             }
         }
         return false;
-    }
+    }*/
 
     public void bloquearUsuario(Jugador jugador) {
-        if (jugador.ultimoCombatePerdido != null) {
+        if (jugador.getUltimoCombatePerdido() != null) {
             LocalDateTime hace24Horas = LocalDateTime.now().minusHours(24);
-            if (jugador.ultimoCombatePerdido.isAfter(hace24Horas)) {
-                jugador.bloqueado = true;
+            if (jugador.getUltimoCombatePerdido().isAfter(hace24Horas)) {
+                jugador.setBloqueado(true);
                 System.out.println("El jugador ha sido bloqueado.");
             } else {
                 System.out.println("El jugador no ha perdido combates en las últimas 24 horas. No se puede bloquear.");
@@ -261,26 +261,20 @@ public class Administrador extends Usuario {
         }
     }
 
-    public void desbloquearUsuario(Jugador jugador) {
-        if (jugador.ultimoCombatePerdido != null) {
+    public void desbloquearUsuario(Jugador jugador) { //HAY QUE HACER CAMBIOS EN BLOQUEAR Y DESBLOQUEAR USUARIOS
+        if (jugador.getUltimoCombatePerdido() != null) {
             LocalDateTime hace24Horas = LocalDateTime.now().minusHours(24);
-            if (jugador.ultimoCombatePerdido.isAfter(hace24Horas)) {
+            if (jugador.getUltimoCombatePerdido().isAfter(hace24Horas)) {
                 System.out.println("Aún no han pasado 24 horas desde que el jugador perdió el último combate. No se puede desbloquear.");
             } else {
-                jugador.bloqueado = false;
+                jugador.setBloqueado(false);
                 System.out.println("El jugador ha sido desbloqueado.");
             }
         } else {
-            jugador.bloqueado = false;
+            jugador.setBloqueado(false);
             System.out.println("El jugador ha sido desbloqueado.");
         }
-
-        public void crearCombate(Jugador oponente){
-            Combate combate = new Combate(this, oponente);
-            combate.iniciarCombate();
-        }
     }
-*/
 
     private ArrayList<Esbirro> crearEsbirros(){
         ArrayList<Esbirro> esbirros = new ArrayList<>();
@@ -402,8 +396,19 @@ public class Administrador extends Usuario {
             String nombreDebilidad = scanner.nextLine();
             System.out.println("Escribe su valor (numero del 1 al 5)");
             int valor = scanner.nextInt();
+            System.out.println("Quieres que el modificador este activado (contesta 1 o 2)");
+            System.out.println("1. Si");
+            System.out.println("2. No");
+            int opcion = scanner.nextInt();
+            boolean activado = false;
+            switch (opcion){
+                case 1:
+                    activado = true;
+                case 2:
+                    activado = false;
+            }
 
-            Debilidad debilidad = new Debilidad(nombreDebilidad, valor);
+            Debilidad debilidad = new Debilidad(nombreDebilidad, valor, activado);
             debilidades.add(debilidad);
         }
         return debilidades;
@@ -421,8 +426,18 @@ public class Administrador extends Usuario {
             String nombreFortaleza = scanner.nextLine();
             System.out.println("Escribe su valor (numero del 1 al 5)");
             int valor = scanner.nextInt();
-
-            Fortaleza fortaleza = new Fortaleza(nombreFortaleza, valor);
+            System.out.println("Quieres que el modificador este activado (contesta 1 o 2)");
+            System.out.println("1. Si");
+            System.out.println("2. No");
+            int opcion = scanner.nextInt();
+            boolean activado = false;
+            switch (opcion){
+                case 1:
+                    activado = true;
+                case 2:
+                    activado = false;
+            }
+            Fortaleza fortaleza = new Fortaleza(nombreFortaleza, valor, activado);
             fortalezas.add(fortaleza);
         }
         return fortalezas;

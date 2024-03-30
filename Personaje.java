@@ -8,6 +8,7 @@ public class Personaje {
     private ArrayList<Armadura> armaduras = new ArrayList<>();
     private int armasActivas;
     private int armadurasActivas;
+    private int manosOcupadas;
     private ArrayList<Esbirro> esbirros = new ArrayList<>();
     private int oro;
     private int salud;
@@ -36,6 +37,7 @@ public class Personaje {
                 this.armasActivas += 1;
             }
         }
+        this.manosOcupadas = 0;
         this.esbirros= esbirros;
         this.debilidades= debilidades;
         this.fortalezas = fortalezas;
@@ -63,6 +65,9 @@ public class Personaje {
     public ArrayList<Arma> getArmas(){
         return this.armas;
     }
+    public int getArmasActivas(){
+        return this.armasActivas;
+    }
 
     public void sumarArmasActivas(){
         this.armasActivas += 1;
@@ -80,12 +85,22 @@ public class Personaje {
         return this.armaduras;
     }
 
+    public int getArmadurasActivas(){
+        return this.armadurasActivas;
+    }
     public void sumarArmadurasActivas(){
         this.armadurasActivas += 1;
     }
 
     public void restarArmadurasActivas(){
         this.armadurasActivas -= 1;
+    }
+    public int getManosOcupadas(){
+        return this.manosOcupadas;
+    }
+
+    public void setManosOcupadas(int manosOcupadas){
+        this.manosOcupadas = manosOcupadas;
     }
 
     public void setEsbirros(ArrayList<Esbirro> esbirros) {

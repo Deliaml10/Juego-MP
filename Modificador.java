@@ -1,24 +1,27 @@
 public class Modificador {
     private String nombre;
-    private Integer valor;
+    private int valor;
 
-    public Modificador(String nombre, Integer valor){
+    private boolean activado;
+
+    public Modificador(String nombre, Integer valor, boolean activado){
         this.nombre = nombre;
         this.valor = valor;
+        this.activado = activado;
     }
 }
 
 class Debilidad extends Modificador{
 
-    public Debilidad(String nombre, Integer valor){
-        super(nombre, valor);
+    public Debilidad(String nombre, Integer valor, boolean activado){
+        super(nombre, valor, activado);
     }
 
 }
 
 class Fortaleza extends Modificador{
 
-    public Fortaleza(String nombre, Integer valor){
-        super(nombre, valor);
+    public Fortaleza(String nombre, Integer valor, boolean activado){
+        super(nombre, valor, activado);
     }
 }

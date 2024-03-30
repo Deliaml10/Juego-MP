@@ -26,6 +26,10 @@ public class Equipo {
     public int getValor(){
         return this.valor;
     }
+
+    public int getManos(){
+        return this.manos;
+    }
 }
 
 class Arma extends Equipo{

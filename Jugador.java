@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -5,15 +6,17 @@ import java.util.Scanner;
 public class Jugador extends Usuario {
     private String numeroRegistro;
     private Personaje personaje;
-    private int oro;
-    private ArrayList<String> desafiosPendientes;
+    private LocalDateTime ultimoCombatePerdido;
+    private boolean bloqueado;
+
+    //private ArrayList<Combate> desafiosPendientes;
 
     public Jugador(String nombre, String contrasena, String nick) {
         super(nombre, contrasena, nick);
-        this.numeroRegistro = numeroRegistro();
+        this.numeroRegistro = crearNumeroRegistro();
         this.personaje = null;
-        this.desafiosPendientes = new ArrayList<>();
-        this.oro = 0;
+        this.bloqueado = false;
+        //this.desafiosPendientes = new ArrayList<>();
     }
 
     public String crearNumeroRegistro() {
@@ -37,85 +40,83 @@ public class Jugador extends Usuario {
 
         return codigo.toString();
     }
-
     public void registrarPersonaje(Personaje personaje) {
         this.personaje = personaje;
     }
-
     public void eliminarPersonaje() {
-        this.setNombre("");
+        this.setNombreUsuario("");
         this.setContrasena("");
         this.setNick("");
-        this.numero = "";
+        this.numeroRegistro = null;
     }
 
-    public void equipar(ArrayList<Arma> armasDisponibles, ArrayList<Defensa> defensasDisponibles) {
+    public void equipar(Personaje personaje) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("¿Qué deseas equipar?");
         System.out.println("1. Armas");
-        System.out.println("2. Defensas");
+        System.out.println("2. Armaduras");
         System.out.print("Selecciona una opción: ");
         int opcion = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el buffer
 
         switch (opcion) {
             case 1:
                 System.out.println("Armas disponibles:");
-                for (int i = 0; i < armasDisponibles.size(); i++) {
-                    Arma arma = armasDisponibles.get(i);
-                    System.out.println((i + 1) + ". " + arma.getNombre() + " - Tipo: " + arma.getTipo());
-                }
-                System.out.println("Selecciona un arma para equipar (0 para salir): ");
-                int seleccionArma = scanner.nextInt();
-                scanner.nextLine(); // Limpiar el buffer
-                if (seleccionArma == 0 || seleccionArma > armasDisponibles.size()) {
-                    System.out.println("Saliendo del menú de equipamiento...");
-                    return;
-                }
-                Arma armaSeleccionada = armasDisponibles.get(seleccionArma - 1);
-                // Comprobar si la arma es de una o dos manos y si se puede equipar
-                if (armaSeleccionada.getTipo().equals("1 mano")) {
-                    if (this.armasActivas.size() >= 2) {
-                        System.out.println("Ya tienes equipadas dos armas de una mano. No puedes equipar más.");
-                        return;
-                    }
-                } else if (armaSeleccionada.getTipo().equals("2 manos")) {
-                    if (!this.armasActivas.isEmpty()) {
-                        System.out.println("Ya tienes equipada un arma de dos manos. No puedes equipar más.");
-                        return;
+                for (Arma arma : personaje.getArmas()) {
+                    if (arma.getActiva()) {
+                        System.out.println(arma.getNombreEquipo() + ". Manos que ocupa: " + arma.getManos());
                     }
                 }
-                this.armasActivas.add(armaSeleccionada);
-                armasDisponibles.remove(armaSeleccionada);
-                System.out.println("Se ha equipado el arma '" + armaSeleccionada.getNombre() + "'.");
-                break;
+                int seleccionArma;
+                do {
+                    System.out.println("Elige una opcion:\n 1. Equipar arma\n 2. Terminar de equipar ");
+                    seleccionArma = scanner.nextInt();
+                    if (seleccionArma == 0 || seleccionArma > armasDisponibles.size()) {
+                        System.out.println("Saliendo del menú de equipamiento...");
+                        return;
+                    }
+                    Arma armaSeleccionada = armasDisponibles.get(seleccionArma - 1);
+                    // Comprobar si la arma es de una o dos manos y si se puede equipar
+                    if (armaSeleccionada.getTipo().equals("1 mano")) {
+                        if (this.armasActivas.size() >= 2) {
+                            System.out.println("Ya tienes equipadas dos armas de una mano. No puedes equipar más.");
+                            return;
+                        }
+                    } else if (armaSeleccionada.getTipo().equals("2 manos")) {
+                        if (!this.armasActivas.isEmpty()) {
+                            System.out.println("Ya tienes equipada un arma de dos manos. No puedes equipar más.");
+                            return;
+                        }
+                    }
+                    System.out.println("Se ha equipado el arma '" + armaSeleccionada.getNombreEquipo() + "'.");
+                    break;
+                } while (seleccionArma !);
             case 2:
                 System.out.println("Defensas disponibles:");
-                for (int i = 0; i < defensasDisponibles.size(); i++) {
-                    Defensa defensa = defensasDisponibles.get(i);
-                    System.out.println((i + 1) + ". " + defensa.getNombre());
+                for (int i = 0; i < armadurasDisponibles.size(); i++) {
+                    Armadura armadura = armadurasDisponibles.get(i);
+                    System.out.println((i + 1) + ". " + armadura.getNombreEquipo());
                 }
                 System.out.println("Selecciona una defensa para equipar (0 para salir): ");
                 int seleccionDefensa = scanner.nextInt();
                 scanner.nextLine(); // Limpiar el buffer
-                if (seleccionDefensa == 0 || seleccionDefensa > defensasDisponibles.size()) {
+                if (seleccionDefensa == 0 || seleccionDefensa > armadurasDisponibles.size()) {
                     System.out.println("Saliendo del menú de equipamiento...");
                     return;
                 }
-                Defensa defensaSeleccionada = defensasDisponibles.get(seleccionDefensa - 1);
+                Armadura defensaSeleccionada = armadurasDisponibles.get(seleccionDefensa - 1);
                 this.defensasActivas.add(defensaSeleccionada);
-                defensasDisponibles.remove(defensaSeleccionada);
+                armadurasDisponibles.remove(defensaSeleccionada);
                 System.out.println("Se ha equipado la defensa '" + defensaSeleccionada.getNombre() + "'.");
                 break;
             default:
                 System.out.println("Opción inválida. Saliendo del menú de equipamiento...");
                 break;
         }
-    }
 
+    }
     public void aceptarDesafio() {
-        if (desafiosPendientes.isEmpty()) {
+        /*if (desafiosPendientes.isEmpty()) {
             System.out.println("No hay desafíos pendientes.");
             return;
         }
@@ -140,13 +141,27 @@ public class Jugador extends Usuario {
         }
 
         System.out.println("Desafío de " + desafioSeleccionado.getNickOponente() + " aceptado.");
+         */
     }
-
     public void setDesafiosPendientes(ArrayList<String> desafiosPendientes) {
-        this.desafiosPendientes = desafiosPendientes;
+        //this.desafiosPendientes = desafiosPendientes;
     }
-
-    public String getNumero(){
-        return this.numero;
+    public String getNumeroRegistro(){
+        return this.numeroRegistro;
+    }
+    public LocalDateTime getUltimoCombatePerdido(){
+        return this.ultimoCombatePerdido;
+    }
+    public boolean getBloqueado(){
+        return this.bloqueado;
+    }
+    public void setBloqueado(boolean bloqueado){
+        this.bloqueado = bloqueado;
+    }
+    public Personaje getPersonaje(){
+        return this.personaje;
+    }
+    public void setPersonaje(Personaje personaje){
+        this.personaje = personaje;
     }
 }

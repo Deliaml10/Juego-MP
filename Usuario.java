@@ -70,11 +70,11 @@ public class Usuario {
     }
 
     // Getters y setters
-    public String getNombre() {
+    public String getNombreUsuario() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombreUsuario(String nombre) {
         this.nombre = nombre;
     }
 
