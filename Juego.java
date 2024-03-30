@@ -51,8 +51,18 @@ public class Juego {
 
             System.out.println("Ingresa tu nombre:");
             String nombre = scanner.nextLine();
-            System.out.println("\nIngresa tu nick:");
-            String nick = scanner.nextLine();
+            boolean existeNick = true;
+            String nick;
+            do {
+                System.out.println("\nIngresa tu nick:");
+                nick = scanner.nextLine();
+                existeNick = usuarios.containsKey(nick);
+                if (existeNick){
+                    System.out.println("El nick ya existe");
+                }
+            } while (existeNick);
+
+
             String contrasena1;
             String contrasena;
             do {
