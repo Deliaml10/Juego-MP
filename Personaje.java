@@ -91,4 +91,12 @@ public class Personaje {
     public void setEsbirros(ArrayList<Esbirro> esbirros) {
         this.esbirros.addAll(esbirros);
     }
+
+    public void setDebilidades(ArrayList<Debilidad> debilidades) {
+        this.debilidades.addAll(debilidades);
+    }
+
+    public void setFortalezas(ArrayList<Fortaleza> fortalezas) {
+        this.fortalezas.addAll(fortalezas);
+    }
 }

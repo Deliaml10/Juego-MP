@@ -187,15 +187,15 @@ public class Administrador extends Usuario {
                 break;
             case 8:
                 System.out.print("Nuevas debilidades: ");
-                int debilidades = scanner.nextInt();
-                /*personaje.setDebilidades(debilidades);*/
-                System.out.println("Debilidades del personaje cambiadas correctamente a: " + debilidades);
+                ArrayList<Debilidad> debilidades = crearDebilidades();
+                personaje.setDebilidades(debilidades);
+                System.out.println("Debilidades del personaje cambiadas correctamente");
                 break;
             case 9:
                 System.out.print("Nuevas fortalezas: ");
-                int fortalezas = scanner.nextInt();
-                /*personaje.setFortalezas(fortalezas);*/
-                System.out.println("Fortalezas del personaje cambiadas correctamente a: " + fortalezas);
+                ArrayList<Fortaleza> fortalezas = crearFortalezas();
+                personaje.setFortalezas(fortalezas);
+                System.out.println("Fortalezas del personaje cambiadas correctamente");
                 break;
             default:
                 System.out.println("Opcion incorrecta.");
