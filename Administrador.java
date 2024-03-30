@@ -10,14 +10,13 @@ public class Administrador extends Usuario {
     }
 
 
-
     public void crearPersonaje() {
         Scanner scanner = new Scanner(System.in);
-        String nombre, habilidades, input;
-        String[] convertidor;
+        String nombre;
         ArrayList<Arma> armas = new ArrayList<>();
         ArrayList<Armadura> armaduras = new ArrayList<>();
-        int armadurasActivas = 0;
+        int tipoPersonaje;
+        ArrayList<Habilidad> habilidades = new ArrayList<>();
         ArrayList<Esbirro> esbirros = new ArrayList<>();
         ArrayList<Debilidad> debilidades = new ArrayList<>();
         ArrayList<Fortaleza> fortalezas = new ArrayList<>();
@@ -26,8 +25,30 @@ public class Administrador extends Usuario {
         System.out.print("Nombre del personaje: ");
         nombre = scanner.nextLine().trim();
 
+        System.out.println("Tipo de personaje (elige el 1, 2 o 3):");
+        System.out.println("1. Vampiro");
+        System.out.println("2. Licantropo");
+        System.out.println("3. Cazador");
+        tipoPersonaje = scanner.nextInt();
+
         System.out.print("Habilidades: ");
-        habilidades = scanner.nextLine().trim();
+        System.out.println("Cuantas habilidades quieres anyadir al personaje");
+        int numHabilidades = scanner.nextInt();
+        for (int i = 0; i<numHabilidades; ++i) {
+            System.out.println("Escribe el nombre de la habilidad");
+            String nombreHabilidad = scanner.nextLine();
+            switch (tipoPersonaje) {
+                case 1:
+                    habilidades.add(crearDisciplina(nombre));
+                    break;
+                case 2:
+                    habilidades.add(crearDon(nombre));
+                    break;
+                case 3:
+                    habilidades.add(crearTalento(nombre));
+                    break;
+            }
+        }
 
         System.out.print("Armas: ");
         armas = crearArmas();
@@ -39,12 +60,12 @@ public class Administrador extends Usuario {
         esbirros = crearEsbirros();
 
         System.out.print("Debilidades: ");
-        /*debilidades = scanner.nextInt();*/
+        debilidades = crearDebilidades();
 
         System.out.print("Fortalezas: ");
-        /*fortalezas = scanner.nextInt();*/
+        fortalezas = crearFortalezas();
 
-        Personaje nuevoPersonaje = new Personaje(nombre,  habilidades,  armas,  armaduras,  esbirros,  debilidades,  fortalezas);
+        Personaje nuevoPersonaje = new Personaje(nombre, tipoPersonaje, habilidades,  armas,  armaduras,  esbirros,  debilidades,  fortalezas);
         System.out.println("Personaje '" + nombre + "' creado correctamente.");
     }
 
@@ -76,9 +97,25 @@ public class Administrador extends Usuario {
                 break;
             case 2:
                 System.out.print("Nuevas habilidades: ");
-                String habilidades = scanner.nextLine().trim();
-                personaje.setHabilidades(habilidades);
-                System.out.println("Habilidades del personaje cambiadas correctamente a: " + habilidades);
+                int tipo = personaje.getTipoPersonaje();
+                System.out.println("Cuantas habilidades quieres anyadir al personaje");
+                int numHabilidades = scanner.nextInt();
+                for (int i = 0; i<numHabilidades; ++i) {
+                    System.out.println("Escribe el nombre de la habilidad");
+                    String nombreHabilidad = scanner.nextLine();
+                    switch (tipo) {
+                        case 1:
+                            personaje.setHabilidad(crearDisciplina(nombreHabilidad));
+                            break;
+                        case 2:
+                            personaje.setHabilidad(crearDon(nombreHabilidad));
+                            break;
+                        case 3:
+                            personaje.setHabilidad(crearTalento(nombreHabilidad));
+                            break;
+                    }
+                }
+                System.out.println("Habilidades del personaje cambiadas correctamente");
                 break;
             case 3:
                 System.out.print("Nuevas armas: ");
@@ -94,13 +131,53 @@ public class Administrador extends Usuario {
                 break;
             case 5:
                 System.out.print("Nuevas armas activas: ");
-                String armasActivas = scanner.nextLine().trim();
-                /*personaje.sumaArmasActivas(armasActivas);*/
+                ArrayList<Arma> armas = personaje.getArmas();
+                for (Arma arma : armas){
+                    if (arma.getActiva()){
+                        System.out.println("Quieres desactivar el arma "+ arma.getNombreEquipo());
+                        System.out.println("1.Desactivar");
+                        System.out.println("2. Dejarla activa");
+                        int opcionActiva = scanner.nextInt();
+                        if (opcionActiva == 1){
+                            arma.setActiva(false);
+                            personaje.restarArmasActivas();
+                        }
+                    }else {
+                        System.out.println("Quieres activar el arma " + arma.getNombreEquipo());
+                        System.out.println("1.Activar");
+                        System.out.println("2. Dejarla desactiva");
+                        int opcionActiva = scanner.nextInt();
+                        if (opcionActiva == 1) {
+                            arma.setActiva(true);
+                            personaje.sumarArmasActivas();
+                        }
+                    }
+                }
                 break;
             case 6:
                 System.out.print("Nuevas armaduras activas: ");
-                String armadurasActivas = scanner.nextLine().trim();
-                /*personaje.setArmadurasActivas(armadurasActivas);*/
+                ArrayList<Armadura> armaduras = personaje.getArmaduras();
+                for (Armadura armadura : armaduras){
+                    if (armadura.getActiva()){
+                        System.out.println("Quieres desactivar el arma "+ armadura.getNombreEquipo());
+                        System.out.println("1.Desactivar");
+                        System.out.println("2. Dejarla activa");
+                        int opcionActiva = scanner.nextInt();
+                        if (opcionActiva == 1){
+                            armadura.setActiva(false);
+                            personaje.restarArmadurasActivas();
+                        }
+                    }else {
+                        System.out.println("Quieres activar el arma " + armadura.getNombreEquipo());
+                        System.out.println("1.Activar");
+                        System.out.println("2. Dejarla desactiva");
+                        int opcionActiva = scanner.nextInt();
+                        if (opcionActiva == 1) {
+                            armadura.setActiva(true);
+                            personaje.restarArmadurasActivas();
+                        }
+                    }
+                }
                 break;
             case 7:
                 System.out.print("Nuevos esbirros: ");
@@ -121,7 +198,7 @@ public class Administrador extends Usuario {
                 System.out.println("Fortalezas del personaje cambiadas correctamente a: " + fortalezas);
                 break;
             default:
-                System.out.println("Opción inválida.");
+                System.out.println("Opcion incorrecta.");
         }
     }
 
@@ -237,11 +314,13 @@ public class Administrador extends Usuario {
                     } while (lealtad < 1 || lealtad > 3);
                     Esbirro humano = new Humano(nombreEsbirro, saludEsbirro, lealtad);
                     esbirros.add(humano);
+                    break;
                 case 2:
                     System.out.println("Escribe con un numero entre el 1 y el 5 el nivel de dependencia del Ghoul");
                     int dependencia = scanner.nextInt();
                     Esbirro ghoul = new Ghoul(nombreEsbirro, saludEsbirro, dependencia);
                     esbirros.add(ghoul);
+                    break;
                 case 3:
                     System.out.println("Escribe el pacto entre el demonio y su amo");
                     String pacto = scanner.nextLine();
@@ -249,13 +328,13 @@ public class Administrador extends Usuario {
                     ArrayList<Esbirro> esbirrosDemonio = this.crearEsbirros();
                     Esbirro demonio = new Demonio(nombreEsbirro, saludEsbirro, pacto, esbirrosDemonio);
                     esbirros.add(demonio);
+                    break;
             }
         }
         return esbirros;
     }
 
     private ArrayList<Arma> crearArmas(){
-        int armasActivas = 0;
         ArrayList<Arma> armas = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
@@ -274,7 +353,6 @@ public class Administrador extends Usuario {
             boolean activa;
             if (activaString.equals('1')){
                 activa = true;
-                armasActivas += 1;
             }else{
                 activa = false;
             }
@@ -287,7 +365,7 @@ public class Administrador extends Usuario {
     private ArrayList<Armadura> crearArmaduras(){
         Scanner scanner = new Scanner(System.in);
         ArrayList<Armadura> armaduras = new ArrayList<>();
-        int armadurasActivas = 0;
+
         System.out.println("Escribe con un numero cuantas armaduras quieres anyadir al personaje");
         int numArmaduras = scanner.nextInt();
         System.out.print("Armaduras: ");
@@ -303,7 +381,6 @@ public class Administrador extends Usuario {
             boolean activa;
             if (activaString.equals('1')){
                 activa = true;
-                armadurasActivas += 1;
             }else{
                 activa = false;
             }
@@ -311,5 +388,71 @@ public class Administrador extends Usuario {
             armaduras.add(armadura);
         }
         return armaduras;
+    }
+
+    private ArrayList<Debilidad> crearDebilidades(){
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Debilidad> debilidades = new ArrayList<>();
+
+        System.out.println("Escribe con un numero cuantas debilidades quieres anyadir al personaje");
+        int numDebilidades = scanner.nextInt();
+        System.out.print("Debilidades: ");
+        for (int i = 0; i < numDebilidades; ++i) {
+            System.out.println("Escribe el nombre de la debilidad");
+            String nombreDebilidad = scanner.nextLine();
+            System.out.println("Escribe su valor (numero del 1 al 5)");
+            int valor = scanner.nextInt();
+
+            Debilidad debilidad = new Debilidad(nombreDebilidad, valor);
+            debilidades.add(debilidad);
+        }
+        return debilidades;
+    }
+
+    private ArrayList<Fortaleza> crearFortalezas(){
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Fortaleza> fortalezas = new ArrayList<>();
+
+        System.out.println("Escribe con un numero cuantas debilidades quieres anyadir al personaje");
+        int numFortalezas = scanner.nextInt();
+        System.out.print("Fortalezas: ");
+        for (int i = 0; i < numFortalezas; ++i) {
+            System.out.println("Escribe el nombre de la fortaleza");
+            String nombreFortaleza = scanner.nextLine();
+            System.out.println("Escribe su valor (numero del 1 al 5)");
+            int valor = scanner.nextInt();
+
+            Fortaleza fortaleza = new Fortaleza(nombreFortaleza, valor);
+            fortalezas.add(fortaleza);
+        }
+        return fortalezas;
+    }
+
+    private Disciplina crearDisciplina(String nombre){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Escribe el valor de la disciplina");
+        int valor = scanner.nextInt();
+        System.out.println("Cual es la sangre necesaria para usar la disciplina");
+        int sangreNecesaria = scanner.nextInt();
+        Disciplina disciplina = new Disciplina(nombre, valor, sangreNecesaria);
+
+        return disciplina;
+    }
+
+    private Don crearDon(String nombre){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Escribe el valor del don");
+        int valor = scanner.nextInt();
+        System.out.println("Cual es la rabia necesaria para usar el don");
+        int rabiaNecesaria = scanner.nextInt();
+        Don don = new Don(nombre, valor, rabiaNecesaria);
+
+        return don;
+    }
+
+    private Talento crearTalento(String nombre){
+        Talento talento = new Talento(nombre);
+
+        return talento;
     }
 }

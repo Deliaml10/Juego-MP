@@ -5,8 +5,8 @@ public class Vampiro extends Personaje{
     private ArrayList<Disciplina> disciplinas = new ArrayList<>();
     private Integer edad;
 
-    public Vampiro(String nombre, String habilidades, Arma arma, Armadura armadura, Esbirro esbirro, Debilidad debilidad, Fortaleza fortaleza, Integer puntosSangre, Disciplina disciplina, Integer edad) {
-        super(nombre, habilidades, arma, armadura, esbirro, debilidad, fortaleza);
+    public Vampiro(String nombre, int tipo, ArrayList<Habilidad> habilidades, ArrayList<Arma> armas, ArrayList<Armadura> armaduras, ArrayList<Esbirro> esbirros, ArrayList<Debilidad> debilidades, ArrayList<Fortaleza> fortalezas, Integer puntosSangre, Disciplina disciplina, Integer edad) {
+        super(nombre, tipo, habilidades, armas, armaduras, esbirros, debilidades, fortalezas);
         this.puntosSangre = puntosSangre;
         this.disciplinas.add(disciplina);
         this.edad = edad;

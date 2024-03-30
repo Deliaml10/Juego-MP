@@ -3,20 +3,20 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Jugador extends Usuario {
-    private String numero;
+    private String numeroRegistro;
     private Personaje personaje;
     private int oro;
     private ArrayList<String> desafiosPendientes;
 
     public Jugador(String nombre, String contrasena, String nick) {
         super(nombre, contrasena, nick);
-        this.numero = numeroRegistro();
+        this.numeroRegistro = numeroRegistro();
         this.personaje = null;
         this.desafiosPendientes = new ArrayList<>();
         this.oro = 0;
     }
 
-    public String numeroRegistro() {
+    public String crearNumeroRegistro() {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String numeros = "0123456789";
 

@@ -11,6 +11,21 @@ public class Equipo {
         this.valor = valor;
         this.activa = activa;
     }
+
+    public String getNombreEquipo(){
+        return this.nombre;
+    }
+    public boolean getActiva(){
+        return this.activa;
+    }
+
+    public void setActiva(boolean activa){
+        this.activa = activa;
+    }
+
+    public int getValor(){
+        return this.valor;
+    }
 }
 
 class Arma extends Equipo{

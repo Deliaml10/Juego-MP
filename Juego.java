@@ -6,6 +6,7 @@ public class Juego {
     private ArrayList<Usuario>usuarios = new ArrayList<>();
     private ArrayList<Personaje>personajes = new ArrayList<>();
     private Jugador jugador;
+
     public void start() {
         // Mensaje de bienvenida
         try (Scanner scanner = new Scanner(System.in)) {
@@ -150,7 +151,7 @@ public class Juego {
                             jugador.rankingGlobal();
 
                         }else if(op.equals("5")){
-                            jugador.registrarPersonaje();  //hay que pasarle el parámetro personaje
+                            //jugador.registrarPersonaje();  //hay que pasarle el parámetro personaje
 
                         }else if(op.equals("6")) {
                             jugador.darBajaPersonaje();

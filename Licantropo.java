@@ -6,8 +6,8 @@ public class Licantropo extends Personaje{
     private Integer rabia;
     private ArrayList<Don> dones = new ArrayList<>();
 
-    public Licantropo(String nombre, String habilidades, Arma arma, Armadura armadura, Esbirro esbirro, Debilidad debilidad, Fortaleza fortaleza, Integer estatura, Integer peso, Integer rabia, Don don) {
-        super(nombre, habilidades, arma, armadura, esbirro, debilidad, fortaleza);
+    public Licantropo(String nombre, int tipo, ArrayList<Habilidad> habilidades, ArrayList<Arma> armas, ArrayList<Armadura> armaduras, ArrayList<Esbirro> esbirros, ArrayList<Debilidad> debilidades, ArrayList<Fortaleza> fortalezas, Integer estatura, Integer peso, Integer rabia, Don don) {
+        super(nombre, tipo, habilidades, armas, armaduras, esbirros, debilidades, fortalezas);
         this.estatura = estatura;
         this.peso = peso;
         this.rabia = rabia;
