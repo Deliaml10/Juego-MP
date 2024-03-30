@@ -2,14 +2,15 @@ public class Equipo {
     private String nombre;
     private int manos;
     private int valor;
-
     private boolean activa;
+    private boolean equipada;
 
     public Equipo(String nombre, int manos, int valor, boolean activa){
         this.nombre = nombre;
         this.manos = manos;
         this.valor = valor;
         this.activa = activa;
+        this.equipada = equipada;
     }
 
     public String getNombreEquipo(){
@@ -29,6 +30,12 @@ public class Equipo {
 
     public int getManos(){
         return this.manos;
+    }
+    public boolean getEquipada(){
+        return this.equipada;
+    }
+    public void setEquipada(boolean equipada){
+        this.equipada = equipada;
     }
 }
 

@@ -71,46 +71,58 @@ public class Jugador extends Usuario {
                 do {
                     System.out.println("Elige una opcion:\n 1. Equipar arma\n 2. Terminar de equipar ");
                     seleccionArma = scanner.nextInt();
-                    if (seleccionArma == 0 || seleccionArma > armasDisponibles.size()) {
-                        System.out.println("Saliendo del menú de equipamiento...");
-                        return;
-                    }
-                    Arma armaSeleccionada = armasDisponibles.get(seleccionArma - 1);
-                    // Comprobar si la arma es de una o dos manos y si se puede equipar
-                    if (armaSeleccionada.getTipo().equals("1 mano")) {
-                        if (this.armasActivas.size() >= 2) {
-                            System.out.println("Ya tienes equipadas dos armas de una mano. No puedes equipar más.");
-                            return;
+                    if (seleccionArma == 1) {
+                        System.out.println("Escribe el nombre del arma que quieres equipar");
+                        String nombrePide = scanner.nextLine();
+                        for (Arma arma : personaje.getArmas()){
+                            String nombreArma = arma.getNombreEquipo();
+                            int manosOcuparia = arma.getManos() + personaje.getManosOcupadas();
+                            if (nombrePide.equalsIgnoreCase(nombreArma) && manosOcuparia <= 2){
+                                arma.setEquipada(true);
+                                personaje.setManosOcupadas(manosOcuparia);
+                            }else if (nombrePide.equalsIgnoreCase(nombreArma) && manosOcuparia > 2){
+                                System.out.println("No puedes ocupar mas de dos manos entre armas y armaduras");
+                            }
                         }
-                    } else if (armaSeleccionada.getTipo().equals("2 manos")) {
-                        if (!this.armasActivas.isEmpty()) {
-                            System.out.println("Ya tienes equipada un arma de dos manos. No puedes equipar más.");
-                            return;
-                        }
+
+                    }else{
+                        System.out.println("Enhorabuena, ya has terminado de equipar tus armas");
                     }
-                    System.out.println("Se ha equipado el arma '" + armaSeleccionada.getNombreEquipo() + "'.");
-                    break;
-                } while (seleccionArma !);
-            case 2:
-                System.out.println("Defensas disponibles:");
-                for (int i = 0; i < armadurasDisponibles.size(); i++) {
-                    Armadura armadura = armadurasDisponibles.get(i);
-                    System.out.println((i + 1) + ". " + armadura.getNombreEquipo());
-                }
-                System.out.println("Selecciona una defensa para equipar (0 para salir): ");
-                int seleccionDefensa = scanner.nextInt();
-                scanner.nextLine(); // Limpiar el buffer
-                if (seleccionDefensa == 0 || seleccionDefensa > armadurasDisponibles.size()) {
-                    System.out.println("Saliendo del menú de equipamiento...");
-                    return;
-                }
-                Armadura defensaSeleccionada = armadurasDisponibles.get(seleccionDefensa - 1);
-                this.defensasActivas.add(defensaSeleccionada);
-                armadurasDisponibles.remove(defensaSeleccionada);
-                System.out.println("Se ha equipado la defensa '" + defensaSeleccionada.getNombre() + "'.");
+                } while (seleccionArma != 2);
                 break;
+
+            case 2:
+                System.out.println("Armaduras disponibles:");
+                for (Armadura armadura : personaje.getArmaduras()) {
+                    if (armadura.getActiva()) {
+                        System.out.println(armadura.getNombreEquipo() + ". Manos que ocupa: " + armadura.getManos());
+                    }
+                }
+                int seleccionArmadura;
+                do {
+                    System.out.println("Elige una opcion:\n 1. Equipar armadura\n 2. Terminar de equipar ");
+                    seleccionArmadura = scanner.nextInt();
+                    if (seleccionArmadura == 1) {
+                        System.out.println("Escribe el nombre de la armadura que quieres equipar");
+                        String nombrePide = scanner.nextLine();
+                        for (Armadura armadura : personaje.getArmaduras()){
+                            String nombreArmadura = armadura.getNombreEquipo();
+                            int manosOcuparia = armadura.getManos() + personaje.getManosOcupadas();
+                            if (nombrePide.equalsIgnoreCase(nombreArmadura) && manosOcuparia <= 2){
+                                armadura.setEquipada(true);
+                                personaje.setManosOcupadas(manosOcuparia);
+                            }else if (nombrePide.equalsIgnoreCase(nombreArmadura) && manosOcuparia > 2){
+                                System.out.println("No puedes ocupar mas de dos manos entre armas y armaduras");
+                            }
+                        }
+                    }else{
+                        System.out.println("Enhorabuena, ya has terminado de equipar tus armaduras");
+                    }
+                } while (seleccionArmadura != 2);
+                break;
+
             default:
-                System.out.println("Opción inválida. Saliendo del menú de equipamiento...");
+                System.out.println("Opción incorrecta. Saliendo del menú de equipamiento...");
                 break;
         }
 
