@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Combate {
@@ -6,13 +7,15 @@ public class Combate {
     private Date fecha;
     private Jugador vencedor;
     private int oroApostado;
+    private ArrayList<Ronda> rondas; // Array para almacenar las rondas
 
     // Constructor
-    public Combate(Jugador desafiante, Jugador desafiado, int oroApostado) {
+    public Combate(Personaje desafiante, Personaje desafiado, int oroApostado) {
         this.desafiante = desafiante;
         this.desafiado = desafiado;
         this.fecha = new Date(); // Fecha actual
         this.oroApostado = oroApostado;
+        this.rondas = new ArrayList<>();
     }
 
     // Método para iniciar el combate
@@ -21,10 +24,10 @@ public class Combate {
 
         while (desafiante.getSalud() > 0 && desafiado.getSalud() > 0) {
             // Crear nueva ronda
-            Ronda ronda = new Ronda();
+            Ronda ronda = new Ronda(desafiante, desafiado);
 
             // Guardar la ronda
-            ronda.guardarRonda();
+            guardarRonda(ronda);
 
             // Verificar si uno de los jugadores ha perdido
             if (desafiante.getSalud() <= 0 && desafiado.getSalud() <= 0) {
@@ -46,16 +49,20 @@ public class Combate {
         asignarOro();
     }
 
+    private void guardarRonda(Ronda ronda) {
+        rondas.add(ronda); // Agregar la ronda al array
+    }
+
     // Método para asignar oro al ganador y al perdedor
     private void asignarOro() {
         if (vencedor == desafiante) {
-            desafiante.incrementarOro(oroApostado/2);
-            desafiado.incrementarOro(-oroApostado/2);
-            } else {
-                desafiante.incrementarOro(-oroApostado/2);
-                desafiado.incrementarOro(oroApostado/2);
-            }
+            desafiante.incrementarOro(oroApostado / 2);
+            desafiado.incrementarOro(-oroApostado / 2);
+        } else {
+            desafiante.incrementarOro(-oroApostado / 2);
+            desafiado.incrementarOro(oroApostado / 2);
         }
+    }
 
     // Getters
     public Jugador getDesafiante() {
@@ -76,5 +83,10 @@ public class Combate {
 
     public int getOroApostado() {
         return oroApostado;
+    }
+
+    // Getter para obtener el array de rondas
+    public ArrayList<Ronda> getRondas() {
+        return rondas;
     }
 }
