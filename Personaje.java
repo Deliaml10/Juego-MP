@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Personaje {
     private String nombre;
     private int tipo;
-    private ArrayList<Habilidad> habilidades;
+    private ArrayList<Habilidad> habilidades = new ArrayList<>();
     private ArrayList<Arma> armas = new ArrayList<>();
     private ArrayList<Armadura> armaduras = new ArrayList<>();
     private int armasActivas;
@@ -114,4 +114,21 @@ public class Personaje {
     public void setFortalezas(ArrayList<Fortaleza> fortalezas) {
         this.fortalezas.addAll(fortalezas);
     }
+
+    public int getPoder(){
+        return this.poder;
+    }
+
+    public int getFortaleza(ArrayList<Fortaleza>){
+        int valorFortaleza = Fortaleza.getValor();
+        return valorFortaleza;
+    }
+
+    public int getDebilidad(ArrayList<Debilidad>){
+        int valorDebilidad = Debilidad.getValor();
+        return valorDebilidad;
+    }
+
+
 }
+

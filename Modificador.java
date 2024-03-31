@@ -9,19 +9,28 @@ public class Modificador {
         this.valor = valor;
         this.activado = activado;
     }
+
+
 }
 
 class Debilidad extends Modificador{
 
-    public Debilidad(String nombre, Integer valor, boolean activado){
+    public Debilidad(String nombre, int valor, boolean activado){
         super(nombre, valor, activado);
     }
-
+    public static int getValor() {
+        int puntos = this.valor;
+        return puntos;
+    }
 }
 
 class Fortaleza extends Modificador{
 
-    public Fortaleza(String nombre, Integer valor, boolean activado){
+    public Fortaleza(String nombre, int valor, boolean activado){
         super(nombre, valor, activado);
+    }
+    public static int getValor(){
+        int puntos = this.valor;
+        return puntos;
     }
 }

@@ -15,6 +15,10 @@ class Disciplina extends Habilidad {
         this.valor = valor;
         this.sangreNecesaria = sangreNecesaria;
     }
+    public static int getSangre(){
+        int sangre = this.valor;
+        return sangre;
+    }
 }
 
 class Don extends Habilidad{

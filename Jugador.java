@@ -8,8 +8,9 @@ public class Jugador extends Usuario {
     private Personaje personaje;
     private LocalDateTime ultimoCombatePerdido;
     private boolean bloqueado;
+    public ArrayList<Combate> desafiosPendientes = new ArrayList<>();
 
-    //private ArrayList<Combate> desafiosPendientes;
+    //private ArrayList<Combate> desafosPendientes;
 
     public Jugador(String nombre, String contrasena, String nick) {
         super(nombre, contrasena, nick);
@@ -142,10 +143,10 @@ public class Jugador extends Usuario {
         int seleccion = scanner.nextInt();
         scanner.nextLine(); // Limpiar el buffer
         if (seleccion < 1 || seleccion > desafiosPendientes.size()) {
-            System.out.println("Selección inválida.");
+            System.out.println("Selección no válida.");
             return;
         }
-        String desafioSeleccionado = desafiosPendientes.get(seleccion - 1);
+        /*String desafioSeleccionado = desafiosPendientes.get(seleccion - 1);
         System.out.println("Desafío aceptado: " + desafioSeleccionado);
         if (oro < desafioSeleccionado.getOro()) {
             System.out.println("No tienes suficiente oro para aceptar este desafío.");
@@ -153,7 +154,7 @@ public class Jugador extends Usuario {
         }
 
         System.out.println("Desafío de " + desafioSeleccionado.getNickOponente() + " aceptado.");
-         */
+*/
     }
     public void setDesafiosPendientes(ArrayList<String> desafiosPendientes) {
         //this.desafiosPendientes = desafiosPendientes;
