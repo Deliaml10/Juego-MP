@@ -107,6 +107,13 @@ public class Personaje {
         this.esbirros.addAll(esbirros);
     }
 
+
+    public ArrayList<Fortaleza> getFortalezas(){
+        return this.fortalezas;
+    }
+    public ArrayList<Debilidad> getDebilidades(){
+        return this.debilidades;
+    }
     public void setDebilidades(ArrayList<Debilidad> debilidades) {
         this.debilidades.addAll(debilidades);
     }
@@ -119,15 +126,6 @@ public class Personaje {
         return this.poder;
     }
 
-    public int getFortaleza(){
-        int valorFortaleza = Fortaleza.getValor();
-        return valorFortaleza;
-    }
-
-    public int getDebilidad(){
-        int valorDebilidad = Debilidad.getValor();
-        return valorDebilidad;
-    }
 
     public int getSalud() {
         return this.salud;

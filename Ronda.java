@@ -129,8 +129,16 @@ public class Ronda {
             potencialDefensa =  potencialDefensa + valorArmaduras + cazador.getPuntosVoluntad();
         }
         // Sumar el valor de fortaleza al potencial de ataque
-        potencialDefensa += personaje.getFortaleza();
-        potencialDefensa -= personaje.getDebilidad();
+        int valorFortalezas = 0;
+        int valorDebilidades = 0;
+        for (Fortaleza fortaleza : personaje.getFortalezas()){
+            valorFortalezas += fortaleza.getValorModificador();
+        }
+        for (Debilidad debilidad : personaje.getDebilidades()){
+            valorDebilidades += debilidad.getValorModificador();
+        }
+        potencialDefensa += valorFortalezas;
+        potencialDefensa -= valorDebilidades;
         return potencialDefensa;
     }
 
@@ -138,7 +146,6 @@ public class Ronda {
     // Método para calcular la vida restante de cada jugador
     public int calcularVida(Personaje personaje, int defensa, int ataque) {
         int diferencia = ataque - defensa;
-        int vidaRestante;
 
         if (diferencia > 0) {
             int salud = (personaje.getSalud()- 1);
