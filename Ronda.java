@@ -56,13 +56,15 @@ public class Ronda {
         int potencialAtaque = personaje.getPoder() + /* valor de ataque de equipo activo */;
         if (personaje instanceof Vampiro) {
             Vampiro vampiro = (Vampiro) personaje;
-            potencialAtaque = potencialAtaque + vampiro.getValorDisciplina() + vampiro.getValorArmas();
-            if (vampiro.getValorSangre() >= 5) {
+            Disciplina disciplina = vampiro.getDisciplina();
+            potencialAtaque = potencialAtaque + disciplina.getValorDisciplina() + vampiro.getValorArmas();
+            if (disciplina.getSangreNecesaria() >= 5) {
                 potencialAtaque += 2;
             }
         } else if (personaje instanceof Licantropo) {
             Licantropo licantropo = (Licantropo) personaje;
-            potencialAtaque = potencialAtaque + licantropo.getValorDon() + licantropo.getValorArmas() + licantropo.getRabia();
+            Don don = licantropo.getDon();
+            potencialAtaque = potencialAtaque + don.getValorDon() + licantropo.getValorArmas() + don.getRabia();
         } else if (personaje instanceof Cazador) {
             Cazador cazador = (Cazador) personaje;
             potencialAtaque =  potencialAtaque + cazador.getValorTalento() + cazador.getValorArmas + cazador.getVoluntad();
@@ -77,13 +79,15 @@ public class Ronda {
         int potencialDefensa= personaje.getPoder() + /* valor de ataque de equipo activo */;
         if (personaje instanceof Vampiro) {
             Vampiro vampiro = (Vampiro) personaje;
-            potencialDefensa = potencialDefensa + vampiro.getValorDisciplina() + vampiro.getValorArmadura();
-            if (vampiro.getValorSangre() >= 5) {
+            Disciplina disciplina = vampiro.getDisciplina();
+            potencialDefensa = potencialDefensa + disciplina.getValorDisciplina() + vampiro.getValorArmadura();
+            if (disciplina.getSangreNecesaria() >= 5) {
                 potencialDefensa += 2;
             }
         } else if (personaje instanceof Licantropo) {
             Licantropo licantropo = (Licantropo) personaje;
-            potencialDefensa = potencialDefensa + licantropo.getValorDon() + licantropo.getValorArmadura() + licantropo.getRabia();
+            Don don = licantropo.getDon();
+            potencialDefensa = potencialDefensa + don.getValorDon() + licantropo.getValorArmadura() + don.getRabia();
         } else if (personaje instanceof Cazador) {
             Cazador cazador = (Cazador) personaje;
             potencialDefensa =  potencialDefensa + cazador.getValorTalento() + cazador.getValorArmadura + cazador.getVoluntad();
