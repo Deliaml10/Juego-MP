@@ -88,8 +88,16 @@ public class Ronda {
             potencialAtaque =  potencialAtaque + valorArmas + cazador.getPuntosVoluntad();
         }
         // Sumar el valor de fortaleza al potencial de ataque
-        potencialAtaque += personaje.getFortaleza();
-        potencialAtaque -= personaje.getDebilidad();
+        int valorFortalezas = 0;
+        int valorDebilidades = 0;
+        for (Fortaleza fortaleza : personaje.getFortalezas()){
+            valorFortalezas += fortaleza.getValorModificador();
+        }
+        for (Debilidad debilidad : personaje.getDebilidades()){
+            valorDebilidades += debilidad.getValorModificador();
+        }
+        potencialAtaque += valorFortalezas;
+        potencialAtaque -= valorDebilidades;
         return potencialAtaque;
     }
 
