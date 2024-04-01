@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Combate {
-    private Jugador desafiante;
-    private Jugador desafiado;
+    private Personaje desafiante;
+    private Personaje desafiado;
     private Date fecha;
-    private Jugador vencedor;
+    private Personaje vencedor;
     private int oroApostado;
     private ArrayList<Ronda> rondas; // Array para almacenar las rondas
 
@@ -65,11 +65,11 @@ public class Combate {
     }
 
     // Getters
-    public Jugador getDesafiante() {
+    public Personaje getDesafiante() {
         return desafiante;
     }
 
-    public Jugador getDesafiado() {
+    public Personaje getDesafiado() {
         return desafiado;
     }
 
@@ -77,7 +77,7 @@ public class Combate {
         return fecha;
     }
 
-    public Jugador getVencedor() {
+    public Personaje getVencedor() {
         return vencedor;
     }
 

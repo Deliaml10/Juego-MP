@@ -129,6 +129,20 @@ public class Personaje {
         return valorDebilidad;
     }
 
+    public int getSalud() {
+        return this.salud;
+    }
+    
+
+    public void incrementarOro(int cantidad) {
+        if (cantidad > 0) {
+            this.oro += cantidad;
+        } else if (cantidad < 0) {
+            this.oro += cantidad;
+        }
+    }
+    
+
 
 }
 
