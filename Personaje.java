@@ -119,12 +119,12 @@ public class Personaje {
         return this.poder;
     }
 
-    public int getFortaleza(ArrayList<Fortaleza>){
+    public int getFortaleza(){
         int valorFortaleza = Fortaleza.getValor();
         return valorFortaleza;
     }
 
-    public int getDebilidad(ArrayList<Debilidad>){
+    public int getDebilidad(){
         int valorDebilidad = Debilidad.getValor();
         return valorDebilidad;
     }
