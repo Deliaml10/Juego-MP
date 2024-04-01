@@ -116,20 +116,22 @@ public class Juego {
         // Pedir datos al usuario para iniciar sesión
         System.out.println("Ingresa tu nick:");
         String nick1 = scanner.nextLine();
-        System.out.println("Ingresa tu contraseña:");
-        String contrasena1 = scanner.nextLine();
         boolean existeUsuario = usuarios.containsKey(nick1);
-        Usuario usuarioJuego = usuarios.get(nick1);
-
+        Usuario usuarioJuego = usuarios.get(nick1);;
         if (existeUsuario) {
+            System.out.println("Ingresa tu contraseña:");
+            String contrasena1 = scanner.nextLine();
             if (usuarioJuego.getContrasena().equals(contrasena1)) {
                 System.out.println("¡Inicio de sesión exitoso!");
+                return usuarioJuego;
             } else {
                 System.out.println("Nick o contraseña incorrectos");
                 return null;
             }
+        } else {
+            System.out.println("Nick incorrecto");
+            return null;
         }
-        return usuarioJuego;
     }
 
     private void jugar(Usuario usuario, Scanner scanner){
@@ -179,7 +181,7 @@ public class Juego {
 
             //if (usuario.desafiosPendientes.isEmpty()) {
 
-                System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
+                System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
                 String op = scanner.nextLine();
                 if(op.equals("1")) {
                     Personaje personajeJugador = ((Jugador) usuario).getPersonaje();
