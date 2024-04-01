@@ -91,10 +91,15 @@ public class Ronda {
         int valorFortalezas = 0;
         int valorDebilidades = 0;
         for (Fortaleza fortaleza : personaje.getFortalezas()){
-            valorFortalezas += fortaleza.getValorModificador();
+            if (fortaleza.getActivado()){
+                valorFortalezas += fortaleza.getValorModificador();
+            }
+
         }
         for (Debilidad debilidad : personaje.getDebilidades()){
-            valorDebilidades += debilidad.getValorModificador();
+            if (debilidad.getActivado()){
+                valorDebilidades += debilidad.getValorModificador();
+            }
         }
         potencialAtaque += valorFortalezas;
         potencialAtaque -= valorDebilidades;
@@ -140,10 +145,14 @@ public class Ronda {
         int valorFortalezas = 0;
         int valorDebilidades = 0;
         for (Fortaleza fortaleza : personaje.getFortalezas()){
-            valorFortalezas += fortaleza.getValorModificador();
+            if (fortaleza.getActivado()){
+                valorFortalezas += fortaleza.getValorModificador();
+            }
         }
         for (Debilidad debilidad : personaje.getDebilidades()){
-            valorDebilidades += debilidad.getValorModificador();
+            if (debilidad.getActivado()){
+                valorDebilidades += debilidad.getValorModificador();
+            }
         }
         potencialDefensa += valorFortalezas;
         potencialDefensa -= valorDebilidades;

@@ -13,7 +13,9 @@ public class Modificador {
     public int getValorModificador(){
         return this.valor;
     }
-
+    public boolean getActivado(){
+        return this.activado;
+    }
 }
 
 class Debilidad extends Modificador{
