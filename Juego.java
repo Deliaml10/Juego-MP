@@ -138,10 +138,10 @@ public class Juego {
         System.out.println("¡Empieza el juego!");
         if (usuario instanceof Administrador) {
 
-            System.out.println("¿Qué quieres hacer?\n 1.Crear un personaje\n 2. Editar un personaje. \n 3. Validar desafíos. \n 4. Bloquear usuarios. \n 5. Desbloquear usuarios. \n 6. Salir del juego. ");
+            System.out.println("¿Qué quieres hacer?\n 1.Crear un personaje \n 2. Editar un personaje. \n 3. Validar desafíos. \n 4. Bloquear usuarios. \n 5. Desbloquear usuarios. \n 6. Salir del juego. ");
             String opcion = scanner.nextLine();
             if(opcion.equals("1")) {
-                ((Administrador) usuario).crearPersonaje();
+                personajes.add(((Administrador) usuario).crearPersonaje());
 
             }else if (opcion.equals("2")){
                 System.out.println("Escribe el nombre del personaje que quieres editar");
@@ -150,7 +150,7 @@ public class Juego {
                 for (Personaje personaje : personajes){
                     if (personaje.getNombrePersonaje().equals(nombreBuscado)){
                         personajeEditar = personaje;
-                        ((Administrador) usuario).editarPersonaje(personajeEditar);
+                        personaje = ((Administrador) usuario).editarPersonaje(personajeEditar);
                     }
                 }
 

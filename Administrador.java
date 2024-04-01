@@ -10,7 +10,7 @@ public class Administrador extends Usuario {
     }
 
 
-    public void crearPersonaje() {
+    public Personaje crearPersonaje() {
         Scanner scanner = new Scanner(System.in);
         String nombre;
         ArrayList<Arma> armas = new ArrayList<>();
@@ -68,9 +68,10 @@ public class Administrador extends Usuario {
 
         Personaje nuevoPersonaje = new Personaje(nombre, tipoPersonaje, habilidades,  armas,  armaduras,  esbirros,  debilidades,  fortalezas);
         System.out.println("Personaje '" + nombre + "' creado correctamente.");
+        return nuevoPersonaje;
     }
 
-    public void editarPersonaje(Personaje personaje) {
+    public Personaje editarPersonaje(Personaje personaje) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
@@ -201,6 +202,8 @@ public class Administrador extends Usuario {
             default:
                 System.out.println("Opcion incorrecta.");
         }
+
+        return personaje;
     }
 
     public void activarModificadores(Personaje personaje, String nombre, int valor) {
