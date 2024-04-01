@@ -35,17 +35,15 @@ public class Administrador extends Usuario {
         System.out.println("Cuantas habilidades quieres anyadir al personaje");
         int numHabilidades = scanner.nextInt();
         for (int i = 0; i<numHabilidades; ++i) {
-            System.out.println("Escribe el nombre de la habilidad");
-            String nombreHabilidad = scanner.nextLine();
             switch (tipoPersonaje) {
                 case 1:
-                    habilidades.add(crearDisciplina(nombre));
+                    habilidades.add(crearDisciplina());
                     break;
                 case 2:
-                    habilidades.add(crearDon(nombre));
+                    habilidades.add(crearDon());
                     break;
                 case 3:
-                    habilidades.add(crearTalento(nombre));
+                    habilidades.add(crearTalento());
                     break;
             }
         }
@@ -101,17 +99,15 @@ public class Administrador extends Usuario {
                 System.out.println("Cuantas habilidades quieres anyadir al personaje");
                 int numHabilidades = scanner.nextInt();
                 for (int i = 0; i<numHabilidades; ++i) {
-                    System.out.println("Escribe el nombre de la habilidad");
-                    String nombreHabilidad = scanner.nextLine();
                     switch (tipo) {
                         case 1:
-                            personaje.setHabilidad(crearDisciplina(nombreHabilidad));
+                            personaje.setHabilidad(crearDisciplina());
                             break;
                         case 2:
-                            personaje.setHabilidad(crearDon(nombreHabilidad));
+                            personaje.setHabilidad(crearDon());
                             break;
                         case 3:
-                            personaje.setHabilidad(crearTalento(nombreHabilidad));
+                            personaje.setHabilidad(crearTalento());
                             break;
                     }
                 }
@@ -443,8 +439,10 @@ public class Administrador extends Usuario {
         return fortalezas;
     }
 
-    private Disciplina crearDisciplina(String nombre){
+    private Disciplina crearDisciplina(){
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Escribe el nombre de la disciplina");
+        String nombre = scanner.nextLine();
         System.out.println("Escribe el valor de la disciplina");
         int valor = scanner.nextInt();
         System.out.println("Cual es la sangre necesaria para usar la disciplina");
@@ -454,8 +452,10 @@ public class Administrador extends Usuario {
         return disciplina;
     }
 
-    private Don crearDon(String nombre){
+    private Don crearDon(){
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Escribe el nombre del don");
+        String nombre = scanner.nextLine();
         System.out.println("Escribe el valor del don");
         int valor = scanner.nextInt();
         System.out.println("Cual es la rabia necesaria para usar el don");
@@ -465,9 +465,11 @@ public class Administrador extends Usuario {
         return don;
     }
 
-    private Talento crearTalento(String nombre){
+    private Talento crearTalento(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Escribe el nombre del talento");
+        String nombre = scanner.nextLine();
         Talento talento = new Talento(nombre);
-
         return talento;
     }
 }
