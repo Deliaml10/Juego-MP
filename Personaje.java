@@ -132,14 +132,14 @@ public class Personaje {
     public int getSalud() {
         return this.salud;
     }
+
+    public void setSalud(int salud){
+        this.salud = salud;
+    }
     
 
     public void incrementarOro(int cantidad) {
-        if (cantidad > 0) {
-            this.oro += cantidad;
-        } else if (cantidad < 0) {
-            this.oro += cantidad;
-        }
+        this.oro += cantidad;
     }
     
 

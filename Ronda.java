@@ -53,21 +53,39 @@ public class Ronda {
     }
 
     private int calcularPotencialAtaque(Personaje personaje) {
-        int potencialAtaque = personaje.getPoder() + /* valor de ataque de equipo activo */;
+        int potencialAtaque = personaje.getPoder()/* valor de ataque de equipo activo */;
         if (personaje instanceof Vampiro) {
             Vampiro vampiro = (Vampiro) personaje;
             Disciplina disciplina = vampiro.getDisciplina();
-            potencialAtaque = potencialAtaque + disciplina.getValorDisciplina() + vampiro.getValorArmas();
+            int valorArmas = 0;
+            for (Arma arma : vampiro.getArmas()){
+                if (arma.getEquipada()){
+                    valorArmas += arma.getValor();
+                }
+            }
+            potencialAtaque = potencialAtaque + disciplina.getValorDisciplina() + valorArmas;
             if (disciplina.getSangreNecesaria() >= 5) {
                 potencialAtaque += 2;
             }
         } else if (personaje instanceof Licantropo) {
             Licantropo licantropo = (Licantropo) personaje;
             Don don = licantropo.getDon();
-            potencialAtaque = potencialAtaque + don.getValorDon() + licantropo.getValorArmas() + don.getRabia();
+            int valorArmas = 0;
+            for (Arma arma : licantropo.getArmas()){
+                if (arma.getEquipada()){
+                    valorArmas += arma.getValor();
+                }
+            }
+            potencialAtaque = potencialAtaque + don.getValorDon() + don.getRabia() + valorArmas;
         } else if (personaje instanceof Cazador) {
             Cazador cazador = (Cazador) personaje;
-            potencialAtaque =  potencialAtaque + cazador.getValorTalento() + cazador.getValorArmas + cazador.getVoluntad();
+            int valorArmas = 0;
+            for (Arma arma : cazador.getArmas()){
+                if (arma.getEquipada()){
+                    valorArmas += arma.getValor();
+                }
+            }
+            potencialAtaque =  potencialAtaque + valorArmas + cazador.getPuntosVoluntad();
         }
         // Sumar el valor de fortaleza al potencial de ataque
         potencialAtaque += personaje.getFortaleza();
@@ -76,21 +94,39 @@ public class Ronda {
     }
 
     private int calcularPotencialDefensa(Personaje personaje) {
-        int potencialDefensa= personaje.getPoder() + /* valor de ataque de equipo activo */;
+        int potencialDefensa= personaje.getPoder() /* valor de ataque de equipo activo */;
         if (personaje instanceof Vampiro) {
             Vampiro vampiro = (Vampiro) personaje;
             Disciplina disciplina = vampiro.getDisciplina();
-            potencialDefensa = potencialDefensa + disciplina.getValorDisciplina() + vampiro.getValorArmadura();
+            int valorArmaduras = 0;
+            for (Armadura armadura : vampiro.getArmaduras()){
+                if (armadura.getEquipada()){
+                    valorArmaduras += armadura.getValor();
+                }
+            }
+            potencialDefensa = potencialDefensa + disciplina.getValorDisciplina() + valorArmaduras;
             if (disciplina.getSangreNecesaria() >= 5) {
                 potencialDefensa += 2;
             }
         } else if (personaje instanceof Licantropo) {
             Licantropo licantropo = (Licantropo) personaje;
             Don don = licantropo.getDon();
-            potencialDefensa = potencialDefensa + don.getValorDon() + licantropo.getValorArmadura() + don.getRabia();
+            int valorArmaduras = 0;
+            for (Armadura armadura : licantropo.getArmaduras()){
+                if (armadura.getEquipada()){
+                    valorArmaduras += armadura.getValor();
+                }
+            }
+            potencialDefensa = potencialDefensa + don.getValorDon() + don.getRabia() + valorArmaduras;
         } else if (personaje instanceof Cazador) {
             Cazador cazador = (Cazador) personaje;
-            potencialDefensa =  potencialDefensa + cazador.getValorTalento() + cazador.getValorArmadura + cazador.getVoluntad();
+            int valorArmaduras = 0;
+            for (Armadura armadura : cazador.getArmaduras()){
+                if (armadura.getEquipada()){
+                    valorArmaduras += armadura.getValor();
+                }
+            }
+            potencialDefensa =  potencialDefensa + valorArmaduras + cazador.getPuntosVoluntad();
         }
         // Sumar el valor de fortaleza al potencial de ataque
         potencialDefensa += personaje.getFortaleza();
@@ -105,8 +141,9 @@ public class Ronda {
         int vidaRestante;
 
         if (diferencia > 0) {
-            vidaRestante = personaje.setSalud(personaje.getSalud()-1);
+            int salud = (personaje.getSalud()- 1);
+            personaje.setSalud(salud);
         }
-        return vidaRestante;
+        return personaje.getSalud();
     }
 }
