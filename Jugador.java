@@ -10,7 +10,6 @@ public class Jugador extends Usuario {
     private boolean bloqueado;
     public ArrayList<Combate> desafiosPendientes = new ArrayList<>();
 
-    //private ArrayList<Combate> desafosPendientes;
 
     public Jugador(String nombre, String contrasena, String nick) {
         super(nombre, contrasena, nick);
@@ -176,5 +175,22 @@ public class Jugador extends Usuario {
     }
     public void setPersonaje(Personaje personaje){
         this.personaje = personaje;
+    }
+    public void darBajaPersonaje(){
+        if (this.personaje == null){
+            System.out.println("No tienes ningun personaje registrado");
+        }else {
+            this.personaje = null;
+        }
+    }
+
+    public void desafiar(Personaje personaje1, Personaje personaje2){
+
+    }
+    public ArrayList<Combate> getDesafiosPendientes(){
+        return this.desafiosPendientes;
+    }
+    public void aceptarRechazarDesafio(Combate desafio){
+
     }
 }

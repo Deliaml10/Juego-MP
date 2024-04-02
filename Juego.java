@@ -144,13 +144,17 @@ public class Juego {
                 personajes.add(((Administrador) usuario).crearPersonaje());
 
             }else if (opcion.equals("2")){
-                System.out.println("Escribe el nombre del personaje que quieres editar");
-                String nombreBuscado = scanner.nextLine();
-                Personaje personajeEditar;
-                for (Personaje personaje : personajes){
-                    if (personaje.getNombrePersonaje().equals(nombreBuscado)){
-                        personajeEditar = personaje;
-                        personaje = ((Administrador) usuario).editarPersonaje(personajeEditar);
+                if (this.personajes == null){
+                    System.out.println("No hay personajes para editar");
+                } else {
+                    System.out.println("Escribe el nombre del personaje que quieres editar");
+                    String nombreBuscado = scanner.nextLine();
+                    Personaje personajeEditar;
+                    for (Personaje personaje : personajes) {
+                        if (personaje.getNombrePersonaje().equals(nombreBuscado)) {
+                            personajeEditar = personaje;
+                            personaje = ((Administrador) usuario).editarPersonaje(personajeEditar);
+                        }
                     }
                 }
 
@@ -177,33 +181,64 @@ public class Juego {
             }
 
 
-        } else if (usuario instanceof Jugador) {  //esto es que es un Jugador.java
-
-            //if (usuario.desafiosPendientes.isEmpty()) {
+        } else if (usuario instanceof Jugador) {
+            Jugador jugador = (Jugador)usuario;
+            while (jugador.getDesafiosPendientes().isEmpty()) {
+                ArrayList<Combate> desafiosPendientes = new ArrayList<>();
+                jugador.aceptarRechazarDesafio(desafiosPendientes.getFirst());
+                desafiosPendientes.removeFirst();
+            }
 
                 System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
                 String op = scanner.nextLine();
                 if(op.equals("1")) {
-                    Personaje personajeJugador = ((Jugador) usuario).getPersonaje();
-                    ((Jugador) usuario).equipar(personajeJugador);
+                    Personaje personajeJugador = jugador.getPersonaje();
+                    if (personajeJugador == null){
+                        System.out.println("No tienes ningun personaje registrado");
+                    }else {
+                        ((Jugador) usuario).equipar(personajeJugador);
+                    }
 
                 }else if (op.equals("2")){
-                    //((Jugador)usuario).desafiar();
+                    Personaje personajeJugador = ((Jugador) usuario).getPersonaje();
+                    if (personajeJugador == null){
+                        System.out.println("No tienes ningun personaje registrado");
+                    }else {
+                        for (Usuario usuario2 : usuarios.values()){
+                            if (usuario2 instanceof Jugador) {
+                                Jugador jugador2 = (Jugador)usuario2;
+                                System.out.println("Quieres desafiar al jugador: " + usuario2.getNombreUsuario() + " \n 1. Si. \n 2. No.");
+                                int opcionDesafiar = scanner.nextInt();
+                                if (opcionDesafiar == 1) {
+                                    jugador.desafiar(jugador.getPersonaje() ,jugador2.getPersonaje());
+                                }
+                            }
+                        }
+                    }
 
                 }else if(op.equals("3")){
-                    //((Jugador)usuario).rankingOro();
+                    //jugador.rankingOro();
 
                 }else if (op.equals("4")){
-                    //((Jugador)usuario).rankingGlobal();
+                    //jugador.rankingGlobal();
 
                 }else if(op.equals("5")){
-                    //jugador.registrarPersonaje();  //hay que pasarle el parámetro personaje
+                    for (Personaje personaje : personajes) {
+                        System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
+                        int opcionRegistrar = scanner.nextInt();
+                        if (opcionRegistrar == 1) {
+                            jugador.registrarPersonaje(personaje);
+                        }
+                    }
 
                 }else if(op.equals("6")) {
-                    //((Jugador)usuario).darBajaPersonaje();
+                    jugador.darBajaPersonaje();
 
                 }else if (op.equals("7")){
-                    //((Jugador)usuario).darBajaCuenta();
+                    String nick = usuario.getNick();
+                    if (usuarios.containsKey(nick)){
+                        usuarios.remove(nick);
+                    }
 
                 }else if (op.equals("8")){
                     System.out.println("¡Hasta luego!");
