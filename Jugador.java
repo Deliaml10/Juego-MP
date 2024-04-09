@@ -297,7 +297,7 @@ public class Jugador extends Usuario  {
         System.out.println("ESTO TODAVIA NO ESTA HECHO, HAZLOOOOO");
     }
 
-    public void desafiar(Personaje personaje1, Personaje personaje2){
+    public void desafiar(Personaje personaje1, Personaje personaje2, int OroApostado){
 
     }
 
