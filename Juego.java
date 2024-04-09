@@ -1,11 +1,17 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
 public class Juego {
-    private HashMap<String,Usuario> usuarios = new HashMap();
+    private HashMap<String, Usuario> usuarios = new HashMap<>();
     private ArrayList<Personaje> personajes = new ArrayList<>();
+    private static final String Usuarios = "usuarios.dat"; // Nombre del archivo para guardar usuarios
+    private static final String Personajes = "personajes.dat"; // Nombre del archivo para guardar personajes
 
     public void start() {
+        cargarUsuarios(); // Cargar usuarios al inicio del juego
+        cargarPersonajes(); // Cargar personajes al inicio del juego
         // Mensaje de bienvenida
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Bienvenido a Sangre y Luna, serás vampiro, licántropo, o quizás... cazador.");
@@ -42,7 +48,6 @@ public class Juego {
         }
     }
 
-
     private void crearCuenta(Scanner scanner){
         System.out.println("Seleccionaste crear un nuevo usuario.");
         //Pedir que elija entre ser un administrador o ser un jugador
@@ -54,7 +59,7 @@ public class Juego {
 
             System.out.println("Ingresa tu nombre:");
             String nombre = scanner.nextLine();
-            boolean existeNick = true;
+            boolean existeNick;
             String nick;
             do {
                 System.out.println("\nIngresa tu nick:");
@@ -65,7 +70,6 @@ public class Juego {
                 }
             } while (existeNick);
 
-
             String contrasena1;
             String contrasena;
             do {
@@ -74,22 +78,32 @@ public class Juego {
                 System.out.println("\nRepite tu contreseña:");
                 contrasena1 = scanner.nextLine();
                 if (!contrasena1.equals(contrasena)) {
-                    System.out.println("\nLas contraseñas no coindicen");
+                    System.out.println("\nLas contraseñas no coinciden");
                 }
             }
             while (!contrasena1.equals(contrasena));
 
             Administrador administrador = new Administrador(nombre, nick, contrasena);
             usuarios.put(nick, administrador);
+            guardarUsuarios();
             System.out.println("¡Administrador creado exitosamente!");
 
         } else {
+            String nombre;
+            boolean existeNick;
+            String nick;
             System.out.println("Seleccionaste ser un nuevo jugador\n");
             // Pedir datos al usuario para crear el nuevo usuario
             System.out.println("Ingresa tu nombre:");
-            String nombre = scanner.nextLine();
-            System.out.println("Ingresa tu nick:");
-            String nick = scanner.nextLine();
+            nombre = scanner.nextLine();
+            do {
+                System.out.println("Ingresa tu nick:");
+                nick = scanner.nextLine();
+                existeNick = usuarios.containsKey(nick);
+                if (existeNick){
+                    System.out.println("El nick ya existe");
+                }
+            } while (existeNick);
             String contrasena1;
             String contrasena;
             do {
@@ -98,13 +112,14 @@ public class Juego {
                 System.out.println("Repite tu contreseña:");
                 contrasena1 = scanner.nextLine();
                 if (!contrasena1.equals(contrasena)) {
-                    System.out.println("Las contraseñas no coindicen");
+                    System.out.println("Las contraseñas no coinciden");
                 }
             }
             while (!contrasena1.equals(contrasena));
 
             Jugador jugador = new Jugador(nombre, nick, contrasena);
             usuarios.put(nick, jugador);
+            guardarUsuarios();
             System.out.println("¡Jugador creado exitosamente!");
         }
     }
@@ -115,9 +130,9 @@ public class Juego {
 
         // Pedir datos al usuario para iniciar sesión
         System.out.println("Ingresa tu nick:");
-        String nick1 = scanner.nextLine();
-        boolean existeUsuario = usuarios.containsKey(nick1);
-        Usuario usuarioJuego = usuarios.get(nick1);;
+        String nick = scanner.nextLine();
+        boolean existeUsuario = usuarios.containsKey(nick);
+        Usuario usuarioJuego = usuarios.get(nick);;
         if (existeUsuario) {
             System.out.println("Ingresa tu contraseña:");
             String contrasena1 = scanner.nextLine();
@@ -154,6 +169,7 @@ public class Juego {
                         if (personaje.getNombrePersonaje().equals(nombreBuscado)) {
                             personajeEditar = personaje;
                             personaje = ((Administrador) usuario).editarPersonaje(personajeEditar);
+                            break; // Se agrega break para salir del bucle después de encontrar el personaje
                         }
                     }
                 }
@@ -183,81 +199,118 @@ public class Juego {
 
         } else if (usuario instanceof Jugador) {
             Jugador jugador = (Jugador)usuario;
-            while (jugador.getDesafiosPendientes().isEmpty()) {
-                ArrayList<Combate> desafiosPendientes = new ArrayList<>();
-                jugador.aceptarRechazarDesafio(desafiosPendientes.getFirst());
-                desafiosPendientes.removeFirst();
-            }
+            ArrayList<Combate> desafiosPendientes = jugador.getDesafiosPendientes();
+                while (!desafiosPendientes.isEmpty()) {
+                    jugador.aceptarRechazarDesafio(desafiosPendientes.getFirst());
+                    desafiosPendientes.removeFirst();
+                }
 
-                System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
-                String op = scanner.nextLine();
-                if(op.equals("1")) {
-                    Personaje personajeJugador = jugador.getPersonaje();
-                    if (personajeJugador == null){
-                        System.out.println("No tienes ningun personaje registrado");
-                    }else {
-                        ((Jugador) usuario).equipar(personajeJugador);
-                    }
+            System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
+            String op = scanner.nextLine();
+            if(op.equals("1")) {
+                Personaje personajeJugador = jugador.getPersonaje();
+                if (personajeJugador == null){
+                    System.out.println("No tienes ningun personaje registrado");
+                }else {
+                    ((Jugador) usuario).equipar(personajeJugador);
+                }
 
-                }else if (op.equals("2")){
-                    Personaje personajeJugador = ((Jugador) usuario).getPersonaje();
-                    if (personajeJugador == null){
-                        System.out.println("No tienes ningun personaje registrado");
-                    }else {
-                        for (Usuario usuario2 : usuarios.values()){
-                            if (usuario2 instanceof Jugador) {
-                                Jugador jugador2 = (Jugador)usuario2;
-                                System.out.println("Quieres desafiar al jugador: " + usuario2.getNombreUsuario() + " \n 1. Si. \n 2. No.");
-                                int opcionDesafiar = scanner.nextInt();
-                                if (opcionDesafiar == 1) {
-                                    jugador.desafiar(jugador.getPersonaje() ,jugador2.getPersonaje());
-                                }
+            }else if (op.equals("2")){
+                Personaje personajeJugador = ((Jugador) usuario).getPersonaje();
+                if (personajeJugador == null){
+                    System.out.println("No tienes ningun personaje registrado");
+                }else {
+                    for (Usuario usuario2 : usuarios.values()){
+                        if (usuario2 instanceof Jugador) {
+                            Jugador jugador2 = (Jugador)usuario2;
+                            System.out.println("Quieres desafiar al jugador: " + usuario2.getNombreUsuario() + " \n 1. Si. \n 2. No.");
+                            int opcionDesafiar = scanner.nextInt();
+                            if (opcionDesafiar == 1) {
+                                jugador.desafiar(jugador.getPersonaje() ,jugador2.getPersonaje());
                             }
                         }
                     }
-
-                }else if(op.equals("3")){
-                    //jugador.rankingOro();
-
-                }else if (op.equals("4")){
-                    //jugador.rankingGlobal();
-
-                }else if(op.equals("5")){
-                    for (Personaje personaje : personajes) {
-                        System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
-                        int opcionRegistrar = scanner.nextInt();
-                        if (opcionRegistrar == 1) {
-                            jugador.registrarPersonaje(personaje);
-                        }
-                    }
-
-                }else if(op.equals("6")) {
-                    jugador.darBajaPersonaje();
-
-                }else if (op.equals("7")){
-                    String nick = usuario.getNick();
-                    if (usuarios.containsKey(nick)){
-                        usuarios.remove(nick);
-                    }
-
-                }else if (op.equals("8")){
-                    System.out.println("¡Hasta luego!");
-                }else {
-                    System.out.println("Opción no válida");
                 }
 
-            //}
-            /*else{ //TODAVIA NO SE PUEDE PORQUE NO ESTA LA CLASE COMBATE
+            }else if(op.equals("3")){
+                //jugador.rankingOro();
 
-                System.out.println("Tienes desafíos pendientes. \n Pulsa A para aceptarlo o pulsa N para rechazarlo. \n Si rechazas un desafío tendrás que pagar el 10% del oro apostado.");
-                String eleccion = scanner.nextLine();
-                if(eleccion.equalsIgnoreCase("A")){
-                    jugador.aceptarDesafio();
-                }else{
-                    jugador.rechazarDesafio();
+            }else if (op.equals("4")){
+                //jugador.rankingGlobal();
+
+            }else if(op.equals("5")){
+                for (Personaje personaje : personajes) {
+                    System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
+                    int opcionRegistrar = scanner.nextInt();
+                    if (opcionRegistrar == 1) {
+                        jugador.registrarPersonaje(personaje);
+                        guardarPersonajes();
+                    }
                 }
-            }*/
+
+            }else if(op.equals("6")) {
+                jugador.darBajaPersonaje();
+
+            }else if (op.equals("7")){
+                String nick = usuario.getNick();
+                if (usuarios.containsKey(nick)){
+                    usuarios.remove(nick);
+                }
+
+            }else if (op.equals("8")){
+                System.out.println("¡Hasta luego!");
+            }else {
+                System.out.println("Opción no válida");
+            }
+
         }
     }
 
+    private void guardarUsuarios() {
+        try {
+            // Borrar el archivo de usuarios si existe
+            File file = new File(Usuarios);
+            if (file.exists()) {
+                file.delete();
+            }
+            // Escribir el nuevo HashMap en el archivo
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Usuarios))) {
+                oos.writeObject(usuarios);
+                System.out.println("Usuarios guardados correctamente.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error al guardar usuarios: " + e.getMessage());
+        }
+    }
+
+    private void cargarUsuarios() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Usuarios))) {
+            HashMap<String, Usuario> usuariosCargados = (HashMap<String, Usuario>) ois.readObject();
+            usuarios.clear(); // Limpiar el HashMap actual
+            usuarios.putAll(usuariosCargados); // Almacenar los usuarios cargados en el HashMap
+            System.out.println("Usuarios cargados correctamente.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error al cargar usuarios: " + e.getMessage());
+        }
+    }
+    
+
+    private void guardarPersonajes() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Personajes))) {
+            oos.writeObject(personajes);
+            System.out.println("Personajes guardados correctamente.");
+        } catch (IOException e) {
+            System.err.println("Error al guardar personajes: " + e.getMessage());
+        }
+    }
+
+    private void cargarPersonajes() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Personajes))) {
+            ArrayList<Personaje> personajesCargados = (ArrayList<Personaje>) ois.readObject();
+            personajes.addAll(personajesCargados);
+            System.out.println("Personajes cargados correctamente.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error al cargar personajes: " + e.getMessage());
+        }
+    }
 }

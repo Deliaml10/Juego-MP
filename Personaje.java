@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Personaje {
+public class Personaje implements Serializable  {
     private String nombre;
     private int tipo;
     private ArrayList<Habilidad> habilidades = new ArrayList<>();
