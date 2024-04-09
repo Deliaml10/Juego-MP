@@ -201,18 +201,11 @@ public class Juego {
 
         } else if (usuario instanceof Jugador) {
             Jugador jugador = (Jugador)usuario;
-<<<<<<< HEAD
             ArrayList<Combate> desafiosPendientes = jugador.getDesafiosPendientes();
                 while (!desafiosPendientes.isEmpty()) {
                     jugador.aceptarRechazarDesafio(desafiosPendientes.getFirst());
                     desafiosPendientes.removeFirst();
                 }
-=======
-            while (!jugador.getDesafiosPendientes().isEmpty()) {
-                System.out.println("Tienes desafíos pendientes");
-                jugador.aceptarRechazarDesafio();
-            }
->>>>>>> c0aa098969a95a30bb8cdfd12eda95952ab81722
 
             System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
             String op = scanner.nextLine();
@@ -242,7 +235,6 @@ public class Juego {
                 }
 
             }else if(op.equals("3")){
-<<<<<<< HEAD
                 //jugador.rankingOro();
 
             }else if (op.equals("4")){
@@ -258,25 +250,6 @@ public class Juego {
                     }
                 }
 
-=======
-                jugador.consultarOro();
-
-            }else if (op.equals("4")){
-                for (Jugador j : rankingGlobal){
-                    Personaje personaje = j.getPersonaje();
-                    System.out.println(personaje.getNombrePersonaje() + " " + personaje.getOro());
-                }
-
-            }else if(op.equals("5")){
-                for (Personaje personaje : personajes) {
-                    System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
-                    int opcionRegistrar = scanner.nextInt();
-                    if (opcionRegistrar == 1) {
-                        jugador.registrarPersonaje(personaje);
-                    }
-                }
-
->>>>>>> c0aa098969a95a30bb8cdfd12eda95952ab81722
             }else if(op.equals("6")) {
                 jugador.darBajaPersonaje();
 
@@ -288,17 +261,10 @@ public class Juego {
 
             }else if (op.equals("8")){
                 System.out.println("¡Hasta luego!");
-<<<<<<< HEAD
             }else {
                 System.out.println("Opción no válida");
             }
 
-=======
-
-            }else {
-                System.out.println("Opción no válida");
-            }
->>>>>>> c0aa098969a95a30bb8cdfd12eda95952ab81722
         }
     }
 
