@@ -137,14 +137,14 @@ public class Jugador extends Usuario  {
         switch (opcion) {
             case 1:
                 System.out.println("Armas disponibles:");
-                for (Arma arma : personaje.getArmas()) {
+                for (Arma arma : this.personaje.getArmas()) {
                     if (arma.getActiva()) {
                         System.out.println(arma.getNombreEquipo() + ". Manos que ocupa: " + arma.getManos());
                     }
                 }
                 int seleccionArma;
                 do {
-                    System.out.println("Elige una opcion:\n 1. Equipar arma\n 2. Terminar de equipar ");
+                    System.out.println("Elige una opcion:\n 1. Equipar arma\n 2. Salir ");
                     seleccionArma = scanner.nextInt();
                     if (seleccionArma == 1) {
                         System.out.println("Escribe el nombre del arma que quieres equipar");
@@ -168,14 +168,14 @@ public class Jugador extends Usuario  {
 
             case 2:
                 System.out.println("Armaduras disponibles:");
-                for (Armadura armadura : personaje.getArmaduras()) {
+                for (Armadura armadura : this.personaje.getArmaduras()) {
                     if (armadura.getActiva()) {
                         System.out.println(armadura.getNombreEquipo() + ". Manos que ocupa: " + armadura.getManos());
                     }
                 }
                 int seleccionArmadura;
                 do {
-                    System.out.println("Elige una opcion:\n 1. Equipar armadura\n 2. Terminar de equipar ");
+                    System.out.println("Elige una opcion:\n 1. Equipar armadura\n 2. Salir ");
                     seleccionArmadura = scanner.nextInt();
                     if (seleccionArmadura == 1) {
                         System.out.println("Escribe el nombre de la armadura que quieres equipar");

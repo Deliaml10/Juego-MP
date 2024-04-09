@@ -295,7 +295,7 @@ public class Administrador extends Usuario {
                 System.out.println("2. Ghoul");
                 System.out.println("3. Demonio");
                 tipoEsbirro = scanner.nextInt();
-            }while (tipoEsbirro < 1 || tipoEsbirro > 3);
+            }while ((tipoEsbirro < 1 || tipoEsbirro > 3));
             scanner.nextLine();
             System.out.println("Escribe el nombre del esbirro");
             String nombreEsbirro = scanner.nextLine();
