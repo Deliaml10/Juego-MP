@@ -156,63 +156,61 @@ public class Juego {
         System.out.println("¡Empieza el juego!");
         if (usuario instanceof Administrador) {
             Administrador administrador = (Administrador)usuario;
+            String opcion = null;
+            do {
+                System.out.println("¿Qué quieres hacer?\n 1.Crear un personaje \n 2. Editar un personaje. \n 3. Validar desafíos. \n 4. Bloquear usuarios. \n 5. Desbloquear usuarios. \n 6. Salir del juego. ");
+                opcion = scanner.nextLine();
+                if (opcion.equals("1")) {
+                    personajes.add(administrador.crearPersonaje());
+                    guardarPersonajes();
 
-            System.out.println("¿Qué quieres hacer?\n 1.Crear un personaje \n 2. Editar un personaje. \n 3. Validar desafíos. \n 4. Bloquear usuarios. \n 5. Desbloquear usuarios. \n 6. Salir del juego. ");
-            String opcion = scanner.nextLine();
-            if(opcion.equals("1")) {
-                personajes.add(administrador.crearPersonaje());
-                guardarPersonajes();
-
-            }else if (opcion.equals("2")){
-                if (this.personajes.isEmpty()){
-                    System.out.println("No hay personajes para editar");
-                } else {
-                    System.out.println("Escribe el nombre del personaje que quieres editar");
-                    String nombreBuscado = scanner.nextLine();
-                    Personaje personajeEditar = null;
-                    for (Personaje personaje : personajes) {
-                        if (personaje.getNombrePersonaje().equals(nombreBuscado)) {
-                            personajeEditar = personaje;
-                            break;
+                } else if (opcion.equals("2")) {
+                    if (this.personajes.isEmpty()) {
+                        System.out.println("No hay personajes para editar");
+                    } else {
+                        System.out.println("Escribe el nombre del personaje que quieres editar");
+                        String nombreBuscado = scanner.nextLine();
+                        Personaje personajeEditar = null;
+                        for (Personaje personaje : personajes) {
+                            if (personaje.getNombrePersonaje().equals(nombreBuscado)) {
+                                personajeEditar = personaje;
+                                break;
+                            }
+                        }
+                        if (personajeEditar != null) {
+                            administrador.editarPersonaje(personajeEditar);
+                            guardarPersonajes();
+                        } else {
+                            System.out.println("Personaje no encontrado");
                         }
                     }
-                    if (personajeEditar != null) {
-                        administrador.editarPersonaje(personajeEditar);
-                        guardarPersonajes();
-                    } else {
-                        System.out.println("Personaje no encontrado");
+
+                } else if (opcion.equals("3")) {
+                    //administrador.validarDesafios(); //Todavía no se puede hasta que no implementemos los combates
+
+                } else if (opcion.equals("4")) {
+                    System.out.println("Escribe el nick del usuario que quieres bloquear");
+                    String nickBloquear = scanner.nextLine();
+                    if (usuarios.containsKey(nickBloquear) && usuarios.get(nickBloquear) instanceof Jugador) {
+                        Jugador usuarioBloquear = (Jugador) usuarios.get(nickBloquear);
+                        administrador.bloquearUsuario(usuarioBloquear);
                     }
-                }
 
-            }else if(opcion.equals("3")){
-                //administrador.validarDesafios(); //Todavía no se puede hasta que no implementemos los combates
+                } else if (opcion.equals("5")) {
+                    System.out.println("Escribe el nick del usuario que quieres desbloquear");
+                    String nickDesbloquear = scanner.nextLine();
+                    if (usuarios.containsKey(nickDesbloquear) && usuarios.get(nickDesbloquear) instanceof Jugador) {
+                        Jugador usuarioDesbloquear = (Jugador) usuarios.get(nickDesbloquear);
+                        administrador.desbloquearUsuario(usuarioDesbloquear);
+                    } else {
+                        System.out.println("Usuario no encontrado o no es jugador");
+                    }
 
-            }else if (opcion.equals("4")){
-                System.out.println("Escribe el nick del usuario que quieres bloquear");
-                String nickBloquear = scanner.nextLine();
-                if (usuarios.containsKey(nickBloquear) && usuarios.get(nickBloquear) instanceof Jugador){
-                    Jugador usuarioBloquear = (Jugador)usuarios.get(nickBloquear);
-                    administrador.bloquearUsuario(usuarioBloquear);
-                }
-
-            }else if(opcion.equals("5")){
-                System.out.println("Escribe el nick del usuario que quieres desbloquear");
-                String nickDesbloquear = scanner.nextLine();
-                if (usuarios.containsKey(nickDesbloquear) && usuarios.get(nickDesbloquear) instanceof Jugador){
-                    Jugador usuarioDesbloquear = (Jugador)usuarios.get(nickDesbloquear);
-                    administrador.desbloquearUsuario(usuarioDesbloquear);
                 } else {
-                    System.out.println("Usuario no encontrado o no es jugador");
+                    System.out.println("Opción no válida");
                 }
 
-            }else if (opcion.equals("6")){
-                System.out.println("¡Hasta luego!");
-
-            }else{
-                System.out.println("Opción no válida");
-            }
-
-
+            }while (!opcion.equals("6"));
         } else if (usuario instanceof Jugador) {
             Jugador jugador = (Jugador)usuario;
             ArrayList<Combate> desafiosPendientes = jugador.getDesafiosPendientes();
@@ -220,69 +218,68 @@ public class Juego {
                 System.out.println("Tienes desafíos pendientes");
                 jugador.aceptarRechazarDesafio();
             }
+            String op = null;
+            do {
+                System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
+                op = scanner.nextLine();
+                if (op.equals("1")) {
+                    Personaje personajeJugador = jugador.getPersonaje();
+                    if (personajeJugador == null) {
+                        System.out.println("No tienes ningún personaje registrado");
+                    } else {
+                        jugador.equipar(personajeJugador);
+                    }
 
-            System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
-            String op = scanner.nextLine();
-            if(op.equals("1")) {
-                Personaje personajeJugador = jugador.getPersonaje();
-                if (personajeJugador == null){
-                    System.out.println("No tienes ningún personaje registrado");
-                }else {
-                    jugador.equipar(personajeJugador);
-                }
-
-            }else if (op.equals("2")){
-                Personaje personajeJugador = jugador.getPersonaje();
-                if (personajeJugador == null){
-                    System.out.println("No tienes ningún personaje registrado");
-                }else {
-                    for (Usuario usuario2 : usuarios.values()){
-                        if (usuario2 instanceof Jugador) {
-                            Jugador jugador2 = (Jugador)usuario2;
-                            System.out.println("Quieres desafiar al jugador: " + usuario2.getNombreUsuario() + " \n 1. Si. \n 2. No.");
-                            int opcionDesafiar = scanner.nextInt();
-                            if (opcionDesafiar == 1) {
-                                jugador.desafiar(jugador.getPersonaje() ,jugador2.getPersonaje());
+                } else if (op.equals("2")) {
+                    Personaje personajeJugador = jugador.getPersonaje();
+                    if (personajeJugador == null) {
+                        System.out.println("No tienes ningún personaje registrado");
+                    } else {
+                        for (Usuario usuario2 : usuarios.values()) {
+                            if (usuario2 instanceof Jugador) {
+                                Jugador jugador2 = (Jugador) usuario2;
+                                System.out.println("Quieres desafiar al jugador: " + usuario2.getNombreUsuario() + " \n 1. Si. \n 2. No.");
+                                int opcionDesafiar = scanner.nextInt();
+                                if (opcionDesafiar == 1) {
+                                    jugador.desafiar(jugador.getPersonaje(), jugador2.getPersonaje());
+                                }
                             }
                         }
                     }
-                }
 
-            }else if(op.equals("3")){
-                jugador.consultarOro();
+                } else if (op.equals("3")) {
+                    jugador.consultarOro();
 
-            }else if (op.equals("4")){
-                // Ordenar el ranking global
-                rankingGlobal.sort((j1, j2) -> j2.getPersonaje().getOro() - j1.getPersonaje().getOro());
-                for (Jugador j : rankingGlobal){
-                    System.out.println("Nombre: " + j.getNombreUsuario() + ", Oro: " + j.getPersonaje().getOro());
-                }
-
-            }else if(op.equals("5")){
-                for (Personaje personaje : personajes) {
-                    System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
-                    int opcionRegistrar = scanner.nextInt();
-                    if (opcionRegistrar == 1) {
-                        jugador.registrarPersonaje(personaje);
+                } else if (op.equals("4")) {
+                    // Ordenar el ranking global
+                    rankingGlobal.sort((j1, j2) -> j2.getPersonaje().getOro() - j1.getPersonaje().getOro());
+                    for (Jugador j : rankingGlobal) {
+                        System.out.println("Nombre: " + j.getNombreUsuario() + ", Oro: " + j.getPersonaje().getOro());
                     }
+
+                } else if (op.equals("5")) {
+                    for (Personaje personaje : personajes) {
+                        System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
+                        int opcionRegistrar = scanner.nextInt();
+                        if (opcionRegistrar == 1) {
+                            jugador.registrarPersonaje(personaje);
+                        }
+                    }
+
+                } else if (op.equals("6")) {
+                    jugador.darBajaPersonaje();
+
+                } else if (op.equals("7")) {
+                    String nick = usuario.getNick();
+                    if (usuarios.containsKey(nick)) {
+                        usuarios.remove(nick);
+                        guardarUsuarios();
+                    }
+
+                } else {
+                    System.out.println("Opción no válida");
                 }
-
-            }else if(op.equals("6")) {
-                jugador.darBajaPersonaje();
-
-            }else if (op.equals("7")){
-                String nick = usuario.getNick();
-                if (usuarios.containsKey(nick)){
-                    usuarios.remove(nick);
-                    guardarUsuarios();
-                }
-
-            }else if (op.equals("8")){
-                System.out.println("¡Hasta luego!");
-            }else {
-                System.out.println("Opción no válida");
-            }
-
+            }while (!op.equals("8"));
         }
     }
 
