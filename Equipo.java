@@ -10,7 +10,7 @@ public class Equipo {
         this.manos = manos;
         this.valor = valor;
         this.activa = activa;
-        this.equipada = equipada;
+        this.equipada = false;
     }
 
     public String getNombreEquipo(){
