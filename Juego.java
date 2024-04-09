@@ -326,11 +326,18 @@ public class Juego {
                     RankingGlobal();
 
                 } else if (op.equals("5")) {
+                        System.out.println("Los personajes que tienes para elegir son: " );
+                    for (Personaje personaje : personajes) {
+                        System.out.println("- " + personaje.getNombrePersonaje() + "\n");
+                    }
+                    String opcionRegistrar = null;
                     for (Personaje personaje : personajes) {
                         System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
-                        int opcionRegistrar = Integer.parseInt(scanner.nextLine());
-                        if (opcionRegistrar == 1) {
+                        opcionRegistrar = scanner.nextLine();
+
+                        if (opcionRegistrar.equals("1")) {
                             jugador.registrarPersonaje(personaje);
+                            break;
                         }
                     }
 
