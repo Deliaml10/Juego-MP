@@ -189,22 +189,49 @@ public class Juego {
                     //administrador.validarDesafios(); //Todavía no se puede hasta que no implementemos los combates
 
                 } else if (opcion.equals("4")) {
-                    System.out.println("Escribe el nick del usuario que quieres bloquear");
+                    // Mostrar la lista de usuarios jugadores desbloqueados para elegir quién bloquear
+                    System.out.println("Lista de usuarios jugadores desbloqueados:");
+                    for (Usuario usuarioEnLista : usuarios.values()) {
+                        if (usuarioEnLista instanceof Jugador && !((Jugador) usuarioEnLista).getBloqueado()) {
+                            System.out.println(usuarioEnLista.getNick());
+                        }
+                    }
+                
+                    // Pedir al administrador que elija un usuario para bloquear
+                    System.out.println("Escribe el nick del usuario que quieres bloquear:");
                     String nickBloquear = scanner.nextLine();
+                
+                    // Verificar si el usuario seleccionado existe y es un jugador desbloqueado
                     if (usuarios.containsKey(nickBloquear) && usuarios.get(nickBloquear) instanceof Jugador) {
-                        Jugador usuarioBloquear = (Jugador) usuarios.get(nickBloquear);
-                        administrador.bloquearUsuario(usuarioBloquear);
-                    }
-
-                } else if (opcion.equals("5")) {
-                    System.out.println("Escribe el nick del usuario que quieres desbloquear");
-                    String nickDesbloquear = scanner.nextLine();
-                    if (usuarios.containsKey(nickDesbloquear) && usuarios.get(nickDesbloquear) instanceof Jugador) {
-                        Jugador usuarioDesbloquear = (Jugador) usuarios.get(nickDesbloquear);
-                        administrador.desbloquearUsuario(usuarioDesbloquear);
+                        Jugador jugadorBloquear = (Jugador) usuarios.get(nickBloquear);
+                        administrador.bloquearUsuario(jugadorBloquear);
+                        guardarUsuarios();
                     } else {
-                        System.out.println("Usuario no encontrado o no es jugador");
+                        System.out.println("Usuario no encontrado o no es jugador.");
                     }
+                } else if (opcion.equals("5")) {
+                    // Mostrar la lista de usuarios bloqueados para elegir quién desbloquear
+                    System.out.println("Lista de usuarios bloqueados:");
+                    for (Usuario usuarioEnLista : usuarios.values()) {
+                        if (usuarioEnLista instanceof Jugador && ((Jugador) usuarioEnLista).getBloqueado()) {
+                            System.out.println(usuarioEnLista.getNick());
+                        }
+                    }
+                
+                    // Pedir al administrador que elija un usuario para desbloquear
+                    System.out.println("Escribe el nick del usuario que quieres desbloquear:");
+                    String nickDesbloquear = scanner.nextLine();
+                
+                    // Verificar si el usuario seleccionado existe y es un jugador bloqueado
+                    if (usuarios.containsKey(nickDesbloquear) && usuarios.get(nickDesbloquear) instanceof Jugador && ((Jugador) usuarios.get(nickDesbloquear)).getBloqueado()) {
+                        Jugador jugadorDesbloquear = (Jugador) usuarios.get(nickDesbloquear);
+                        administrador.desbloquearUsuario(jugadorDesbloquear);
+                        guardarUsuarios();
+                    } else {
+                        System.out.println("Usuario no encontrado, no es jugador o no está bloqueado.");
+                    }
+                }
+                 else if (opcion.equals("6")) {
 
                 } else {
                     System.out.println("Opción no válida");
@@ -229,84 +256,51 @@ public class Juego {
                     } else {
                         jugador.equipar(personajeJugador);
                     }
-
-<<<<<<< HEAD
-            System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
-            String op = scanner.nextLine();
-            if(op.equals("1")) {
-                Personaje personajeJugador = jugador.getPersonaje();
-                if (personajeJugador == null){
-                    System.out.println("No tienes ningún personaje registrado");
-                }else {
-                    jugador.equipar(personajeJugador);
-                }
-
-            }else if (op.equals("2")){
-                Personaje personajeJugador = jugador.getPersonaje();
-                if (personajeJugador == null){
-                    System.out.println("No tienes ningún personaje registrado");
-                } else {
-                    // Obtener la lista de jugadores disponibles para desafiar
-                    ArrayList<Jugador> jugadoresDisponibles = new ArrayList<>();
-                    for (Usuario usuario2 : usuarios.values()){
-                        if (usuario2 instanceof Jugador && !usuario2.getNick().equals(jugador.getNick())) {
-                            jugadoresDisponibles.add((Jugador)usuario2);
-                        }
-                    }
-            
-                    // Mostrar los jugadores disponibles para desafiar
-                    if (!jugadoresDisponibles.isEmpty()) {
-                        System.out.println("Jugadores disponibles para desafiar:");
-                        for (int i = 0; i < jugadoresDisponibles.size(); i++) {
-                            Jugador jugadorDisponible = jugadoresDisponibles.get(i);
-                            System.out.println((i + 1) + ". " + jugadorDisponible.getNombreUsuario() + " - Oro: " + jugadorDisponible.getPersonaje().getOro());
-                        }
-            
-                        // Solicitar al jugador seleccionar a quién desafiar
-                        System.out.println("Elige el número del jugador al que quieres desafiar:");
-                        int opcionDesafiar = scanner.nextInt();
-                        if (opcionDesafiar >= 1 && opcionDesafiar <= jugadoresDisponibles.size()) {
-                            Jugador jugadorDesafiado = jugadoresDisponibles.get(opcionDesafiar - 1);
-            
-                            // Solicitar al jugador especificar la cantidad de oro a apostar
-                            System.out.println("Especifica la cantidad de oro que deseas apostar:");
-                            int oroApostado = scanner.nextInt();
-            
-                            // Crear el desafío
-                            jugador.desafiar(jugador.getPersonaje(), jugadorDesafiado.getPersonaje(), oroApostado);
-            
-                            // Solicitar al administrador validar el desafío
-                            System.out.println("El desafío ha sido enviado al administrador para su validación.");
-                        } else {
-                            System.out.println("Opción no válida");
-                        }
-                    } else {
-                        System.out.println("No hay otros jugadores disponibles para desafiar en este momento");
-                    }
-                }
-            }   else if(op.equals("3")){
-                jugador.consultarOro();
-=======
                 } else if (op.equals("2")) {
                     Personaje personajeJugador = jugador.getPersonaje();
-                    if (personajeJugador == null) {
+                    if (personajeJugador == null){
                         System.out.println("No tienes ningún personaje registrado");
                     } else {
-                        for (Usuario usuario2 : usuarios.values()) {
-                            if (usuario2 instanceof Jugador) {
-                                Jugador jugador2 = (Jugador) usuario2;
-                                System.out.println("Quieres desafiar al jugador: " + usuario2.getNombreUsuario() + " \n 1. Si. \n 2. No.");
-                                int opcionDesafiar = scanner.nextInt();
-                                if (opcionDesafiar == 1) {
-                                    jugador.desafiar(jugador.getPersonaje(), jugador2.getPersonaje());
-                                }
+                        // Obtener la lista de jugadores disponibles para desafiar
+                        ArrayList<Jugador> jugadoresDisponibles = new ArrayList<>();
+                        for (Usuario usuario2 : usuarios.values()){
+                            if (usuario2 instanceof Jugador && !usuario2.getNick().equals(jugador.getNick())) {
+                                jugadoresDisponibles.add((Jugador)usuario2);
                             }
                         }
-                    }
 
+                        // Mostrar los jugadores disponibles para desafiar
+                        if (!jugadoresDisponibles.isEmpty()) {
+                            System.out.println("Jugadores disponibles para desafiar:");
+                            for (int i = 0; i < jugadoresDisponibles.size(); i++) {
+                                Jugador jugadorDisponible = jugadoresDisponibles.get(i);
+                                System.out.println((i + 1) + ". " + jugadorDisponible.getNombreUsuario() + " - Oro: " + jugadorDisponible.getPersonaje().getOro());
+                            }
+
+                            // Solicitar al jugador seleccionar a quién desafiar
+                            System.out.println("Elige el número del jugador al que quieres desafiar:");
+                            int opcionDesafiar = Integer.parseInt(scanner.nextLine());
+                            if (opcionDesafiar >= 1 && opcionDesafiar <= jugadoresDisponibles.size()) {
+                                Jugador jugadorDesafiado = jugadoresDisponibles.get(opcionDesafiar - 1);
+
+                                // Solicitar al jugador especificar la cantidad de oro a apostar
+                                System.out.println("Especifica la cantidad de oro que deseas apostar:");
+                                int oroApostado = Integer.parseInt(scanner.nextLine());
+
+                                // Crear el desafío
+                                jugador.desafiar(jugador.getPersonaje(), jugadorDesafiado.getPersonaje(), oroApostado);
+
+                                // Solicitar al administrador validar el desafío
+                                System.out.println("El desafío ha sido enviado al administrador para su validación.");
+                            } else {
+                                System.out.println("Opción no válida");
+                            }
+                        } else {
+                            System.out.println("No hay otros jugadores disponibles para desafiar en este momento");
+                        }
+                    }
                 } else if (op.equals("3")) {
                     jugador.consultarOro();
->>>>>>> ae281cf58648c7c8f18b0b667da289f22cae775c
 
                 } else if (op.equals("4")) {
                     // Ordenar el ranking global
@@ -318,7 +312,7 @@ public class Juego {
                 } else if (op.equals("5")) {
                     for (Personaje personaje : personajes) {
                         System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
-                        int opcionRegistrar = scanner.nextInt();
+                        int opcionRegistrar = Integer.parseInt(scanner.nextLine());
                         if (opcionRegistrar == 1) {
                             jugador.registrarPersonaje(personaje);
                         }
@@ -332,12 +326,15 @@ public class Juego {
                     if (usuarios.containsKey(nick)) {
                         usuarios.remove(nick);
                         guardarUsuarios();
+                        break;
                     }
+
+                } else if (op.equals("8")) {
 
                 } else {
                     System.out.println("Opción no válida");
                 }
-            }while (!op.equals("8"));
+            } while (!op.equals("8"));
         }
     }
 
@@ -378,7 +375,7 @@ public class Juego {
             System.err.println("Error al guardar personajes: " + e.getMessage());
         }
     }
-    
+
     private void cargarPersonajes() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Personajes))) {
             ArrayList<Personaje> personajesCargados = (ArrayList<Personaje>) ois.readObject();
@@ -389,5 +386,4 @@ public class Juego {
             System.err.println("Error al cargar personajes: " + e.getMessage());
         }
     }
-    
 }

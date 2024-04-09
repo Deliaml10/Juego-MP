@@ -387,13 +387,28 @@ public class Administrador extends Usuario {
         return talento;
     }
 
-    public void bloquearUsuario(Jugador usuarioBloquear) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'bloquearUsuario'");
+    public void bloquearUsuario(Jugador jugador) {
+        if (!jugador.getBloqueado()) { // Verificar si el jugador no está ya bloqueado
+            jugador.setBloqueado(true); // Establecer el estado de bloqueado del jugador
+            System.out.println("El usuario " + jugador.getNick() + " ha sido bloqueado.");
+        } else {
+            System.out.println("El usuario " + jugador.getNick() + " ya está bloqueado.");
+        }
     }
-
-    public void desbloquearUsuario(Jugador usuarioDesbloquear) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'desbloquearUsuario'");
+    
+    public void desbloquearUsuario(Usuario usuario) {
+        if (usuario instanceof Jugador) {
+            Jugador jugador = (Jugador) usuario;
+            if (jugador.getBloqueado()) {
+                jugador.setBloqueado(false);
+                System.out.println("El usuario '" + jugador.getNick() + "' ha sido desbloqueado.");
+            } else {
+                System.out.println("El usuario '" + jugador.getNick() + "' no está bloqueado.");
+            }
+        } else {
+            System.out.println("No se puede desbloquear este usuario porque no es un jugador.");
+        }
     }
+    
+    
 }

@@ -43,84 +43,10 @@ public class Jugador extends Usuario  {
 
     public void registrarPersonaje(Personaje personaje) {
         this.personaje = personaje;
-        /*
-        String[] nombre = new String[Personajes];
-        String[] contrasena = new String[Personajes];
-        String[] nick = new String[Personajes];
-        String[] numeroRegistro = new String[Personajes];
-
-        try {
-            FileWriter fichero = new FileWriter("personajes.txt");
-            PrintWriter pw = new PrintWriter(fichero);
-
-            for(int i = 0; i < Personajes; i++) {
-                System.out.print("\nDime el nombre del usuario " + (i + 1) + ": ");
-                nombre[i] = Entrada.cadena();
-
-                System.out.print("Dime la contraseña del usuario " + (i + 1) + ": ");
-                contrasena[i] = Entrada.cadena();
-
-                System.out.print("Dime el nick del usuario " + (i + 1) + ": ");
-                nick[i] = Entrada.cadena();
-
-                String numeroRegistroActual = crearNumeroRegistro();
-                numeroRegistro[i] = numeroRegistroActual;
-
-                pw.println("\nUsuario " + (i + 1) + "\tNombre: " + nombre[i] +
-                        "\tContraseña: " + contrasena[i] + "\tNick: " + nick[i] +
-                        "\tNúmero de Registro: " + numeroRegistroActual);
-            }
-
-            pw.close();
-        } catch(IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
     public void eliminarPersonaje() {
         this.personaje = null;
-        /*
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese el nick del personaje a eliminar:");
-        String nickEliminar = scanner.nextLine();
-
-        try {
-            File inputFile = new File("personajes.txt");
-            File tempFile = new File("temp.txt");
-
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-            String lineToRemove = "Nick: " + nickEliminar;
-            String currentLine;
-
-            boolean found = false;
-
-            while ((currentLine = reader.readLine()) != null) {
-                // Si la línea actual no contiene el nick a eliminar, se escribe en el archivo temporal
-                if (!currentLine.contains(lineToRemove)) {
-                    writer.write(currentLine + System.getProperty("line.separator"));
-                } else {
-                    found = true;
-                }
-            }
-            writer.close();
-            reader.close();
-
-            if (found) {
-                boolean successful = tempFile.renameTo(inputFile);
-                if (!successful) {
-                    System.out.println("Error al renombrar el archivo.");
-                } else {
-                    System.out.println("Personaje eliminado correctamente.");
-                }
-            } else {
-                System.out.println("No se encontró ningún personaje con el nick especificado.");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
 
