@@ -1,4 +1,5 @@
 import java.io.File;
+import java.time.LocalDateTime;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -127,7 +128,7 @@ public class Juego {
         }
     }
 
-    private Usuario iniciarSesion(Scanner scanner){
+    private Usuario iniciarSesion(Scanner scanner) {
         // Iniciar sesión con un usuario existente
         System.out.println("Seleccionaste iniciar sesión.");
 
@@ -140,6 +141,17 @@ public class Juego {
             System.out.println("Ingresa tu contraseña:");
             String contrasena1 = scanner.nextLine();
             if (usuarioJuego.getContrasena().equals(contrasena1)) {
+                if (usuarioJuego instanceof Jugador) {
+                    Jugador jugador = (Jugador) usuarioJuego;
+                    if (jugador.getBloqueado()) {
+                        if (jugador.getTiempoBloqueo() != null && jugador.getTiempoBloqueo().plusHours(24).isBefore(LocalDateTime.now())) {
+                            jugador.setBloqueado(false); // Desbloquear si han pasado 24 horas desde el bloqueo
+                        } else {
+                            System.out.println("Has sido bloqueado. Inténtalo más tarde.");
+                            return null; // No permitir iniciar sesión si está bloqueado
+                        }
+                    }
+                }
                 System.out.println("¡Inicio de sesión exitoso!");
                 return usuarioJuego;
             } else {
@@ -191,49 +203,58 @@ public class Juego {
                 } else if (opcion.equals("4")) {
                     // Mostrar la lista de usuarios jugadores desbloqueados para elegir quién bloquear
                     System.out.println("Lista de usuarios jugadores desbloqueados:");
+                    boolean hayDesbloqueados = false;
                     for (Usuario usuarioEnLista : usuarios.values()) {
                         if (usuarioEnLista instanceof Jugador && !((Jugador) usuarioEnLista).getBloqueado()) {
                             System.out.println(usuarioEnLista.getNick());
+                            hayDesbloqueados = true;
                         }
                     }
-                
-                    // Pedir al administrador que elija un usuario para bloquear
-                    System.out.println("Escribe el nick del usuario que quieres bloquear:");
-                    String nickBloquear = scanner.nextLine();
-                
-                    // Verificar si el usuario seleccionado existe y es un jugador desbloqueado
-                    if (usuarios.containsKey(nickBloquear) && usuarios.get(nickBloquear) instanceof Jugador) {
-                        Jugador jugadorBloquear = (Jugador) usuarios.get(nickBloquear);
-                        administrador.bloquearUsuario(jugadorBloquear);
-                        guardarUsuarios();
+                    if (!hayDesbloqueados) {
+                        System.out.println("No hay usuarios jugadores desbloqueados disponibles para bloquear.");
                     } else {
-                        System.out.println("Usuario no encontrado o no es jugador.");
+                        // Pedir al administrador que elija un usuario para bloquear
+                        System.out.println("Escribe el nick del usuario que quieres bloquear:");
+                        String nickBloquear = scanner.nextLine();
+                
+                        // Verificar si el usuario seleccionado existe y es un jugador desbloqueado
+                        if (usuarios.containsKey(nickBloquear) && usuarios.get(nickBloquear) instanceof Jugador && !((Jugador) usuarios.get(nickBloquear)).getBloqueado()) {
+                            Jugador jugadorBloquear = (Jugador) usuarios.get(nickBloquear);
+                            administrador.bloquearUsuario(jugadorBloquear);
+                            guardarUsuarios();
+                        } else {
+                            System.out.println("Usuario no encontrado o no es jugador desbloqueado.");
+                        }
                     }
                 } else if (opcion.equals("5")) {
                     // Mostrar la lista de usuarios bloqueados para elegir quién desbloquear
                     System.out.println("Lista de usuarios bloqueados:");
+                    boolean hayBloqueados = false;
                     for (Usuario usuarioEnLista : usuarios.values()) {
                         if (usuarioEnLista instanceof Jugador && ((Jugador) usuarioEnLista).getBloqueado()) {
                             System.out.println(usuarioEnLista.getNick());
+                            hayBloqueados = true;
                         }
                     }
-                
-                    // Pedir al administrador que elija un usuario para desbloquear
-                    System.out.println("Escribe el nick del usuario que quieres desbloquear:");
-                    String nickDesbloquear = scanner.nextLine();
-                
-                    // Verificar si el usuario seleccionado existe y es un jugador bloqueado
-                    if (usuarios.containsKey(nickDesbloquear) && usuarios.get(nickDesbloquear) instanceof Jugador && ((Jugador) usuarios.get(nickDesbloquear)).getBloqueado()) {
-                        Jugador jugadorDesbloquear = (Jugador) usuarios.get(nickDesbloquear);
-                        administrador.desbloquearUsuario(jugadorDesbloquear);
-                        guardarUsuarios();
+                    if (!hayBloqueados) {
+                        System.out.println("No hay usuarios jugadores bloqueados disponibles para desbloquear.");
                     } else {
-                        System.out.println("Usuario no encontrado, no es jugador o no está bloqueado.");
+                        // Pedir al administrador que elija un usuario para desbloquear
+                        System.out.println("Escribe el nick del usuario que quieres desbloquear:");
+                        String nickDesbloquear = scanner.nextLine();
+                
+                        // Verificar si el usuario seleccionado existe y es un jugador bloqueado
+                        if (usuarios.containsKey(nickDesbloquear) && usuarios.get(nickDesbloquear) instanceof Jugador && ((Jugador) usuarios.get(nickDesbloquear)).getBloqueado()) {
+                            Jugador jugadorDesbloquear = (Jugador) usuarios.get(nickDesbloquear);
+                            administrador.desbloquearUsuario(jugadorDesbloquear);
+                            guardarUsuarios();
+                        } else {
+                            System.out.println("Usuario no encontrado, no es jugador o no está bloqueado.");
+                        }
                     }
-                }
-                 else if (opcion.equals("6")) {
+                }   else if (opcion.equals("6")) {
 
-                } else {
+                }   else {
                     System.out.println("Opción no válida");
                 }
 

@@ -9,7 +9,7 @@ public class Jugador extends Usuario  {
     private LocalDateTime ultimoCombatePerdido;
     private boolean bloqueado;
     public ArrayList<Combate> desafiosPendientes = new ArrayList<>();
-
+    private LocalDateTime tiempoBloqueo;
 
     public Jugador(String nombre, String contrasena, String nick) {
         super(nombre, contrasena, nick);
@@ -225,6 +225,13 @@ public class Jugador extends Usuario  {
 
     public void desafiar(Personaje personaje1, Personaje personaje2, int OroApostado){
 
+    }
+    
+    public void setTiempoBloqueo(LocalDateTime tiempoBloqueo) {
+        this.tiempoBloqueo = tiempoBloqueo;
+    }
+    public LocalDateTime getTiempoBloqueo() {
+        return tiempoBloqueo;
     }
 
 }
