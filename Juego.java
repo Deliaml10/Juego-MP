@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
 public class Juego {
     private HashMap<String, Usuario> usuarios = new HashMap<>();
     private ArrayList<Personaje> personajes = new ArrayList<>();
@@ -133,7 +134,7 @@ public class Juego {
         System.out.println("Ingresa tu nick:");
         String nick = scanner.nextLine();
         boolean existeUsuario = usuarios.containsKey(nick);
-        Usuario usuarioJuego = usuarios.get(nick);;
+        Usuario usuarioJuego = usuarios.get(nick);
         if (existeUsuario) {
             System.out.println("Ingresa tu contraseña:");
             String contrasena1 = scanner.nextLine();
@@ -162,28 +163,31 @@ public class Juego {
                 guardarPersonajes();
 
             }else if (opcion.equals("2")){
-                if (this.personajes == null){
+                if (this.personajes.isEmpty()){
                     System.out.println("No hay personajes para editar");
                 } else {
                     System.out.println("Escribe el nombre del personaje que quieres editar");
                     String nombreBuscado = scanner.nextLine();
-                    scanner.nextLine();
-                    Personaje personajeEditar;
+                    Personaje personajeEditar = null;
                     for (Personaje personaje : personajes) {
                         if (personaje.getNombrePersonaje().equals(nombreBuscado)) {
                             personajeEditar = personaje;
-                            personaje = administrador.editarPersonaje(personajeEditar);
+                            break;
                         }
+                    }
+                    if (personajeEditar != null) {
+                        administrador.editarPersonaje(personajeEditar);
+                    } else {
+                        System.out.println("Personaje no encontrado");
                     }
                 }
 
             }else if(opcion.equals("3")){
-                //administrador.validarDesafios(); //Todavia no se puede hasta que no implementemos los combates
+                //administrador.validarDesafios(); //Todavía no se puede hasta que no implementemos los combates
 
             }else if (opcion.equals("4")){
                 System.out.println("Escribe el nick del usuario que quieres bloquear");
                 String nickBloquear = scanner.nextLine();
-                scanner.nextLine();
                 if (usuarios.containsKey(nickBloquear) && usuarios.get(nickBloquear) instanceof Jugador){
                     Jugador usuarioBloquear = (Jugador)usuarios.get(nickBloquear);
                     administrador.bloquearUsuario(usuarioBloquear);
@@ -192,13 +196,12 @@ public class Juego {
             }else if(opcion.equals("5")){
                 System.out.println("Escribe el nick del usuario que quieres desbloquear");
                 String nickDesbloquear = scanner.nextLine();
-                scanner.nextLine();
                 if (usuarios.containsKey(nickDesbloquear) && usuarios.get(nickDesbloquear) instanceof Jugador){
                     Jugador usuarioDesbloquear = (Jugador)usuarios.get(nickDesbloquear);
                     administrador.desbloquearUsuario(usuarioDesbloquear);
+                } else {
+                    System.out.println("Usuario no encontrado o no es jugador");
                 }
-                Usuario usuarioDesbloquear = usuarios.get(nickDesbloquear);
-                ((Administrador) usuario).desbloquearUsuario((Jugador)usuarioDesbloquear);
 
             }else if (opcion.equals("6")){
                 System.out.println("¡Hasta luego!");
@@ -221,7 +224,7 @@ public class Juego {
             if(op.equals("1")) {
                 Personaje personajeJugador = jugador.getPersonaje();
                 if (personajeJugador == null){
-                    System.out.println("No tienes ningun personaje registrado");
+                    System.out.println("No tienes ningún personaje registrado");
                 }else {
                     jugador.equipar(personajeJugador);
                 }
@@ -229,7 +232,7 @@ public class Juego {
             }else if (op.equals("2")){
                 Personaje personajeJugador = jugador.getPersonaje();
                 if (personajeJugador == null){
-                    System.out.println("No tienes ningun personaje registrado");
+                    System.out.println("No tienes ningún personaje registrado");
                 }else {
                     for (Usuario usuario2 : usuarios.values()){
                         if (usuario2 instanceof Jugador) {
@@ -247,8 +250,10 @@ public class Juego {
                 jugador.consultarOro();
 
             }else if (op.equals("4")){
+                // Ordenar el ranking global
+                rankingGlobal.sort((j1, j2) -> j2.getPersonaje().getOro() - j1.getPersonaje().getOro());
                 for (Jugador j : rankingGlobal){
-                    j.getPersonaje().getOro(); //HAY QUE ORDERNAR EL RANKING
+                    System.out.println("Nombre: " + j.getNombreUsuario() + ", Oro: " + j.getPersonaje().getOro());
                 }
 
             }else if(op.equals("5")){
