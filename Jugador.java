@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Jugador extends Usuario {
+public class Jugador extends Usuario  {
     private String numeroRegistro;
     private Personaje personaje;
     private LocalDateTime ultimoCombatePerdido;
