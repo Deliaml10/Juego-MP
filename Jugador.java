@@ -63,7 +63,7 @@ public class Jugador extends Usuario {
                 System.out.print("Dime el nick del usuario " + (i + 1) + ": ");
                 nick[i] = Entrada.cadena();
 
-                String numeroRegistroActual = generarNumeroRegistro();
+                String numeroRegistroActual = crearNumeroRegistro();
                 numeroRegistro[i] = numeroRegistroActual;
 
                 pw.println("\nUsuario " + (i + 1) + "\tNombre: " + nombre[i] +
