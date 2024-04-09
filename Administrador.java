@@ -373,17 +373,16 @@ public class Administrador extends Usuario {
         System.out.println("Escribe el valor del don");
         int valor = scanner.nextInt();
         scanner.nextLine();
-        Don don = new Don(nombre, valor);
+        System.out.println("Escribe el valor de rabia necesaria");
+        int rabiaNecesaria = scanner.nextInt();
+        scanner.nextLine();
+        Don don = new Don(nombre, valor, rabiaNecesaria);
 
         return don;
     }
 
     private Talento crearTalento(String nombre) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Escribe el valor del talento");
-        int valor = scanner.nextInt();
-        scanner.nextLine();
-        Talento talento = new Talento(nombre, valor);
+        Talento talento = new Talento(nombre);
 
         return talento;
     }
