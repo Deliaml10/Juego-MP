@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -321,6 +322,7 @@ public class Juego {
             System.err.println("Error al guardar personajes: " + e.getMessage());
         }
     }
+    
 
     private void cargarPersonajes() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Personajes))) {
@@ -328,7 +330,7 @@ public class Juego {
             personajes.addAll(personajesCargados);
             System.out.println("Personajes cargados correctamente.");
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error al cargar personajes: " + e.getMessage());
+            System.err.println("Error al cargar personajes");
         }
     }
 }
