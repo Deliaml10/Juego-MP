@@ -57,7 +57,6 @@ public class Juego {
 
         if (eleccion.equalsIgnoreCase("A")) {
             System.out.println("Seleccionaste ser un administrador.\n");
-
             System.out.println("Ingresa tu nombre:");
             String nombre = scanner.nextLine();
             boolean existeNick;
@@ -160,6 +159,7 @@ public class Juego {
             String opcion = scanner.nextLine();
             if(opcion.equals("1")) {
                 personajes.add(administrador.crearPersonaje());
+                guardarPersonajes();
 
             }else if (opcion.equals("2")){
                 if (this.personajes == null){
@@ -167,11 +167,11 @@ public class Juego {
                 } else {
                     System.out.println("Escribe el nombre del personaje que quieres editar");
                     String nombreBuscado = scanner.nextLine();
+                    scanner.nextLine();
                     Personaje personajeEditar;
                     for (Personaje personaje : personajes) {
                         if (personaje.getNombrePersonaje().equals(nombreBuscado)) {
                             personajeEditar = personaje;
-                            personaje = ((Administrador) usuario).editarPersonaje(personajeEditar);
                             personaje = administrador.editarPersonaje(personajeEditar);
                         }
                     }
@@ -211,10 +211,10 @@ public class Juego {
         } else if (usuario instanceof Jugador) {
             Jugador jugador = (Jugador)usuario;
             ArrayList<Combate> desafiosPendientes = jugador.getDesafiosPendientes();
-                while (!desafiosPendientes.isEmpty()) {
-                    jugador.aceptarRechazarDesafio(desafiosPendientes.getFirst());
-                    desafiosPendientes.removeFirst();
-                }
+            while (!jugador.getDesafiosPendientes().isEmpty()) {
+                System.out.println("Tienes desafíos pendientes");
+                jugador.aceptarRechazarDesafio();
+            }
 
             System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
             String op = scanner.nextLine();
@@ -223,11 +223,11 @@ public class Juego {
                 if (personajeJugador == null){
                     System.out.println("No tienes ningun personaje registrado");
                 }else {
-                    ((Jugador) usuario).equipar(personajeJugador);
+                    jugador.equipar(personajeJugador);
                 }
 
             }else if (op.equals("2")){
-                Personaje personajeJugador = ((Jugador) usuario).getPersonaje();
+                Personaje personajeJugador = jugador.getPersonaje();
                 if (personajeJugador == null){
                     System.out.println("No tienes ningun personaje registrado");
                 }else {
@@ -244,10 +244,12 @@ public class Juego {
                 }
 
             }else if(op.equals("3")){
-                //jugador.rankingOro();
+                jugador.consultarOro();
 
             }else if (op.equals("4")){
-                //jugador.rankingGlobal();
+                for (Jugador j : rankingGlobal){
+                    j.getPersonaje().getOro(); //HAY QUE ORDERNAR EL RANKING
+                }
 
             }else if(op.equals("5")){
                 for (Personaje personaje : personajes) {
@@ -255,7 +257,6 @@ public class Juego {
                     int opcionRegistrar = scanner.nextInt();
                     if (opcionRegistrar == 1) {
                         jugador.registrarPersonaje(personaje);
-                        guardarPersonajes();
                     }
                 }
 
@@ -266,6 +267,7 @@ public class Juego {
                 String nick = usuario.getNick();
                 if (usuarios.containsKey(nick)){
                     usuarios.remove(nick);
+                    guardarUsuarios();
                 }
 
             }else if (op.equals("8")){
