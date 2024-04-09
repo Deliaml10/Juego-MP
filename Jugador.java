@@ -16,7 +16,7 @@ public class Jugador extends Usuario {
         this.numeroRegistro = crearNumeroRegistro();
         this.personaje = null;
         this.bloqueado = false;
-        //this.desafiosPendientes = new ArrayList<>();
+        this.desafiosPendientes = new ArrayList<>();
     }
 
     public String crearNumeroRegistro() {
@@ -40,18 +40,10 @@ public class Jugador extends Usuario {
 
         return codigo.toString();
     }
-    public void registrarPersonaje(Personaje personaje) {this.personaje = personaje;
-    }
-    public void eliminarPersonaje() {
-        this.setNombreUsuario("");
-        this.setContrasena("");
-        this.setNick("");
-        this.numeroRegistro = null;
-    }
 
-
-/*   public static void registrarPersonaje(Personaje personaje) {this.personaje = personaje;
-    }
+    public void registrarPersonaje(Personaje personaje) {
+        this.personaje = personaje;
+        /*
         String[] nombre = new String[Personajes];
         String[] contrasena = new String[Personajes];
         String[] nick = new String[Personajes];
@@ -82,10 +74,13 @@ public class Jugador extends Usuario {
             pw.close();
         } catch(IOException e) {
             e.printStackTrace();
-        }
-
+        }*/
     }
-    private static void eliminarPersonaje(String[] nicks) {
+
+    public void eliminarPersonaje() {
+        this.personaje = null;
+
+        /*
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese el nick del personaje a eliminar:");
         String nickEliminar = scanner.nextLine();
@@ -126,10 +121,8 @@ public class Jugador extends Usuario {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
-}
-*/
 
 
     public void equipar(Personaje personaje) {
@@ -209,36 +202,59 @@ public class Jugador extends Usuario {
         }
 
     }
-    public void aceptarDesafio() {
-        /*if (desafiosPendientes.isEmpty()) {
+
+    public void aceptarRechazarDesafio() {
+        if (desafiosPendientes.isEmpty()) {
             System.out.println("No hay desafíos pendientes.");
             return;
         }
         System.out.println("Desafíos pendientes:");
         for (int i = 0; i < desafiosPendientes.size(); i++) {
-            String desafio = desafiosPendientes.get(i);
-            System.out.println((i + 1) + ". " + desafio);
-        }
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Seleccione el número del desafío que desea aceptar: ");
-        int seleccion = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el buffer
-        if (seleccion < 1 || seleccion > desafiosPendientes.size()) {
-            System.out.println("Selección no válida.");
-            return;
-        }
-        /*String desafioSeleccionado = desafiosPendientes.get(seleccion - 1);
-        System.out.println("Desafío aceptado: " + desafioSeleccionado);
-        if (oro < desafioSeleccionado.getOro()) {
-            System.out.println("No tienes suficiente oro para aceptar este desafío.");
-            return;
+            Combate desafio = desafiosPendientes.get(i);
+            System.out.println((i + 1) + ". Desafiante: " + desafio.getDesafiante() + ", Oro Apostado: " + desafio.getOroApostado());
         }
 
-        System.out.println("Desafío de " + desafioSeleccionado.getNickOponente() + " aceptado.");
-*/
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Seleccione el número del desafío que desea aceptar/rechazar: ");
+        int seleccion;
+        scanner.nextLine(); // Limpiar el buffer
+        do {
+            seleccion = scanner.nextInt();
+            if (seleccion < 1 || seleccion > desafiosPendientes.size()) {
+                System.out.println("Selección no válida. Intentalo de nuevo: ");
+            }
+        }while (seleccion < 1 || seleccion > desafiosPendientes.size());
+        Combate desafioSeleccionado = desafiosPendientes.get(seleccion - 1);
+        int oroApostado = desafioSeleccionado.getOroApostado();
+
+        System.out.println("Pulse 'A' para aceptar, o cualquier otra letra para rechazar");
+        String aceptarRechazar = scanner.nextLine();
+        scanner.nextLine();
+        if (aceptarRechazar.equalsIgnoreCase("A")){
+            if (this.personaje.getOro() < oroApostado) {
+                System.out.println("No tienes suficiente oro para aceptar este desafío.");
+                return;
+            }else{
+                this.personaje.restarOro(oroApostado);
+                System.out.println("Desafío de " + desafioSeleccionado.getDesafiante() + " aceptado.");
+                this.desafiosPendientes.remove(seleccion - 1);
+            }
+        }else{
+            int oroRechazar = (int)(oroApostado * 0.1);
+            if (this.personaje.getOro() < desafioSeleccionado.getOroApostado()*0.1 ) {
+                System.out.println("No tienes suficiente oro para rechazar este desafío.");
+                return;
+            }else{
+                this.personaje.restarOro(oroRechazar);
+                System.out.println("Desafío de " + desafioSeleccionado.getDesafiante() + " rechazado.");
+                this.desafiosPendientes.remove(seleccion - 1);
+            }
+        }
     }
-    public void setDesafiosPendientes(ArrayList<String> desafiosPendientes) {
-        //this.desafiosPendientes = desafiosPendientes;
+
+    public void addDesafioPendiente(Combate desafioPendiente) {
+        this.desafiosPendientes.add(desafioPendiente);
     }
     public String getNumeroRegistro(){
         return this.numeroRegistro;
@@ -266,13 +282,24 @@ public class Jugador extends Usuario {
         }
     }
 
-    public void desafiar(Personaje personaje1, Personaje personaje2){
 
-    }
     public ArrayList<Combate> getDesafiosPendientes(){
         return this.desafiosPendientes;
     }
-    public void aceptarRechazarDesafio(Combate desafio){
+    public Combate getFirstDesafioPendiente(){
+        return this.desafiosPendientes.get(0);
+    }
+
+    public void removeFirstDesafioPendiente(){
+        this.desafiosPendientes.remove(0);
+    }
+
+    public void consultarOro(){
+        System.out.println("ESTO TODAVIA NO ESTA HECHO, HAZLOOOOO");
+    }
+
+    public void desafiar(Personaje personaje1, Personaje personaje2){
 
     }
+
 }

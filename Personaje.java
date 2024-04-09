@@ -134,7 +134,14 @@ public class Personaje {
     public void setSalud(int salud){
         this.salud = salud;
     }
-    
+
+    public int getOro(){
+        return this.oro = oro;
+    }
+
+    public void restarOro(int cantidad){
+        this.oro -= cantidad;
+    }
 
     public void incrementarOro(int cantidad) {
         this.oro += cantidad;

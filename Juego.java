@@ -5,6 +5,8 @@ public class Juego {
     private HashMap<String,Usuario> usuarios = new HashMap();
     private ArrayList<Personaje> personajes = new ArrayList<>();
 
+    private ArrayList<Jugador> rankingGlobal = new ArrayList<>();
+
     public void start() {
         // Mensaje de bienvenida
         try (Scanner scanner = new Scanner(System.in)) {
@@ -183,80 +185,71 @@ public class Juego {
 
         } else if (usuario instanceof Jugador) {
             Jugador jugador = (Jugador)usuario;
-            while (jugador.getDesafiosPendientes().isEmpty()) {
-                ArrayList<Combate> desafiosPendientes = new ArrayList<>();
-                jugador.aceptarRechazarDesafio(desafiosPendientes.getFirst());
-                desafiosPendientes.removeFirst();
+            while (!jugador.getDesafiosPendientes().isEmpty()) {
+                System.out.println("Tienes desafíos pendientes");
+                jugador.aceptarRechazarDesafio();
             }
 
-                System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
-                String op = scanner.nextLine();
-                if(op.equals("1")) {
-                    Personaje personajeJugador = jugador.getPersonaje();
-                    if (personajeJugador == null){
-                        System.out.println("No tienes ningun personaje registrado");
-                    }else {
-                        ((Jugador) usuario).equipar(personajeJugador);
-                    }
+            System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
+            String op = scanner.nextLine();
+            if(op.equals("1")) {
+                Personaje personajeJugador = jugador.getPersonaje();
+                if (personajeJugador == null){
+                    System.out.println("No tienes ningun personaje registrado");
+                }else {
+                    ((Jugador) usuario).equipar(personajeJugador);
+                }
 
-                }else if (op.equals("2")){
-                    Personaje personajeJugador = ((Jugador) usuario).getPersonaje();
-                    if (personajeJugador == null){
-                        System.out.println("No tienes ningun personaje registrado");
-                    }else {
-                        for (Usuario usuario2 : usuarios.values()){
-                            if (usuario2 instanceof Jugador) {
-                                Jugador jugador2 = (Jugador)usuario2;
-                                System.out.println("Quieres desafiar al jugador: " + usuario2.getNombreUsuario() + " \n 1. Si. \n 2. No.");
-                                int opcionDesafiar = scanner.nextInt();
-                                if (opcionDesafiar == 1) {
-                                    jugador.desafiar(jugador.getPersonaje() ,jugador2.getPersonaje());
-                                }
+            }else if (op.equals("2")){
+                Personaje personajeJugador = ((Jugador) usuario).getPersonaje();
+                if (personajeJugador == null){
+                    System.out.println("No tienes ningun personaje registrado");
+                }else {
+                    for (Usuario usuario2 : usuarios.values()){
+                        if (usuario2 instanceof Jugador) {
+                            Jugador jugador2 = (Jugador)usuario2;
+                            System.out.println("Quieres desafiar al jugador: " + usuario2.getNombreUsuario() + " \n 1. Si. \n 2. No.");
+                            int opcionDesafiar = scanner.nextInt();
+                            if (opcionDesafiar == 1) {
+                                jugador.desafiar(jugador.getPersonaje() ,jugador2.getPersonaje());
                             }
                         }
                     }
-
-                }else if(op.equals("3")){
-                    //jugador.rankingOro();
-
-                }else if (op.equals("4")){
-                    //jugador.rankingGlobal();
-
-                }else if(op.equals("5")){
-                    for (Personaje personaje : personajes) {
-                        System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
-                        int opcionRegistrar = scanner.nextInt();
-                        if (opcionRegistrar == 1) {
-                            jugador.registrarPersonaje(personaje);
-                        }
-                    }
-
-                }else if(op.equals("6")) {
-                    jugador.darBajaPersonaje();
-
-                }else if (op.equals("7")){
-                    String nick = usuario.getNick();
-                    if (usuarios.containsKey(nick)){
-                        usuarios.remove(nick);
-                    }
-
-                }else if (op.equals("8")){
-                    System.out.println("¡Hasta luego!");
-                }else {
-                    System.out.println("Opción no válida");
                 }
 
-            //}
-            /*else{ //TODAVIA NO SE PUEDE PORQUE NO ESTA LA CLASE COMBATE
+            }else if(op.equals("3")){
+                jugador.consultarOro();
 
-                System.out.println("Tienes desafíos pendientes. \n Pulsa A para aceptarlo o pulsa N para rechazarlo. \n Si rechazas un desafío tendrás que pagar el 10% del oro apostado.");
-                String eleccion = scanner.nextLine();
-                if(eleccion.equalsIgnoreCase("A")){
-                    jugador.aceptarDesafio();
-                }else{
-                    jugador.rechazarDesafio();
+            }else if (op.equals("4")){
+                for (Jugador j : rankingGlobal){
+                    Personaje personaje = j.getPersonaje();
+                    System.out.println(personaje.getNombrePersonaje() + " " + personaje.getOro());
                 }
-            }*/
+
+            }else if(op.equals("5")){
+                for (Personaje personaje : personajes) {
+                    System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
+                    int opcionRegistrar = scanner.nextInt();
+                    if (opcionRegistrar == 1) {
+                        jugador.registrarPersonaje(personaje);
+                    }
+                }
+
+            }else if(op.equals("6")) {
+                jugador.darBajaPersonaje();
+
+            }else if (op.equals("7")){
+                String nick = usuario.getNick();
+                if (usuarios.containsKey(nick)){
+                    usuarios.remove(nick);
+                }
+
+            }else if (op.equals("8")){
+                System.out.println("¡Hasta luego!");
+
+            }else {
+                System.out.println("Opción no válida");
+            }
         }
     }
 
