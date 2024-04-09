@@ -139,11 +139,12 @@ public class Juego {
     private void jugar(Usuario usuario, Scanner scanner){
         System.out.println("¡Empieza el juego!");
         if (usuario instanceof Administrador) {
+            Administrador administrador = (Administrador)usuario;
 
             System.out.println("¿Qué quieres hacer?\n 1.Crear un personaje \n 2. Editar un personaje. \n 3. Validar desafíos. \n 4. Bloquear usuarios. \n 5. Desbloquear usuarios. \n 6. Salir del juego. ");
             String opcion = scanner.nextLine();
             if(opcion.equals("1")) {
-                personajes.add(((Administrador) usuario).crearPersonaje());
+                personajes.add(administrador.crearPersonaje());
 
             }else if (opcion.equals("2")){
                 if (this.personajes == null){
@@ -155,23 +156,31 @@ public class Juego {
                     for (Personaje personaje : personajes) {
                         if (personaje.getNombrePersonaje().equals(nombreBuscado)) {
                             personajeEditar = personaje;
-                            personaje = ((Administrador) usuario).editarPersonaje(personajeEditar);
+                            personaje = administrador.editarPersonaje(personajeEditar);
                         }
                     }
                 }
 
             }else if(opcion.equals("3")){
-                //usuario.validarDesafios(); //Todavia no se puede hasta que no implementemos los combates
+                //administrador.validarDesafios(); //Todavia no se puede hasta que no implementemos los combates
 
             }else if (opcion.equals("4")){
                 System.out.println("Escribe el nick del usuario que quieres bloquear");
                 String nickBloquear = scanner.nextLine();
-                Usuario usuarioBloquear = usuarios.get(nickBloquear);
-                ((Administrador) usuario).bloquearUsuario((Jugador)usuarioBloquear);
+                scanner.nextLine();
+                if (usuarios.containsKey(nickBloquear) && usuarios.get(nickBloquear) instanceof Jugador){
+                    Jugador usuarioBloquear = (Jugador)usuarios.get(nickBloquear);
+                    administrador.bloquearUsuario(usuarioBloquear);
+                }
 
             }else if(opcion.equals("5")){
                 System.out.println("Escribe el nick del usuario que quieres desbloquear");
                 String nickDesbloquear = scanner.nextLine();
+                scanner.nextLine();
+                if (usuarios.containsKey(nickDesbloquear) && usuarios.get(nickDesbloquear) instanceof Jugador){
+                    Jugador usuarioDesbloquear = (Jugador)usuarios.get(nickDesbloquear);
+                    administrador.desbloquearUsuario(usuarioDesbloquear);
+                }
                 Usuario usuarioDesbloquear = usuarios.get(nickDesbloquear);
                 ((Administrador) usuario).desbloquearUsuario((Jugador)usuarioDesbloquear);
 
