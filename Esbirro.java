@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Esbirro {
+public class Esbirro implements Serializable  {
     private String nombre;
     private int salud;
 

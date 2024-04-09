@@ -178,6 +178,7 @@ public class Juego {
                     }
                     if (personajeEditar != null) {
                         administrador.editarPersonaje(personajeEditar);
+                        guardarPersonajes();
                     } else {
                         System.out.println("Personaje no encontrado");
                     }
@@ -323,14 +324,15 @@ public class Juego {
         }
     }
     
-
     private void cargarPersonajes() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Personajes))) {
             ArrayList<Personaje> personajesCargados = (ArrayList<Personaje>) ois.readObject();
+            personajes.clear(); // Limpiar la lista actual antes de cargar los personajes
             personajes.addAll(personajesCargados);
             System.out.println("Personajes cargados correctamente.");
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error al cargar personajes");
+            System.err.println("Error al cargar personajes: " + e.getMessage());
         }
     }
+    
 }

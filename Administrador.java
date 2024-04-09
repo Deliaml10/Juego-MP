@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Administrador extends Usuario {
@@ -8,7 +6,6 @@ public class Administrador extends Usuario {
     public Administrador(String nombre, String nick, String contrasena) {
         super(nombre, nick, contrasena);
     }
-
 
     public Personaje crearPersonaje() {
         Scanner scanner = new Scanner(System.in);
@@ -21,21 +18,20 @@ public class Administrador extends Usuario {
         ArrayList<Debilidad> debilidades = new ArrayList<>();
         ArrayList<Fortaleza> fortalezas = new ArrayList<>();
 
-
         System.out.print("Nombre del personaje: ");
         nombre = scanner.nextLine().trim();
 
         System.out.println("Tipo de personaje (elige el 1, 2 o 3):");
         System.out.println("1. Vampiro");
-        System.out.println("2. Licantropo");
+        System.out.println("2. Licántropo");
         System.out.println("3. Cazador");
         tipoPersonaje = scanner.nextInt();
 
         System.out.print("Habilidades: ");
-        System.out.println("Cuantas habilidades quieres anyadir al personaje");
+        System.out.println("Cuantas habilidades quieres añadir al personaje");
         int numHabilidades = scanner.nextInt();
         scanner.nextLine();
-        for (int i = 0; i<numHabilidades; ++i) {
+        for (int i = 0; i < numHabilidades; ++i) {
             System.out.println("Escribe el nombre de la habilidad");
             String nombreHabilidad = scanner.nextLine();
             switch (tipoPersonaje) {
@@ -66,12 +62,12 @@ public class Administrador extends Usuario {
         System.out.print("Fortalezas: ");
         fortalezas = crearFortalezas();
 
-        Personaje nuevoPersonaje = new Personaje(nombre, tipoPersonaje, habilidades,  armas,  armaduras,  esbirros,  debilidades,  fortalezas);
+        Personaje nuevoPersonaje = new Personaje(nombre, tipoPersonaje, habilidades, armas, armaduras, esbirros, debilidades, fortalezas);
         System.out.println("Personaje '" + nombre + "' creado correctamente.");
         return nuevoPersonaje;
     }
 
-    public Personaje editarPersonaje(Personaje personaje) {
+    public void editarPersonaje(Personaje personaje) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
@@ -80,7 +76,7 @@ public class Administrador extends Usuario {
         System.out.println("1. Nombre");
         System.out.println("2. Habilidades");
         System.out.println("3. Armas");
-        System.out.println("4. Armadura");
+        System.out.println("4. Armaduras");
         System.out.println("5. Armas Activas");
         System.out.println("6. Armaduras Activas");
         System.out.println("7. Esbirros");
@@ -100,9 +96,10 @@ public class Administrador extends Usuario {
             case 2:
                 System.out.print("Nuevas habilidades: ");
                 int tipo = personaje.getTipoPersonaje();
-                System.out.println("Cuantas habilidades quieres anyadir al personaje");
+                System.out.println("Cuantas habilidades quieres añadir al personaje");
                 int numHabilidades = scanner.nextInt();
-                for (int i = 0; i<numHabilidades; ++i) {
+                scanner.nextLine();
+                for (int i = 0; i < numHabilidades; ++i) {
                     System.out.println("Escribe el nombre de la habilidad");
                     String nombreHabilidad = scanner.nextLine();
                     switch (tipo) {
@@ -134,53 +131,51 @@ public class Administrador extends Usuario {
             case 5:
                 System.out.print("Nuevas armas activas: ");
                 ArrayList<Arma> armas = personaje.getArmas();
-                for (Arma arma : armas){
-                    if (arma.getActiva()){
-                        System.out.println("Quieres desactivar el arma "+ arma.getNombreEquipo());
-                        System.out.println("1.Desactivar");
-                        System.out.println("2. Dejarla activa");
-                        int opcionActiva = scanner.nextInt();
-                        if (opcionActiva == 1){
+                for (Arma arma : armas) {
+                    if (arma.getActiva()) {
+                        System.out.println("¿Quieres desactivar el arma " + arma.getNombreEquipo() + "? (S/N)");
+                        char opcionActiva = scanner.next().charAt(0);
+                        if (opcionActiva == 'S' || opcionActiva == 's') {
                             arma.setActiva(false);
                             personaje.restarArmasActivas();
                         }
-                    }else {
-                        System.out.println("Quieres activar el arma " + arma.getNombreEquipo());
-                        System.out.println("1.Activar");
-                        System.out.println("2. Dejarla desactiva");
-                        int opcionActiva = scanner.nextInt();
-                        if (opcionActiva == 1) {
+                    } else {
+                        System.out.println("¿Quieres activar el arma " + arma.getNombreEquipo() + "? (S/N)");
+                        char opcionActiva = scanner.next().charAt(0);
+                        if (opcionActiva == 'S' || opcionActiva == 's') {
                             arma.setActiva(true);
                             personaje.sumarArmasActivas();
                         }
                     }
                 }
                 break;
-            case 6:
+                case 6:
                 System.out.print("Nuevas armaduras activas: ");
                 ArrayList<Armadura> armaduras = personaje.getArmaduras();
-                for (Armadura armadura : armaduras){
-                    if (armadura.getActiva()){
-                        System.out.println("Quieres desactivar el arma "+ armadura.getNombreEquipo());
-                        System.out.println("1.Desactivar");
+                for (Armadura armadura : armaduras) {
+                    if (armadura.getActiva()) {
+                        System.out.println("Quieres desactivar la armadura " + armadura.getNombreEquipo());
+                        System.out.println("1. Desactivar");
                         System.out.println("2. Dejarla activa");
                         int opcionActiva = scanner.nextInt();
-                        if (opcionActiva == 1){
+                        if (opcionActiva == 1) {
                             armadura.setActiva(false);
-                            personaje.restarArmadurasActivas();
+                            personaje.restarArmadurasActivas(); // Reducir el contador de armaduras activas
                         }
-                    }else {
-                        System.out.println("Quieres activar el arma " + armadura.getNombreEquipo());
-                        System.out.println("1.Activar");
-                        System.out.println("2. Dejarla desactiva");
+                    } else {
+                        System.out.println("Quieres activar la armadura " + armadura.getNombreEquipo());
+                        System.out.println("1. Activar");
+                        System.out.println("2. Dejarla desactivada");
                         int opcionActiva = scanner.nextInt();
                         if (opcionActiva == 1) {
                             armadura.setActiva(true);
-                            personaje.restarArmadurasActivas();
+                            personaje.sumarArmadurasActivas(); // Incrementar el contador de armaduras activas
                         }
                     }
                 }
                 break;
+
+            
             case 7:
                 System.out.print("Nuevos esbirros: ");
                 ArrayList<Esbirro> nuevosEsbirros = crearEsbirros();
@@ -200,108 +195,32 @@ public class Administrador extends Usuario {
                 System.out.println("Fortalezas del personaje cambiadas correctamente");
                 break;
             default:
-                System.out.println("Opcion incorrecta.");
-        }
-
-        return personaje;
-    }
-
-    public void activarModificadores(Personaje personaje, String nombre, int valor) {
-        /*if (tipo.equalsIgnoreCase("debilidades")) {
-            if (valor >= 1 && valor <= 5) {
-                debilidades.put(nombre, valor);
-                System.out.println("Debilidad '" + nombre + "' activada correctamente con valor " + valor + ".");
-            } else {
-                System.out.println("Error: El valor de la debilidad debe estar entre 1 y 5.");
-            }
-        } else if (tipo.equalsIgnoreCase("fortalezas")) {
-            if (valor >= 1 && valor <= 5) {
-                fortalezas.put(nombre, valor);
-                System.out.println("Fortaleza '" + nombre + "' activada correctamente con valor " + valor + ".");
-            } else {
-                System.out.println("Error: El valor de la fortaleza debe estar entre 1 y 5.");
-            }
-        } else {
-            System.out.println("Error: Tipo de modificador no reconocido. Debe ser 'debilidades' o 'fortalezas'.");
-        }*/
-    }
-
-    /*public boolean validarDesafio(Jugador desafiante, Jugador desafiado, HashSet<Desafio> desafiosPendientes) {
-        for (Desafio desafio : desafiosPendientes) {
-            if (desafio.getDesafiante().equals(desafiante) && desafio.getDesafiado().equals(desafiado) && desafio.isAceptado()) {
-                System.out.println("El desafío entre '" + desafiante.getNick() + "' y '" + desafiado.getNick() + "' ha sido validado correctamente.");
-                return true;
-            }
-        }
-        System.out.println("No se encontró ningún desafío pendiente entre '" + desafiante.getNick() + "' y '" + desafiado.getNick() + "'.");
-        return false;
-    }
-
-    public boolean esBloqueado() {
-        if (bloqueado)
-            return true;
-
-        if (ultimoCombatePerdido != null) {
-            LocalDateTime hace24Horas = LocalDateTime.now().minusHours(24);
-            if (ultimoCombatePerdido.isAfter(hace24Horas)) {
-                bloqueado = true;
-                return true;
-            }
-        }
-        return false;
-    }*/
-
-    public void bloquearUsuario(Jugador jugador) {
-        if (jugador.getUltimoCombatePerdido() != null) {
-            LocalDateTime hace24Horas = LocalDateTime.now().minusHours(24);
-            if (jugador.getUltimoCombatePerdido().isAfter(hace24Horas)) {
-                jugador.setBloqueado(true);
-                System.out.println("El jugador ha sido bloqueado.");
-            } else {
-                System.out.println("El jugador no ha perdido combates en las últimas 24 horas. No se puede bloquear.");
-            }
-        } else {
-            System.out.println("El jugador no ha perdido combates. No se puede bloquear.");
+                System.out.println("Opción incorrecta.");
         }
     }
 
-    public void desbloquearUsuario(Jugador jugador) { //HAY QUE HACER CAMBIOS EN BLOQUEAR Y DESBLOQUEAR USUARIOS
-        if (jugador.getUltimoCombatePerdido() != null) {
-            LocalDateTime hace24Horas = LocalDateTime.now().minusHours(24);
-            if (jugador.getUltimoCombatePerdido().isAfter(hace24Horas)) {
-                System.out.println("Aún no han pasado 24 horas desde que el jugador perdió el último combate. No se puede desbloquear.");
-            } else {
-                jugador.setBloqueado(false);
-                System.out.println("El jugador ha sido desbloqueado.");
-            }
-        } else {
-            jugador.setBloqueado(false);
-            System.out.println("El jugador ha sido desbloqueado.");
-        }
-    }
-
-    private ArrayList<Esbirro> crearEsbirros(){
+    private ArrayList<Esbirro> crearEsbirros() {
         ArrayList<Esbirro> esbirros = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Escribe con un numero cuantos esbirros quieres que tenga el personaje/demonio");
         int numEsbirros = scanner.nextInt();
         System.out.print("Esbirros: ");
-        for (int i = 0; i < numEsbirros; ++i){
+        for (int i = 0; i < numEsbirros; ++i) {
             int tipoEsbirro = 0;
             do {
-                System.out.println("De que tipo quieres que sea el esbirro, elige uno del siguientes con numeros:");
+                System.out.println("De qué tipo quieres que sea el esbirro, elige uno del siguientes con numeros:");
                 System.out.println("1. Humano");
                 System.out.println("2. Ghoul");
                 System.out.println("3. Demonio");
                 tipoEsbirro = scanner.nextInt();
-            }while ((tipoEsbirro < 1 || tipoEsbirro > 3));
+            } while ((tipoEsbirro < 1 || tipoEsbirro > 3));
             scanner.nextLine();
             System.out.println("Escribe el nombre del esbirro");
             String nombreEsbirro = scanner.nextLine();
             System.out.println("Cuanta salud tiene (del 1 al 5)");
             int saludEsbirro = scanner.nextInt();
-            switch (tipoEsbirro){
+            switch (tipoEsbirro) {
                 case 1:
                     int lealtad = 0;
                     do {
@@ -333,7 +252,7 @@ public class Administrador extends Usuario {
         return esbirros;
     }
 
-    private ArrayList<Arma> crearArmas(){
+    private ArrayList<Arma> crearArmas() {
         ArrayList<Arma> armas = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
@@ -341,7 +260,7 @@ public class Administrador extends Usuario {
         int numArmas = scanner.nextInt();
         scanner.nextLine();
         System.out.print("Armas: ");
-        for (int i = 0; i < numArmas; ++i){
+        for (int i = 0; i < numArmas; ++i) {
             System.out.println("Escribe el nombre del arma");
             String nombreArma = scanner.nextLine();
             System.out.println("Escribe su valor (numero del 1 al 5)");
@@ -349,51 +268,43 @@ public class Administrador extends Usuario {
             System.out.println("Manos que ocupa (1 o 2)");
             int manos = scanner.nextInt();
             scanner.nextLine();
-            System.out.println("Si quieres que el arma este activa escribe 1, sino pulsa otra tecla");
+            System.out.println("Si quieres que el arma esté activa escribe 1, sino pulsa otra tecla");
             String activaString = scanner.nextLine();
-            boolean activa;
-            if (activaString.equals('1')){
-                activa = true;
-            }else{
-                activa = false;
-            }
+            boolean activa = activaString.equals("1");
             Arma arma = new Arma(nombreArma, manos, valor, activa);
             armas.add(arma);
         }
         return armas;
     }
 
-    private ArrayList<Armadura> crearArmaduras(){
+    private ArrayList<Armadura> crearArmaduras() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Armadura> armaduras = new ArrayList<>();
-
+    
         System.out.println("Escribe con un numero cuantas armaduras quieres anyadir al personaje");
         int numArmaduras = scanner.nextInt();
-        scanner.nextLine();
+        scanner.nextLine(); // Consumir el salto de línea
         System.out.print("Armaduras: ");
-        for (int i = 0; i < numArmaduras; ++i){
+        for (int i = 0; i < numArmaduras; ++i) {
             System.out.println("Escribe el nombre de la armadura");
             String nombreArmadura = scanner.nextLine();
             System.out.println("Escribe su valor (numero del 1 al 5)");
             int valor = scanner.nextInt();
-            System.out.println("Manos qe ocupa (1 o 2)");
+            scanner.nextLine(); // Consumir el salto de línea
+            System.out.println("Manos que ocupa (1 o 2)");
             int manos = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println("Si quieres que la armadura este activa escribe 1, sino pulsa otra tecla");
+            scanner.nextLine(); // Consumir el salto de línea
+            System.out.println("Si quieres que la armadura esté activa escribe 1, sino pulsa otra tecla");
             String activaString = scanner.nextLine();
-            boolean activa;
-            if (activaString.equals('1')){
-                activa = true;
-            }else{
-                activa = false;
-            }
+            boolean activa = activaString.equals("1");
             Armadura armadura = new Armadura(nombreArmadura, manos, valor, activa);
             armaduras.add(armadura);
         }
         return armaduras;
     }
+    
 
-    private ArrayList<Debilidad> crearDebilidades(){
+    private ArrayList<Debilidad> crearDebilidades() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Debilidad> debilidades = new ArrayList<>();
 
@@ -406,25 +317,20 @@ public class Administrador extends Usuario {
             String nombreDebilidad = scanner.nextLine();
             System.out.println("Escribe su valor (numero del 1 al 5)");
             int valor = scanner.nextInt();
+            scanner.nextLine();
             System.out.println("Quieres que el modificador este activado (contesta 1 o 2)");
             System.out.println("1. Si");
             System.out.println("2. No");
             int opcion = scanner.nextInt();
-            boolean activado = false;
-            switch (opcion){
-                case 1:
-                    activado = true;
-                case 2:
-                    activado = false;
-            }
-
+            boolean activado = opcion == 1;
+            scanner.nextLine();
             Debilidad debilidad = new Debilidad(nombreDebilidad, valor, activado);
             debilidades.add(debilidad);
         }
         return debilidades;
     }
 
-    private ArrayList<Fortaleza> crearFortalezas(){
+    private ArrayList<Fortaleza> crearFortalezas() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Fortaleza> fortalezas = new ArrayList<>();
 
@@ -437,48 +343,58 @@ public class Administrador extends Usuario {
             String nombreFortaleza = scanner.nextLine();
             System.out.println("Escribe su valor (numero del 1 al 5)");
             int valor = scanner.nextInt();
+            scanner.nextLine();
             System.out.println("Quieres que el modificador este activado (contesta 1 o 2)");
             System.out.println("1. Si");
             System.out.println("2. No");
             int opcion = scanner.nextInt();
-            boolean activado = false;
-            switch (opcion){
-                case 1:
-                    activado = true;
-                case 2:
-                    activado = false;
-            }
+            boolean activado = opcion == 1;
+            scanner.nextLine();
             Fortaleza fortaleza = new Fortaleza(nombreFortaleza, valor, activado);
             fortalezas.add(fortaleza);
         }
         return fortalezas;
     }
 
-    private Disciplina crearDisciplina(String nombre){
+    private Disciplina crearDisciplina(String nombre) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Escribe el valor de la disciplina");
         int valor = scanner.nextInt();
         System.out.println("Cual es la sangre necesaria para usar la disciplina");
         int sangreNecesaria = scanner.nextInt();
+        scanner.nextLine();
         Disciplina disciplina = new Disciplina(nombre, valor, sangreNecesaria);
 
         return disciplina;
     }
 
-    private Don crearDon(String nombre){
+    private Don crearDon(String nombre) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Escribe el valor del don");
         int valor = scanner.nextInt();
-        System.out.println("Cual es la rabia necesaria para usar el don");
-        int rabiaNecesaria = scanner.nextInt();
-        Don don = new Don(nombre, valor, rabiaNecesaria);
+        scanner.nextLine();
+        Don don = new Don(nombre, valor);
 
         return don;
     }
 
-    private Talento crearTalento(String nombre){
-        Talento talento = new Talento(nombre);
+    private Talento crearTalento(String nombre) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Escribe el valor del talento");
+        int valor = scanner.nextInt();
+        scanner.nextLine();
+        Talento talento = new Talento(nombre, valor);
 
         return talento;
+    }
+
+    public void bloquearUsuario(Jugador usuarioBloquear) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'bloquearUsuario'");
+    }
+
+    public void desbloquearUsuario(Jugador usuarioDesbloquear) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'desbloquearUsuario'");
     }
 }

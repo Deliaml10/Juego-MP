@@ -1,4 +1,6 @@
-public class Modificador {
+import java.io.Serializable;
+
+public class Modificador implements Serializable  {
     private String nombre;
     private int valor;
 

@@ -79,7 +79,6 @@ public class Jugador extends Usuario  {
 
     public void eliminarPersonaje() {
         this.personaje = null;
-
         /*
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese el nick del personaje a eliminar:");
