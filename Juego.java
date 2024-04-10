@@ -270,6 +270,7 @@ public class Juego {
             while (!jugador.getDesafiosPendientes().isEmpty()) {
                 System.out.println("Tienes desafíos pendientes");
                 jugador.aceptarRechazarDesafio();
+                guardarUsuarios();
             }
             String op = null;
             do {
@@ -375,10 +376,10 @@ public class Juego {
                     Personaje personaje = jugador.getPersonaje();
                     jugador.darBajaPersonaje();
 
-                    guardarUsuarios();
-
                     personaje.setOcupado(false);
                     System.out.println("Se ha deseleccionado el personaje");
+
+                    guardarUsuarios();
 
                 } else if (op.equals("7")) {
                     String nick = usuario.getNick();
