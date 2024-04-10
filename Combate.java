@@ -40,11 +40,6 @@ public class Combate implements Serializable {
             // Guardar la ronda
             guardarRonda(ronda);
     
-            // Mostrar información de la ronda y estado de los jugadores
-            System.out.println("Ronda " + rondas.size());
-            System.out.println("Vida de " + desafianteJugador.getNick() + ": " + desafiante.getSalud());
-            System.out.println("Vida de " + desafiadoJugador.getNick() + ": " + desafiado.getSalud());
-    
             // Verificar si uno de los jugadores ha perdido
             if (desafiante.getSalud() <= 0 && desafiado.getSalud() <= 0) {
                 System.out.println("¡El combate termina en empate!");
