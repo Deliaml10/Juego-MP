@@ -170,6 +170,9 @@ public class Jugador extends Usuario {
 
                 // Iniciar el combate
                 desafioSeleccionado.iniciarCombate();
+                desafiosPendientes.remove(desafioSeleccionado);
+                Jugador desafiante = desafioSeleccionado.getDesafiante();
+                desafiante.removeDesafioPendiente(desafioSeleccionado);
             }
         } else {
             int oroRechazar = (int) (oroApostado * 0.1);
@@ -181,6 +184,9 @@ public class Jugador extends Usuario {
                 this.personaje.restarOro(oroRechazar);
                 desafioSeleccionado.getDesafiante().getPersonaje().incrementarOro(oroRechazar);
                 System.out.println("Desafío de " + desafioSeleccionado.getDesafiante().getNombreUsuario() + " rechazado.");
+                desafiosPendientes.remove((desafioSeleccionado));
+                Jugador desafiante = desafioSeleccionado.getDesafiante();
+                desafiante.removeDesafioPendiente(desafioSeleccionado);
             }
         }
 
@@ -262,5 +268,8 @@ public void setPersonaje(Personaje personaje) {
         this.desafiosPendientes.add(combate);
     }
 
+    public void removeDesafioPendiente(Combate combate){
+        this.desafiosPendientes.remove(combate);
+    }
 
 }
