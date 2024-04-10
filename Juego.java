@@ -2,13 +2,16 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.io.*;
 import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+
+import static java.util.Collections.sort;
 
 public class Juego {
     private HashMap<String, Usuario> usuarios = new HashMap<>();
     private ArrayList<Personaje> personajes = new ArrayList<>();
     private static final String Usuarios = "usuarios.dat"; // Nombre del archivo para guardar usuarios
     private static final String Personajes = "personajes.dat"; // Nombre del archivo para guardar personajes
-
     private ArrayList<Jugador> rankingGlobal = new ArrayList<>();
 
 
@@ -350,6 +353,7 @@ public class Juego {
                                         System.out.println("El personaje ya ha sido elegido por otro jugador. Elige otro.");
                                     } else {
                                         personaje.setOcupado(true);
+                                        jugador.registrarPersonaje(personaje);
                                     }
                                 }
                             }
@@ -451,16 +455,17 @@ public class Juego {
         Collections.sort(personajes, new Comparator<Personaje>() {
             @Override
             public int compare(Personaje p1, Personaje p2) {
-                return Integer.compare(p2.getOro(), p1.getOro()); // Ordenar de mayor a menor
+                // Comparamos los valores de oro de los personajes p1 y p2
+                // El método compareTo de Integer devuelve un número negativo si el primer valor es menor, cero si son iguales y un número positivo si el primer valor es mayor
+                return Integer.compare(p2.getOro(), p1.getOro()); // Ordenamos de mayor a menor
             }
         });
 
         // Imprimir el ranking global
         System.out.println("Ranking Global de Personajes (Ordenado por Oro):");
-        for (int i = 0; i < personajes.size(); i++) {
-            Personaje personaje = personajes.get(i);
-            if(!personaje.getOcupado()){
-                System.out.println((i + 1) + ". " + personaje.getNombrePersonaje() + " - Oro: " + personaje.getOro());
+        for (Personaje personaje : personajes) {
+            if (personaje.getOcupado()) {
+                System.out.printf("- %s, Oro: %d\n", personaje.getNombrePersonaje(), personaje.getOro());
             }
         }
     }

@@ -46,7 +46,7 @@ public class Jugador extends Usuario {
     public void registrarPersonaje(Personaje personaje) {
         this.personaje = personaje;
     }
-
+    
     public void eliminarPersonaje() {
         this.personaje = null;
     }
@@ -207,10 +207,10 @@ public class Jugador extends Usuario {
         return this.personaje;
     }
 
-    public void setPersonaje(Personaje personaje) {
+public void setPersonaje(Personaje personaje) {
         this.personaje = personaje;
     }
-
+    
     public void darBajaPersonaje() {
         if (this.personaje == null) {
             System.out.println("No tienes ningun personaje registrado");
