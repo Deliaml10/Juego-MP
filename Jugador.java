@@ -4,7 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Jugador extends Usuario {
-    private String numeroRegistro;
+    private final String numeroRegistro;
+    private String getUltimoCombatePerdidionumeroRegistro;
     private Personaje personaje;
     private LocalDateTime ultimoCombatePerdido;
     private boolean bloqueado;
@@ -170,6 +171,11 @@ public class Jugador extends Usuario {
 
                 // Iniciar el combate
                 desafioSeleccionado.iniciarCombate();
+                desafiosPendientes.remove(desafioSeleccionado);
+                this.personaje.incrementarOro(10);
+                Jugador desafiante = desafioSeleccionado.getDesafiante();
+                desafiante.removeDesafioPendiente(desafioSeleccionado);
+                desafiante.personaje.incrementarOro(10);
             }
         } else {
             int oroRechazar = (int) (oroApostado * 0.1);
@@ -181,11 +187,11 @@ public class Jugador extends Usuario {
                 this.personaje.restarOro(oroRechazar);
                 desafioSeleccionado.getDesafiante().getPersonaje().incrementarOro(oroRechazar);
                 System.out.println("Desafío de " + desafioSeleccionado.getDesafiante().getNombreUsuario() + " rechazado.");
+                desafiosPendientes.remove((desafioSeleccionado));
+                Jugador desafiante = desafioSeleccionado.getDesafiante();
+                desafiante.removeDesafioPendiente(desafioSeleccionado);
             }
         }
-
-        // Remover el desafío pendiente aceptado o rechazado de la lista
-        desafiosPendientes.remove(seleccion - 1);
     }
 
     public String getNumeroRegistro() {
@@ -262,12 +268,17 @@ public void setPersonaje(Personaje personaje) {
         this.desafiosPendientes.add(combate);
     }
 
+<<<<<<< HEAD
     public void agregarCombate(Combate combate) {
         combates.add(combate);
     }
 
     public ArrayList<Combate> getCombates() {
         return this.combates;
+=======
+    public void removeDesafioPendiente(Combate combate){
+        this.desafiosPendientes.remove(combate);
+>>>>>>> 764a92a1c32986a48dd02535c424c57d648bcfd1
     }
 
 }

@@ -59,15 +59,23 @@ public class Combate implements Serializable {
     
         // Asignar oro al ganador y al perdedor
         asignarOro();
+
+
     
         // Mostrar las rondas
         System.out.println("Rondas:");
         for (int i = 0; i < rondas.size(); i++) {
             System.out.println("Ronda " + (i + 1) + ": " + desafianteJugador.getNick() + ": " + rondas.get(i).getSaludDesafiado() + " puntos de vida, y " + desafiadoJugador.getNick() + ": " + rondas.get(i).getSaludDesafiante() + " puntos de vida");
         }
+<<<<<<< HEAD
         visto = false;
         desafianteJugador.agregarCombate(this);
 
+=======
+
+        desafiado.setSalud(5);
+        desafiante.setSalud(5);
+>>>>>>> 764a92a1c32986a48dd02535c424c57d648bcfd1
     }
     
     
