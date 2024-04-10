@@ -16,10 +16,7 @@ public class Personaje implements Serializable   {
     private int poder;
     private ArrayList<Debilidad> debilidades = new ArrayList<>();
     private ArrayList<Fortaleza> fortalezas = new ArrayList<>();
-    private Boolean ocupado;
-
-
-
+        private Boolean ocupado;
     public Personaje (String nombre, int tipo, ArrayList<Habilidad> habilidades, ArrayList<Arma> armas, ArrayList<Armadura> armaduras, ArrayList<Esbirro> esbirros, ArrayList<Debilidad> debilidades, ArrayList<Fortaleza> fortalezas){
         this.nombre = nombre;
         this.tipo = tipo;
@@ -154,7 +151,6 @@ public class Personaje implements Serializable   {
     public void setOcupado(Boolean valor){
         this.ocupado = valor;
     }
-
 
     public boolean getOcupado(){
         return this.ocupado;

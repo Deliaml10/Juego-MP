@@ -197,7 +197,8 @@ public class Juego {
                     }
 
                 } else if (opcion.equals("3")) {
-                    //administrador.validarDesafios(); //Todavía no se puede hasta que no implementemos los combates
+                    administrador.validarCombate();
+                    guardarUsuarios();
 
                 } else if (opcion.equals("4")) {
                     // Mostrar la lista de usuarios jugadores desbloqueados para elegir quién bloquear
@@ -275,17 +276,21 @@ public class Juego {
                         System.out.println("No tienes ningún personaje registrado");
                     } else {
                         jugador.equipar(personajeJugador);
+                        guardarUsuarios();
                     }
                 } else if (op.equals("2")) {
                     Personaje personajeJugador = jugador.getPersonaje();
-                    if (personajeJugador == null){
+                    if (personajeJugador == null) {
                         System.out.println("No tienes ningún personaje registrado");
                     } else {
                         // Obtener la lista de jugadores disponibles para desafiar
                         ArrayList<Jugador> jugadoresDisponibles = new ArrayList<>();
-                        for (Usuario usuario2 : usuarios.values()){
+                        for (Usuario usuario2 : usuarios.values()) {
                             if (usuario2 instanceof Jugador && !usuario2.getNick().equals(jugador.getNick())) {
-                                jugadoresDisponibles.add((Jugador)usuario2);
+                                Personaje personajeUsuario2 = ((Jugador) usuario2).getPersonaje();
+                                if (personajeUsuario2 != null) {
+                                    jugadoresDisponibles.add((Jugador) usuario2);
+                                }
                             }
                         }
 
@@ -308,10 +313,11 @@ public class Juego {
                                 int oroApostado = Integer.parseInt(scanner.nextLine());
 
                                 // Crear el desafío
-                                jugador.desafiar(jugador.getPersonaje(), jugadorDesafiado.getPersonaje(), oroApostado);
+                                jugador.desafiar(jugador, jugadorDesafiado, oroApostado);
 
                                 // Solicitar al administrador validar el desafío
                                 System.out.println("El desafío ha sido enviado al administrador para su validación.");
+                                guardarUsuarios();
                             } else {
                                 System.out.println("Opción no válida");
                             }
@@ -358,10 +364,14 @@ public class Juego {
                     }else{
                         System.out.println("Ya has elegido un personaje.");
                     }
+                    guardarUsuarios();
 
                 } else if (op.equals("6")) {
                     Personaje personaje = jugador.getPersonaje();
                     jugador.darBajaPersonaje();
+<<<<<<< HEAD
+                    guardarUsuarios();
+=======
                     personaje.setOcupado(false);
                     elegido = false;
                     System.out.println("Se ha deseleccionado el personaje");
@@ -405,9 +415,9 @@ public class Juego {
             }
         } catch (IOException e) {
             System.err.println("Error al guardar usuarios: " + e.getMessage());
+            e.printStackTrace(); // Imprime la traza de la excepción para ayudar a identificar el problema
         }
     }
-
     private void cargarUsuarios() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Usuarios))) {
             HashMap<String, Usuario> usuariosCargados = (HashMap<String, Usuario>) ois.readObject();

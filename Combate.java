@@ -1,21 +1,28 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Combate {
+public class Combate implements Serializable {
+    private Jugador desafianteJugador;
     private Personaje desafiante;
+    private Jugador desafiadoJugador;
     private Personaje desafiado;
     private Date fecha;
     private Personaje vencedor;
     private int oroApostado;
     private ArrayList<Ronda> rondas; // Array para almacenar las rondas
+    private boolean validado;
 
     // Constructor
-    public Combate(Personaje desafiante, Personaje desafiado, int oroApostado) {
-        this.desafiante = desafiante;
-        this.desafiado = desafiado;
+    public Combate(Jugador desafianteJugador, Jugador desafiadoJugador, int oroApostado) {
+        this.desafianteJugador = desafianteJugador;
+        this.desafiante = desafianteJugador.getPersonaje();
+        this.desafiadoJugador = desafiadoJugador;
+        this.desafiado = desafiadoJugador.getPersonaje();
         this.fecha = new Date(); // Fecha actual
         this.oroApostado = oroApostado;
         this.rondas = new ArrayList<>();
+        this.validado = false;
     }
 
     // Método para iniciar el combate
@@ -64,13 +71,14 @@ public class Combate {
         }
     }
 
-    // Getters
-    public Personaje getDesafiante() {
-        return desafiante;
+    // Getters y setters
+
+    public Jugador getDesafiante() {
+        return this.desafianteJugador;
     }
 
-    public Personaje getDesafiado() {
-        return desafiado;
+    public Jugador getDesafiado() {
+        return this.desafiadoJugador;
     }
 
     public Date getFecha() {
@@ -88,5 +96,13 @@ public class Combate {
     // Getter para obtener el array de rondas
     public ArrayList<Ronda> getRondas() {
         return rondas;
+    }
+
+    public void setValidado(boolean b) {
+        this.validado = b;
+    }
+
+    public boolean getValidado() {
+        return validado;
     }
 }

@@ -133,54 +133,58 @@ public class Jugador extends Usuario  {
             System.out.println("No hay desafíos pendientes.");
             return;
         }
+    
         System.out.println("Desafíos pendientes:");
         for (int i = 0; i < desafiosPendientes.size(); i++) {
             Combate desafio = desafiosPendientes.get(i);
-            System.out.println((i + 1) + ". Desafiante: " + desafio.getDesafiante() + ", Oro Apostado: " + desafio.getOroApostado());
+            System.out.println((i + 1) + ". Desafiante: " + desafio.getDesafiante().getNombreUsuario() + ", Oro Apostado: " + desafio.getOroApostado());
         }
-
-
+    
         Scanner scanner = new Scanner(System.in);
         System.out.print("Seleccione el número del desafío que desea aceptar/rechazar: ");
         int seleccion;
-        scanner.nextLine(); // Limpiar el buffer
         do {
             seleccion = scanner.nextInt();
             if (seleccion < 1 || seleccion > desafiosPendientes.size()) {
-                System.out.println("Selección no válida. Intentalo de nuevo: ");
+                System.out.println("Selección no válida. Inténtalo de nuevo: ");
             }
-        }while (seleccion < 1 || seleccion > desafiosPendientes.size());
+        } while (seleccion < 1 || seleccion > desafiosPendientes.size());
+    
         Combate desafioSeleccionado = desafiosPendientes.get(seleccion - 1);
         int oroApostado = desafioSeleccionado.getOroApostado();
-
+    
         System.out.println("Pulse 'A' para aceptar, o cualquier otra letra para rechazar");
-        String aceptarRechazar = scanner.nextLine();
-        scanner.nextLine();
-        if (aceptarRechazar.equalsIgnoreCase("A")){
+        String aceptarRechazar = scanner.next();
+        scanner.nextLine(); // Limpiar el buffer
+    
+        if (aceptarRechazar.equalsIgnoreCase("A")) {
             if (this.personaje.getOro() < oroApostado) {
                 System.out.println("No tienes suficiente oro para aceptar este desafío.");
                 return;
-            }else{
+            } else {
                 this.personaje.restarOro(oroApostado);
-                System.out.println("Desafío de " + desafioSeleccionado.getDesafiante() + " aceptado.");
-                this.desafiosPendientes.remove(seleccion - 1);
+                System.out.println("Desafío de " + desafioSeleccionado.getDesafiante().getNombreUsuario() + " aceptado.");
+    
+                // Iniciar el combate
+                desafioSeleccionado.iniciarCombate();
             }
-        }else{
-            int oroRechazar = (int)(oroApostado * 0.1);
-            if (this.personaje.getOro() < desafioSeleccionado.getOroApostado()*0.1 ) {
+        } else {
+            int oroRechazar = (int) (oroApostado * 0.1);
+            if (this.personaje.getOro() < oroRechazar) {
                 System.out.println("No tienes suficiente oro para rechazar este desafío.");
                 return;
-            }else{
+            } else {
+                // Pagar el 10% del oro al jugador desafiante
                 this.personaje.restarOro(oroRechazar);
-                System.out.println("Desafío de " + desafioSeleccionado.getDesafiante() + " rechazado.");
-                this.desafiosPendientes.remove(seleccion - 1);
+                desafioSeleccionado.getDesafiante().getPersonaje().incrementarOro(oroRechazar);
+                System.out.println("Desafío de " + desafioSeleccionado.getDesafiante().getNombreUsuario() + " rechazado.");
             }
         }
+    
+        // Remover el desafío pendiente aceptado o rechazado de la lista
+        desafiosPendientes.remove(seleccion - 1);
     }
-
-    public void addDesafioPendiente(Combate desafioPendiente) {
-        this.desafiosPendientes.add(desafioPendiente);
-    }
+    
     public String getNumeroRegistro(){
         return this.numeroRegistro;
     }
@@ -223,12 +227,12 @@ public class Jugador extends Usuario  {
         System.out.println("ESTO TODAVIA NO ESTA HECHO, HAZLOOOOO");
     }
 
-    public void desafiar(Personaje personaje1, Personaje personaje2, int oroApostado) {
+    public void desafiar(Jugador desafiante, Jugador desafiado, int oroApostado) {
         // Crear un nuevo desafío
-        Combate combate = new Combate(personaje1, personaje2, oroApostado);
+        Combate combate = new Combate(desafiante, desafiado, oroApostado);
 
         // Agregar el desafío a la lista de desafíos pendientes del jugador retador
-        this.addDesafioPendiente(combate);
+        this.addDesafioPendienteAdmin(combate);
     }
     
     public void setTiempoBloqueo(LocalDateTime tiempoBloqueo) {
@@ -236,6 +240,15 @@ public class Jugador extends Usuario  {
     }
     public LocalDateTime getTiempoBloqueo() {
         return tiempoBloqueo;
+    }
+
+    // Método para agregar un desafío pendiente a la lista del administrador
+    private void addDesafioPendienteAdmin(Combate combate) {
+    Administrador.addDesafioPendienteComun(combate);
+    }
+
+    public void addDesafioPendiente(Combate combate) {
+        this.desafiosPendientes.add(combate);
     }
 
     }

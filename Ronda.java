@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Random;
 
-public class Ronda {
+public class Ronda implements Serializable {
     private int ataqueDesafiante;
     private int ataqueDesafiado;
     private int defensaDesafiante;
