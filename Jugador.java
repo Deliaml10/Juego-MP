@@ -8,7 +8,8 @@ public class Jugador extends Usuario {
     private Personaje personaje;
     private LocalDateTime ultimoCombatePerdido;
     private boolean bloqueado;
-    public ArrayList<Combate> desafiosPendientes = new ArrayList<>();
+    private ArrayList<Combate> desafiosPendientes = new ArrayList<>();
+    private ArrayList<Combate> combates = new ArrayList<>();
     private LocalDateTime tiempoBloqueo;
     private boolean elegido;
 
@@ -261,5 +262,12 @@ public void setPersonaje(Personaje personaje) {
         this.desafiosPendientes.add(combate);
     }
 
+    public void agregarCombate(Combate combate) {
+        combates.add(combate);
+    }
+
+    public ArrayList<Combate> getCombates() {
+        return this.combates;
+    }
 
 }

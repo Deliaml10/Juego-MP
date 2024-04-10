@@ -8,10 +8,11 @@ public class Combate implements Serializable {
     private Jugador desafiadoJugador;
     private Personaje desafiado;
     private Date fecha;
-    private Personaje vencedor;
+    private Jugador vencedor;
     private int oroApostado;
     private ArrayList<Ronda> rondas; // Array para almacenar las rondas
     private boolean validado;
+    private boolean visto;
 
     // Constructor
     public Combate(Jugador desafianteJugador, Jugador desafiadoJugador, int oroApostado) {
@@ -47,11 +48,11 @@ public class Combate implements Serializable {
                 break;
             } else if (desafiante.getSalud() <= 0) {
                 System.out.println("¡El vencedor es: " + desafiadoJugador.getNick() + "!");
-                vencedor = desafiado;
+                vencedor = desafiadoJugador;
                 break;
             } else if (desafiado.getSalud() <= 0) {
                 System.out.println("¡El vencedor es: " + desafianteJugador.getNick() + "!");
-                vencedor = desafiante;
+                vencedor = desafianteJugador;
                 break;
             }
         }
@@ -64,6 +65,9 @@ public class Combate implements Serializable {
         for (int i = 0; i < rondas.size(); i++) {
             System.out.println("Ronda " + (i + 1) + ": " + desafianteJugador.getNick() + ": " + rondas.get(i).getSaludDesafiado() + " puntos de vida, y " + desafiadoJugador.getNick() + ": " + rondas.get(i).getSaludDesafiante() + " puntos de vida");
         }
+        visto = false;
+        desafianteJugador.agregarCombate(this);
+
     }
     
     
@@ -120,4 +124,12 @@ public class Combate implements Serializable {
     public boolean getValidado() {
         return validado;
     }
+    public boolean getVisto() {
+        return visto;
+    }
+
+    public void setVisto(boolean v) {
+        this.visto = v;
+    }
+
 }

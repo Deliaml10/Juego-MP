@@ -416,7 +416,13 @@ public class Administrador extends Usuario {
 
     public void validarCombate() {
         Scanner scanner = new Scanner(System.in);
-    
+        
+        // Verificar si la lista de desafíos pendientes comunes está vacía
+        if (desafiosPendientesComunes.isEmpty()) {
+            System.out.println("No hay desafíos pendientes para validar.");
+            return; // Salir del método
+        }
+
         // Mostrar la lista de desafíos pendientes comunes
         System.out.println("Lista de desafíos pendientes comunes:");
         for (int i = 0; i < desafiosPendientesComunes.size(); i++) {

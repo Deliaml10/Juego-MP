@@ -262,13 +262,26 @@ public class Juego {
                 }
 
             }while (!opcion.equals("6"));
+
         } else if (usuario instanceof Jugador) {
             Jugador jugador = (Jugador)usuario;
             ArrayList<Combate> desafiosPendientes = jugador.getDesafiosPendientes();
             while (!jugador.getDesafiosPendientes().isEmpty()) {
                 System.out.println("Tienes desafíos pendientes");
                 jugador.aceptarRechazarDesafio();
+                guardarUsuarios();
             }
+            for (Combate combate : jugador.getCombates()) {
+                    if (!combate.getVisto()) {
+                        System.out.println("¡El vencedor es: " + combate.getVencedor() + "!");
+                        System.out.println("Rondas:");
+                        for (int i = 0; i < combate.getRondas().size(); i++) {
+                            System.out.println("Ronda " + (i + 1) + ": " + combate.getDesafiante().getNick() + ": " + combate.getRondas().get(i).getSaludDesafiado() + " puntos de vida, y " + combate.getDesafiado().getNick() + ": " + combate.getRondas().get(i).getSaludDesafiante() + " puntos de vida");
+                        }
+                        // Marcar el combate como visto
+                        combate.setVisto(true);
+                    }
+                }
             String op = null;
             do {
                 System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja el personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
@@ -336,39 +349,41 @@ public class Juego {
                     RankingGlobal();
 
                 } else if (op.equals("5")) {
-                    if(jugador.getPersonaje() == null) {
-                        System.out.println("Los personajes que tienes para elegir son: ");
-                        for (Personaje personaje : personajes) {
-                            if (!personaje.getOcupado()) {
-                                System.out.println("- " + personaje.getNombrePersonaje() + "\n");
-                            }
-                        }
-                        String opcionRegistrar = null;
-                        for (Personaje personaje : personajes) {
-                            if (!personaje.getOcupado()) {
-                                System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
-                                opcionRegistrar = scanner.nextLine();
-                                if (opcionRegistrar != null && opcionRegistrar.equals("1")) {
-                                    if (personaje.getOcupado()) {
-                                        System.out.println("El personaje ya ha sido elegido por otro jugador. Elige otro.");
-                                    } else {
-                                        personaje.setOcupado(true);
-                                        jugador.registrarPersonaje(personaje);
-                                    }
+                    if (personajes.isEmpty()) {
+                        System.out.println("No hay personajes disponibles para registrar.");
+                    } else {
+                        if (jugador.getPersonaje() == null) {
+                            System.out.println("Los personajes que tienes para elegir son: ");
+                            for (Personaje personaje : personajes) {
+                                if (!personaje.getOcupado()) {
+                                    System.out.println("- " + personaje.getNombrePersonaje() + "\n");
                                 }
                             }
-
-
-                            if (opcionRegistrar != null && opcionRegistrar.equals("1")) {
-                                jugador.registrarPersonaje(personaje);
-                                break;
+                            String opcionRegistrar = null;
+                            for (Personaje personaje : personajes) {
+                                if (!personaje.getOcupado()) {
+                                    System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
+                                    opcionRegistrar = scanner.nextLine();
+                                    if (opcionRegistrar != null && opcionRegistrar.equals("1")) {
+                                        if (personaje.getOcupado()) {
+                                            System.out.println("El personaje ya ha sido elegido por otro jugador. Elige otro.");
+                                        } else {
+                                            personaje.setOcupado(true);
+                                            jugador.registrarPersonaje(personaje);
+                                        }
+                                    }
+                                }
+                
+                                if (opcionRegistrar != null && opcionRegistrar.equals("1")) {
+                                    jugador.registrarPersonaje(personaje);
+                                    break;
+                                }
                             }
+                        } else {
+                            System.out.println("Ya has elegido un personaje.");
                         }
-                    }else{
-                        System.out.println("Ya has elegido un personaje.");
+                        guardarUsuarios();
                     }
-                    guardarUsuarios();
-
                 } else if (op.equals("6")) {
                     Personaje personaje = jugador.getPersonaje();
                     jugador.darBajaPersonaje();
@@ -412,10 +427,8 @@ public class Juego {
             // Escribir el nuevo HashMap en el archivo
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Usuarios))) {
                 oos.writeObject(usuarios);
-                System.out.println("Usuarios guardados correctamente.");
             }
         } catch (IOException e) {
-            System.err.println("Error al guardar usuarios: " + e.getMessage());
             e.printStackTrace(); // Imprime la traza de la excepción para ayudar a identificar el problema
         }
     }
@@ -424,9 +437,7 @@ public class Juego {
             HashMap<String, Usuario> usuariosCargados = (HashMap<String, Usuario>) ois.readObject();
             usuarios.clear(); // Limpiar el HashMap actual
             usuarios.putAll(usuariosCargados); // Almacenar los usuarios cargados en el HashMap
-            System.out.println("Usuarios cargados correctamente.");
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error al cargar usuarios: " + e.getMessage());
         }
     }
 
@@ -434,9 +445,7 @@ public class Juego {
     private void guardarPersonajes() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Personajes))) {
             oos.writeObject(personajes);
-            System.out.println("Personajes guardados correctamente.");
         } catch (IOException e) {
-            System.err.println("Error al guardar personajes: " + e.getMessage());
         }
     }
 
@@ -445,9 +454,7 @@ public class Juego {
             ArrayList<Personaje> personajesCargados = (ArrayList<Personaje>) ois.readObject();
             personajes.clear(); // Limpiar la lista actual antes de cargar los personajes
             personajes.addAll(personajesCargados);
-            System.out.println("Personajes cargados correctamente.");
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error al cargar personajes: " + e.getMessage());
         }
     }
     private void RankingGlobal() {
