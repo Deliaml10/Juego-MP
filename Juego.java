@@ -369,11 +369,7 @@ public class Juego {
                 } else if (op.equals("6")) {
                     Personaje personaje = jugador.getPersonaje();
                     jugador.darBajaPersonaje();
-<<<<<<< HEAD
                     guardarUsuarios();
-=======
-                    personaje.setOcupado(false);
->>>>>>> a875119322b58f72ec116e4fb44ee94bed724fd9
 
                 } else if (op.equals("7")) {
                     String nick = usuario.getNick();
