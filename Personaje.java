@@ -16,6 +16,7 @@ public class Personaje implements Serializable  {
     private int poder;
     private ArrayList<Debilidad> debilidades = new ArrayList<>();
     private ArrayList<Fortaleza> fortalezas = new ArrayList<>();
+    
 
 
     public Personaje (String nombre, int tipo, ArrayList<Habilidad> habilidades, ArrayList<Arma> armas, ArrayList<Armadura> armaduras, ArrayList<Esbirro> esbirros, ArrayList<Debilidad> debilidades, ArrayList<Fortaleza> fortalezas){
@@ -147,8 +148,6 @@ public class Personaje implements Serializable  {
     public void incrementarOro(int cantidad) {
         this.oro += cantidad;
     }
-    
-
 
 }
 

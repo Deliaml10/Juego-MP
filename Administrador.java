@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 
 public class Administrador extends Usuario {
+    private static ArrayList<Combate> desafiosPendientesComunes = new ArrayList<>();
 
     public Administrador(String nombre, String nick, String contrasena) {
         super(nombre, nick, contrasena);
@@ -407,6 +408,39 @@ public class Administrador extends Usuario {
             System.out.println("El usuario '" + jugador.getNick() + "' no está bloqueado.");
         }
     }
+
+    public static void addDesafioPendienteComun(Combate combate) {
+        desafiosPendientesComunes.add(combate);
+    }
+
+    public void validarCombate() {
+        Scanner scanner = new Scanner(System.in);
+    
+        // Mostrar la lista de desafíos pendientes comunes
+        System.out.println("Lista de desafíos pendientes comunes:");
+        for (int i = 0; i < desafiosPendientesComunes.size(); i++) {
+            System.out.println((i + 1) + ". " + desafiosPendientesComunes.get(i));
+        }
+    
+        // Solicitar al usuario que elija un combate a validar
+        System.out.println("Seleccione el número del combate que desea validar:");
+        int opcion = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer
+    
+        // Validar el combate seleccionado
+        if (opcion >= 1 && opcion <= desafiosPendientesComunes.size()) {
+            Combate combateSeleccionado = desafiosPendientesComunes.get(opcion - 1);
+            combateSeleccionado.setValidado(true);
+            // Obtener al jugador desafiado
+            Jugador jugadorDesafiado = (Jugador) combateSeleccionado.getDesafiado();
+            // Agregar el combate a la lista de desafíos pendientes del jugador desafiado
+            jugadorDesafiado.addDesafioPendiente(combateSeleccionado);
+            System.out.println("Combate validado correctamente.");
+        } else {
+            System.out.println("Opción no válida.");
+        }
+    }
+    
     
     
 }
