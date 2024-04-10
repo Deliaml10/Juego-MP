@@ -1,9 +1,10 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Esbirro implements Serializable  {
+    @SuppressWarnings("unused")
     private String nombre;
+    @SuppressWarnings("unused")
     private int salud;
 
     public Esbirro(String nombre, int salud){
@@ -16,7 +17,9 @@ public class Esbirro implements Serializable  {
 
 // Clase Humano
 class Humano extends Esbirro {
+    @SuppressWarnings("unused")
     private String[] tipoLealtad = {"baja", "media", "alta"};
+    @SuppressWarnings("unused")
     private int lealtad;
 
     public Humano(String nombre, int salud, int lealtad){
@@ -27,6 +30,7 @@ class Humano extends Esbirro {
 
 // Clase Ghoul
 class Ghoul extends Esbirro {
+    @SuppressWarnings("unused")
     private int dependencia;
 
     public Ghoul(String nombre, int salud, int dependencia){
@@ -37,6 +41,7 @@ class Ghoul extends Esbirro {
 
 // Clase Demonio
 class Demonio extends Esbirro{
+    @SuppressWarnings("unused")
     private String pacto;
     private ArrayList<Esbirro> esbirros = new ArrayList<>();
 

@@ -372,11 +372,15 @@ public class Juego {
                 } else if (op.equals("6")) {
                     Personaje personaje = jugador.getPersonaje();
                     jugador.darBajaPersonaje();
+<<<<<<< HEAD
 
                     guardarUsuarios();
 
                     personaje.setOcupado(false);
                     System.out.println("Se ha deseleccionado el personaje");
+=======
+                    guardarUsuarios();
+>>>>>>> 4a1f7d4ed743bc324adefbb7d9f57c7b97f2ee3d
 
                 } else if (op.equals("7")) {
                     String nick = usuario.getNick();
