@@ -4,7 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Jugador extends Usuario {
-    private String numeroRegistro;
+    private final String numeroRegistro;
+    private String getUltimoCombatePerdidionumeroRegistro;
     private Personaje personaje;
     private LocalDateTime ultimoCombatePerdido;
     private boolean bloqueado;
