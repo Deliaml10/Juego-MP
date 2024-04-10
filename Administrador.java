@@ -437,6 +437,7 @@ public class Administrador extends Usuario {
             // Agregar el combate a la lista de desafíos pendientes del jugador desafiado
             jugadorDesafiado.addDesafioPendiente(combateSeleccionado);
             System.out.println("Combate validado correctamente.");
+            desafiosPendientesComunes.remove(combateSeleccionado);
         } else {
             System.out.println("Opción no válida.");
         }
