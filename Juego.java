@@ -429,8 +429,6 @@ public class Juego {
     }
     private void RankingGlobal() {
         cargarPersonajes(); // Cargar personajes desde el archivo
-
-        // Ordenar por la propiedad "oro"
         Collections.sort(personajes, new Comparator<Personaje>() {
             @Override
             public int compare(Personaje p1, Personaje p2) {
@@ -442,7 +440,9 @@ public class Juego {
         System.out.println("Ranking Global de Personajes (Ordenado por Oro):");
         for (int i = 0; i < personajes.size(); i++) {
             Personaje personaje = personajes.get(i);
-            System.out.println((i + 1) + ". " + personaje.getNombrePersonaje() + " - Oro: " + personaje.getOro());
+            if(!personaje.getOcupado()){
+                System.out.println((i + 1) + ". " + personaje.getNombrePersonaje() + " - Oro: " + personaje.getOro());
+            }
         }
     }
 
