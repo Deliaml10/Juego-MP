@@ -8,7 +8,6 @@ public class Administrador extends Usuario {
     public Administrador(String nombre, String nick, String contrasena) {
         super(nombre, nick, contrasena);
     }
-
     public Personaje crearPersonaje() {
         Scanner scanner = new Scanner(System.in);
         String nombre;
@@ -63,6 +62,8 @@ public class Administrador extends Usuario {
 
         System.out.print("Fortalezas: ");
         fortalezas = crearFortalezas();
+
+
 
         Personaje nuevoPersonaje = new Personaje(nombre, tipoPersonaje, habilidades, armas, armaduras, esbirros, debilidades, fortalezas);
         System.out.println("Personaje '" + nombre + "' creado correctamente.");
@@ -337,7 +338,7 @@ public class Administrador extends Usuario {
         ArrayList<Fortaleza> fortalezas = new ArrayList<>();
 
         System.out.println("Escribe con un numero cuantas debilidades quieres anyadir al personaje");
-        int numFortalezas = scanner.nextInt();
+                int numFortalezas = scanner.nextInt();
         scanner.nextLine();
         System.out.print("Fortalezas: ");
         for (int i = 0; i < numFortalezas; ++i) {

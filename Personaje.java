@@ -1,7 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Personaje implements Serializable  {
+public class Personaje implements Serializable   {
     private String nombre;
     private int tipo;
     private ArrayList<Habilidad> habilidades = new ArrayList<>();
@@ -16,9 +16,7 @@ public class Personaje implements Serializable  {
     private int poder;
     private ArrayList<Debilidad> debilidades = new ArrayList<>();
     private ArrayList<Fortaleza> fortalezas = new ArrayList<>();
-    
-
-
+        private Boolean ocupado;
     public Personaje (String nombre, int tipo, ArrayList<Habilidad> habilidades, ArrayList<Arma> armas, ArrayList<Armadura> armaduras, ArrayList<Esbirro> esbirros, ArrayList<Debilidad> debilidades, ArrayList<Fortaleza> fortalezas){
         this.nombre = nombre;
         this.tipo = tipo;
@@ -43,6 +41,7 @@ public class Personaje implements Serializable  {
         this.esbirros= esbirros;
         this.debilidades= debilidades;
         this.fortalezas = fortalezas;
+        this.ocupado = false;
     }
 
 
@@ -148,6 +147,16 @@ public class Personaje implements Serializable  {
     public void incrementarOro(int cantidad) {
         this.oro += cantidad;
     }
+    
+    public void setOcupado(Boolean valor){
+        this.ocupado = valor;
+    }
+
+    public boolean getOcupado(){
+        return this.ocupado;
+    }
 
 }
+
+
 

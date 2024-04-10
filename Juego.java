@@ -11,6 +11,7 @@ public class Juego {
 
     private ArrayList<Jugador> rankingGlobal = new ArrayList<>();
 
+    private boolean elegido = false;
     public void start() {
         cargarUsuarios(); // Cargar usuarios al inicio del juego
         cargarPersonajes(); // Cargar personajes al inicio del juego
@@ -332,24 +333,57 @@ public class Juego {
                     RankingGlobal();
 
                 } else if (op.equals("5")) {
-                    for (Personaje personaje : personajes) {
-                        System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
-                        int opcionRegistrar = Integer.parseInt(scanner.nextLine());
-                        if (opcionRegistrar == 1) {
-                            jugador.registrarPersonaje(personaje);
+                    if(!elegido) {
+                        System.out.println("Los personajes que tienes para elegir son: ");
+                        for (Personaje personaje : personajes) {
+                            if (!personaje.getOcupado()) {
+                                System.out.println("- " + personaje.getNombrePersonaje() + "\n");
+                            }
                         }
+                        String opcionRegistrar = null;
+                        for (Personaje personaje : personajes) {
+                            if (!personaje.getOcupado()) {
+                                System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
+                                opcionRegistrar = scanner.nextLine();
+                            }
+                            if (opcionRegistrar.equals("1")) {
+                                if (personaje.getOcupado()) {
+                                    System.out.println("El personaje ya ha sido elegido por otro jugador. Elige otro.");
+                                } else {
+                                    personaje.setOcupado(true);
+                                    elegido = true;
+                                }
+                            }
+
+
+                            if (opcionRegistrar.equals("1")) {
+                                jugador.registrarPersonaje(personaje);
+                                break;
+                            }
+                        }
+                    }else{
+                        System.out.println("Ya has elegido un personaje.");
                     }
                     guardarUsuarios();
 
                 } else if (op.equals("6")) {
+                    Personaje personaje = jugador.getPersonaje();
                     jugador.darBajaPersonaje();
+<<<<<<< HEAD
                     guardarUsuarios();
+=======
+                    personaje.setOcupado(false);
+>>>>>>> a875119322b58f72ec116e4fb44ee94bed724fd9
 
                 } else if (op.equals("7")) {
                     String nick = usuario.getNick();
+                    Personaje personaje = jugador.getPersonaje();
+                    jugador.darBajaPersonaje();
+                    personaje.setOcupado(false);
                     if (usuarios.containsKey(nick)) {
                         usuarios.remove(nick);
                         guardarUsuarios();
+
                         break;
                     }
 
@@ -412,8 +446,6 @@ public class Juego {
     }
     private void RankingGlobal() {
         cargarPersonajes(); // Cargar personajes desde el archivo
-
-        // Ordenar por la propiedad "oro"
         Collections.sort(personajes, new Comparator<Personaje>() {
             @Override
             public int compare(Personaje p1, Personaje p2) {
@@ -425,7 +457,9 @@ public class Juego {
         System.out.println("Ranking Global de Personajes (Ordenado por Oro):");
         for (int i = 0; i < personajes.size(); i++) {
             Personaje personaje = personajes.get(i);
-            System.out.println((i + 1) + ". " + personaje.getNombrePersonaje() + " - Oro: " + personaje.getOro());
+            if(!personaje.getOcupado()){
+                System.out.println((i + 1) + ". " + personaje.getNombrePersonaje() + " - Oro: " + personaje.getOro());
+            }
         }
     }
 
