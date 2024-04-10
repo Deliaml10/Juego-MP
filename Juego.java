@@ -11,6 +11,7 @@ public class Juego {
 
     private ArrayList<Jugador> rankingGlobal = new ArrayList<>();
 
+    private boolean elegido = false;
     public void start() {
         cargarUsuarios(); // Cargar usuarios al inicio del juego
         cargarPersonajes(); // Cargar personajes al inicio del juego
@@ -326,19 +327,36 @@ public class Juego {
                     RankingGlobal();
 
                 } else if (op.equals("5")) {
-                        System.out.println("Los personajes que tienes para elegir son: " );
-                    for (Personaje personaje : personajes) {
-                        System.out.println("- " + personaje.getNombrePersonaje() + "\n");
-                    }
-                    String opcionRegistrar = null;
-                    for (Personaje personaje : personajes) {
-                        System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
-                        opcionRegistrar = scanner.nextLine();
-
-                        if (opcionRegistrar.equals("1")) {
-                            jugador.registrarPersonaje(personaje);
-                            break;
+                    if(!elegido) {
+                        System.out.println("Los personajes que tienes para elegir son: ");
+                        for (Personaje personaje : personajes) {
+                            if (!personaje.getOcupado()) {
+                                System.out.println("- " + personaje.getNombrePersonaje() + "\n");
+                            }
                         }
+                        String opcionRegistrar = null;
+                        for (Personaje personaje : personajes) {
+                            if (!personaje.getOcupado()) {
+                                System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
+                                opcionRegistrar = scanner.nextLine();
+                            }
+                            if (opcionRegistrar.equals("1")) {
+                                if (personaje.getOcupado()) {
+                                    System.out.println("El personaje ya ha sido elegido por otro jugador. Elige otro.");
+                                } else {
+                                    personaje.setOcupado();
+                                    elegido = true;
+                                }
+                            }
+
+
+                            if (opcionRegistrar.equals("1")) {
+                                jugador.registrarPersonaje(personaje);
+                                break;
+                            }
+                        }
+                    }else{
+                        System.out.println("Ya has elegido un personaje.");
                     }
 
                 } else if (op.equals("6")) {
