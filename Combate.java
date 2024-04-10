@@ -67,15 +67,10 @@ public class Combate implements Serializable {
         for (int i = 0; i < rondas.size(); i++) {
             System.out.println("Ronda " + (i + 1) + ": " + desafianteJugador.getNick() + ": " + rondas.get(i).getSaludDesafiado() + " puntos de vida, y " + desafiadoJugador.getNick() + ": " + rondas.get(i).getSaludDesafiante() + " puntos de vida");
         }
-<<<<<<< HEAD
         visto = false;
         desafianteJugador.agregarCombate(this);
-
-=======
-
         desafiado.setSalud(5);
         desafiante.setSalud(5);
->>>>>>> 764a92a1c32986a48dd02535c424c57d648bcfd1
     }
     
     
@@ -89,7 +84,7 @@ public class Combate implements Serializable {
 
     // Método para asignar oro al ganador y al perdedor
     private void asignarOro() {
-        if (vencedor == desafiante) {
+        if (vencedor == desafianteJugador) {
             desafiante.incrementarOro(oroApostado / 2);
             desafiado.incrementarOro(-oroApostado / 2);
         } else {
@@ -112,7 +107,7 @@ public class Combate implements Serializable {
         return fecha;
     }
 
-    public Personaje getVencedor() {
+    public Jugador getVencedor() {
         return vencedor;
     }
 

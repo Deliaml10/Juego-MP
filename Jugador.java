@@ -268,17 +268,16 @@ public void setPersonaje(Personaje personaje) {
         this.desafiosPendientes.add(combate);
     }
 
-<<<<<<< HEAD
     public void agregarCombate(Combate combate) {
         combates.add(combate);
     }
 
     public ArrayList<Combate> getCombates() {
         return this.combates;
-=======
+    }
+    
     public void removeDesafioPendiente(Combate combate){
         this.desafiosPendientes.remove(combate);
->>>>>>> 764a92a1c32986a48dd02535c424c57d648bcfd1
     }
 
 }
