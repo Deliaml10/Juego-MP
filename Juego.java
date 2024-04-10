@@ -369,9 +369,9 @@ public class Juego {
                 } else if (op.equals("6")) {
                     Personaje personaje = jugador.getPersonaje();
                     jugador.darBajaPersonaje();
-<<<<<<< HEAD
+
                     guardarUsuarios();
-=======
+
                     personaje.setOcupado(false);
                     elegido = false;
                     System.out.println("Se ha deseleccionado el personaje");
