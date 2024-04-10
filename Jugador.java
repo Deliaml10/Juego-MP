@@ -189,9 +189,6 @@ public class Jugador extends Usuario {
                 desafiante.removeDesafioPendiente(desafioSeleccionado);
             }
         }
-
-        // Remover el desafío pendiente aceptado o rechazado de la lista
-        desafiosPendientes.remove(seleccion - 1);
     }
 
     public String getNumeroRegistro() {
