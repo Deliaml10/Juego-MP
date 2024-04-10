@@ -345,12 +345,12 @@ public class Juego {
                             if (!personaje.getOcupado()) {
                                 System.out.println("Quieres registrar el personaje: " + personaje.getNombrePersonaje() + " \n 1. Si. \n 2. No.");
                                 opcionRegistrar = scanner.nextLine();
-                            }
-                            if (opcionRegistrar.equals("1")) {
-                                if (personaje.getOcupado()) {
-                                    System.out.println("El personaje ya ha sido elegido por otro jugador. Elige otro.");
-                                } else {
-                                    personaje.setOcupado(true);
+                                if (opcionRegistrar.equals("1")) {
+                                    if (personaje.getOcupado()) {
+                                        System.out.println("El personaje ya ha sido elegido por otro jugador. Elige otro.");
+                                    } else {
+                                        personaje.setOcupado(true);
+                                    }
                                 }
                             }
 
