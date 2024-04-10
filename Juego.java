@@ -268,7 +268,7 @@ public class Juego {
             }
             String op = null;
             do {
-                System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
+                System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja el personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
                 op = scanner.nextLine();
                 if (op.equals("1")) {
                     Personaje personajeJugador = jugador.getPersonaje();
@@ -293,7 +293,7 @@ public class Juego {
                                 }
                             }
                         }
-                
+
                         // Mostrar los jugadores disponibles para desafiar
                         if (!jugadoresDisponibles.isEmpty()) {
                             System.out.println("Jugadores disponibles para desafiar:");
@@ -301,20 +301,20 @@ public class Juego {
                                 Jugador jugadorDisponible = jugadoresDisponibles.get(i);
                                 System.out.println((i + 1) + ". " + jugadorDisponible.getNombreUsuario() + " - Oro: " + jugadorDisponible.getPersonaje().getOro());
                             }
-                
+
                             // Solicitar al jugador seleccionar a quién desafiar
                             System.out.println("Elige el número del jugador al que quieres desafiar:");
                             int opcionDesafiar = Integer.parseInt(scanner.nextLine());
                             if (opcionDesafiar >= 1 && opcionDesafiar <= jugadoresDisponibles.size()) {
                                 Jugador jugadorDesafiado = jugadoresDisponibles.get(opcionDesafiar - 1);
-                
+
                                 // Solicitar al jugador especificar la cantidad de oro a apostar
                                 System.out.println("Especifica la cantidad de oro que deseas apostar:");
                                 int oroApostado = Integer.parseInt(scanner.nextLine());
-                
+
                                 // Crear el desafío
                                 jugador.desafiar(jugador, jugadorDesafiado, oroApostado);
-                
+
                                 // Solicitar al administrador validar el desafío
                                 System.out.println("El desafío ha sido enviado al administrador para su validación.");
                                 guardarUsuarios();
@@ -370,18 +370,29 @@ public class Juego {
                     Personaje personaje = jugador.getPersonaje();
                     jugador.darBajaPersonaje();
                     guardarUsuarios();
+<<<<<<< HEAD
+=======
+=======
+                    personaje.setOcupado(false);
+                    elegido = false;
+                    System.out.println("Se ha deseleccionado el personaje");
+>>>>>>> ed2b131cffacbd0f8f313a70e4d2fa078a50c0c7
 
                 } else if (op.equals("7")) {
                     String nick = usuario.getNick();
                     Personaje personaje = jugador.getPersonaje();
-                    jugador.darBajaPersonaje();
-                    personaje.setOcupado(false);
+                    if(jugador.getPersonaje() != null) {
+                        jugador.darBajaPersonaje();
+                        personaje.setOcupado(false);
+                        elegido = false;
+                    }
                     if (usuarios.containsKey(nick)) {
                         usuarios.remove(nick);
                         guardarUsuarios();
-
+                        System.out.println("Se ha eliminado la cuenta correctamente");
                         break;
                     }
+
 
                 } else if (op.equals("8")) {
 
