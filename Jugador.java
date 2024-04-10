@@ -3,13 +3,14 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Jugador extends Usuario  {
+public class Jugador extends Usuario {
     private String numeroRegistro;
     private Personaje personaje;
     private LocalDateTime ultimoCombatePerdido;
     private boolean bloqueado;
     public ArrayList<Combate> desafiosPendientes = new ArrayList<>();
     private LocalDateTime tiempoBloqueo;
+    private boolean elegido;
 
     public Jugador(String nombre, String contrasena, String nick) {
         super(nombre, contrasena, nick);
@@ -17,6 +18,7 @@ public class Jugador extends Usuario  {
         this.personaje = null;
         this.bloqueado = false;
         this.desafiosPendientes = new ArrayList<>();
+        this.elegido = false;
     }
 
     public String crearNumeroRegistro() {
@@ -74,18 +76,18 @@ public class Jugador extends Usuario  {
                     if (seleccionArma == 1) {
                         System.out.println("Escribe el nombre del arma que quieres equipar");
                         String nombrePide = scanner.nextLine();
-                        for (Arma arma : personaje.getArmas()){
+                        for (Arma arma : personaje.getArmas()) {
                             String nombreArma = arma.getNombreEquipo();
                             int manosOcuparia = arma.getManos() + personaje.getManosOcupadas();
-                            if (nombrePide.equalsIgnoreCase(nombreArma) && manosOcuparia <= 2){
+                            if (nombrePide.equalsIgnoreCase(nombreArma) && manosOcuparia <= 2) {
                                 arma.setEquipada(true);
                                 personaje.setManosOcupadas(manosOcuparia);
-                            }else if (nombrePide.equalsIgnoreCase(nombreArma) && manosOcuparia > 2){
+                            } else if (nombrePide.equalsIgnoreCase(nombreArma) && manosOcuparia > 2) {
                                 System.out.println("No puedes ocupar mas de dos manos entre armas y armaduras");
                             }
                         }
 
-                    }else{
+                    } else {
                         System.out.println("Enhorabuena, ya has terminado de equipar tus armas");
                     }
                 } while (seleccionArma != 2);
@@ -105,17 +107,17 @@ public class Jugador extends Usuario  {
                     if (seleccionArmadura == 1) {
                         System.out.println("Escribe el nombre de la armadura que quieres equipar");
                         String nombrePide = scanner.nextLine();
-                        for (Armadura armadura : personaje.getArmaduras()){
+                        for (Armadura armadura : personaje.getArmaduras()) {
                             String nombreArmadura = armadura.getNombreEquipo();
                             int manosOcuparia = armadura.getManos() + personaje.getManosOcupadas();
-                            if (nombrePide.equalsIgnoreCase(nombreArmadura) && manosOcuparia <= 2){
+                            if (nombrePide.equalsIgnoreCase(nombreArmadura) && manosOcuparia <= 2) {
                                 armadura.setEquipada(true);
                                 personaje.setManosOcupadas(manosOcuparia);
-                            }else if (nombrePide.equalsIgnoreCase(nombreArmadura) && manosOcuparia > 2){
+                            } else if (nombrePide.equalsIgnoreCase(nombreArmadura) && manosOcuparia > 2) {
                                 System.out.println("No puedes ocupar mas de dos manos entre armas y armaduras");
                             }
                         }
-                    }else{
+                    } else {
                         System.out.println("Enhorabuena, ya has terminado de equipar tus armaduras");
                     }
                 } while (seleccionArmadura != 2);
@@ -133,13 +135,13 @@ public class Jugador extends Usuario  {
             System.out.println("No hay desafíos pendientes.");
             return;
         }
-    
+
         System.out.println("Desafíos pendientes:");
         for (int i = 0; i < desafiosPendientes.size(); i++) {
             Combate desafio = desafiosPendientes.get(i);
             System.out.println((i + 1) + ". Desafiante: " + desafio.getDesafiante().getNombreUsuario() + ", Oro Apostado: " + desafio.getOroApostado());
         }
-    
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Seleccione el número del desafío que desea aceptar/rechazar: ");
         int seleccion;
@@ -149,14 +151,14 @@ public class Jugador extends Usuario  {
                 System.out.println("Selección no válida. Inténtalo de nuevo: ");
             }
         } while (seleccion < 1 || seleccion > desafiosPendientes.size());
-    
+
         Combate desafioSeleccionado = desafiosPendientes.get(seleccion - 1);
         int oroApostado = desafioSeleccionado.getOroApostado();
-    
+
         System.out.println("Pulse 'A' para aceptar, o cualquier otra letra para rechazar");
         String aceptarRechazar = scanner.next();
         scanner.nextLine(); // Limpiar el buffer
-    
+
         if (aceptarRechazar.equalsIgnoreCase("A")) {
             if (this.personaje.getOro() < oroApostado) {
                 System.out.println("No tienes suficiente oro para aceptar este desafío.");
@@ -164,7 +166,7 @@ public class Jugador extends Usuario  {
             } else {
                 this.personaje.restarOro(oroApostado);
                 System.out.println("Desafío de " + desafioSeleccionado.getDesafiante().getNombreUsuario() + " aceptado.");
-    
+
                 // Iniciar el combate
                 desafioSeleccionado.iniciarCombate();
             }
@@ -180,50 +182,57 @@ public class Jugador extends Usuario  {
                 System.out.println("Desafío de " + desafioSeleccionado.getDesafiante().getNombreUsuario() + " rechazado.");
             }
         }
-    
+
         // Remover el desafío pendiente aceptado o rechazado de la lista
         desafiosPendientes.remove(seleccion - 1);
     }
-    
-    public String getNumeroRegistro(){
+
+    public String getNumeroRegistro() {
         return this.numeroRegistro;
     }
-    public LocalDateTime getUltimoCombatePerdido(){
+
+    public LocalDateTime getUltimoCombatePerdido() {
         return this.ultimoCombatePerdido;
     }
-    public boolean getBloqueado(){
+
+    public boolean getBloqueado() {
         return this.bloqueado;
     }
-    public void setBloqueado(boolean bloqueado){
+
+    public void setBloqueado(boolean bloqueado) {
         this.bloqueado = bloqueado;
     }
-    public Personaje getPersonaje(){
+
+    public Personaje getPersonaje() {
         return this.personaje;
     }
-    public void setPersonaje(Personaje personaje){
+
+    public void setPersonaje(Personaje personaje) {
         this.personaje = personaje;
     }
-    public void darBajaPersonaje(){
-        if (this.personaje == null){
+
+    public void darBajaPersonaje() {
+        if (this.personaje == null) {
             System.out.println("No tienes ningun personaje registrado");
-        }else {
+        } else {
             this.personaje = null;
         }
     }
 
 
-    public ArrayList<Combate> getDesafiosPendientes(){
+    public ArrayList<Combate> getDesafiosPendientes() {
         return this.desafiosPendientes;
     }
-    public Combate getFirstDesafioPendiente(){
+
+    public Combate getFirstDesafioPendiente() {
         return this.desafiosPendientes.get(0);
     }
 
-    public void removeFirstDesafioPendiente(){
+    public void removeFirstDesafioPendiente() {
         this.desafiosPendientes.remove(0);
     }
 
-    public void consultarOro(){
+    public void consultarOro() {
         System.out.println("ESTO TODAVIA NO ESTA HECHO, HAZLOOOOO");
     }
 
@@ -234,21 +243,23 @@ public class Jugador extends Usuario  {
         // Agregar el desafío a la lista de desafíos pendientes del jugador retador
         this.addDesafioPendienteAdmin(combate);
     }
-    
+
     public void setTiempoBloqueo(LocalDateTime tiempoBloqueo) {
         this.tiempoBloqueo = tiempoBloqueo;
     }
+
     public LocalDateTime getTiempoBloqueo() {
         return tiempoBloqueo;
     }
 
     // Método para agregar un desafío pendiente a la lista del administrador
     private void addDesafioPendienteAdmin(Combate combate) {
-    Administrador.addDesafioPendienteComun(combate);
+        Administrador.addDesafioPendienteComun(combate);
     }
 
     public void addDesafioPendiente(Combate combate) {
         this.desafiosPendientes.add(combate);
     }
 
-    }
+
+}

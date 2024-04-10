@@ -11,7 +11,7 @@ public class Juego {
 
     private ArrayList<Jugador> rankingGlobal = new ArrayList<>();
 
-    private boolean elegido = false;
+
     public void start() {
         cargarUsuarios(); // Cargar usuarios al inicio del juego
         cargarPersonajes(); // Cargar personajes al inicio del juego
@@ -333,7 +333,7 @@ public class Juego {
                     RankingGlobal();
 
                 } else if (op.equals("5")) {
-                    if(!elegido) {
+                    if(jugador.getPersonaje() == null) {
                         System.out.println("Los personajes que tienes para elegir son: ");
                         for (Personaje personaje : personajes) {
                             if (!personaje.getOcupado()) {
@@ -351,7 +351,6 @@ public class Juego {
                                     System.out.println("El personaje ya ha sido elegido por otro jugador. Elige otro.");
                                 } else {
                                     personaje.setOcupado(true);
-                                    elegido = true;
                                 }
                             }
 
@@ -373,7 +372,6 @@ public class Juego {
                     guardarUsuarios();
 
                     personaje.setOcupado(false);
-                    elegido = false;
                     System.out.println("Se ha deseleccionado el personaje");
 
                 } else if (op.equals("7")) {
@@ -382,7 +380,6 @@ public class Juego {
                     if(jugador.getPersonaje() != null) {
                         jugador.darBajaPersonaje();
                         personaje.setOcupado(false);
-                        elegido = false;
                     }
                     if (usuarios.containsKey(nick)) {
                         usuarios.remove(nick);
