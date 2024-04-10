@@ -171,8 +171,10 @@ public class Jugador extends Usuario {
                 // Iniciar el combate
                 desafioSeleccionado.iniciarCombate();
                 desafiosPendientes.remove(desafioSeleccionado);
+                this.personaje.incrementarOro(10);
                 Jugador desafiante = desafioSeleccionado.getDesafiante();
                 desafiante.removeDesafioPendiente(desafioSeleccionado);
+                desafiante.personaje.incrementarOro(10);
             }
         } else {
             int oroRechazar = (int) (oroApostado * 0.1);

@@ -58,6 +58,9 @@ public class Combate implements Serializable {
     
         // Asignar oro al ganador y al perdedor
         asignarOro();
+
+        desafiado.setSalud(5);
+        desafiante.setSalud(5);
     
         // Mostrar las rondas
         System.out.println("Rondas:");
