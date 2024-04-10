@@ -171,4 +171,13 @@ public class Ronda implements Serializable {
         }
         return personaje.getSalud();
     }
+    
+    public int getSaludDesafiante() {
+        return saludDesafiante;
+    }
+
+    public int getSaludDesafiado() {
+        return saludDesafiado;
+    }
+    
 }

@@ -420,7 +420,7 @@ public class Administrador extends Usuario {
         // Mostrar la lista de desafíos pendientes comunes
         System.out.println("Lista de desafíos pendientes comunes:");
         for (int i = 0; i < desafiosPendientesComunes.size(); i++) {
-            System.out.println((i + 1) + ". " + desafiosPendientesComunes.get(i));
+            System.out.println((i + 1) + ". " + desafiosPendientesComunes.get(i).getDesafiante().getNick() + "-" + desafiosPendientesComunes.get(i).getDesafiado().getNick( ));
         }
     
         // Solicitar al usuario que elija un combate a validar
@@ -439,6 +439,14 @@ public class Administrador extends Usuario {
             System.out.println("Combate validado correctamente.");
         } else {
             System.out.println("Opción no válida.");
+        }
+    }
+    public static void eliminarCombatePendiente(Combate combate) {
+        if (desafiosPendientesComunes.contains(combate)) {
+            desafiosPendientesComunes.remove(combate);
+            System.out.println("Combate eliminado de la lista de desafíos pendientes del administrador.");
+        } else {
+            System.out.println("El combate especificado no se encuentra en la lista de desafíos pendientes.");
         }
     }
     

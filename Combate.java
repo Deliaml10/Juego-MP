@@ -25,36 +25,56 @@ public class Combate implements Serializable {
         this.validado = false;
     }
 
-    // Método para iniciar el combate
     public void iniciarCombate() {
         System.out.println("¡El combate ha comenzado!");
-
+        
+        // Mostrar información de los jugadores antes de iniciar los combates
+        System.out.println("Desafiante: " + desafianteJugador.getNick() + " - Salud: " + desafiante.getSalud());
+        System.out.println("Desafiado: " + desafiadoJugador.getNick() + " - Salud: " + desafiado.getSalud());
+        System.out.println("Oro apostado: " + oroApostado);
+    
         while (desafiante.getSalud() > 0 && desafiado.getSalud() > 0) {
             // Crear nueva ronda
             Ronda ronda = new Ronda(desafiante, desafiado);
-
+    
             // Guardar la ronda
             guardarRonda(ronda);
-
+    
+            // Mostrar información de la ronda y estado de los jugadores
+            System.out.println("Ronda " + rondas.size());
+            System.out.println("Vida de " + desafianteJugador.getNick() + ": " + desafiante.getSalud());
+            System.out.println("Vida de " + desafiadoJugador.getNick() + ": " + desafiado.getSalud());
+    
             // Verificar si uno de los jugadores ha perdido
             if (desafiante.getSalud() <= 0 && desafiado.getSalud() <= 0) {
                 System.out.println("¡El combate termina en empate!");
                 vencedor = null; // Empate
                 break;
             } else if (desafiante.getSalud() <= 0) {
-                System.out.println("¡El desafiado ha ganado el combate!");
+                System.out.println("¡El vencedor es: " + desafiadoJugador.getNick() + "!");
                 vencedor = desafiado;
                 break;
             } else if (desafiado.getSalud() <= 0) {
-                System.out.println("¡El desafiante ha ganado el combate!");
+                System.out.println("¡El vencedor es: " + desafianteJugador.getNick() + "!");
                 vencedor = desafiante;
                 break;
             }
         }
-
+    
         // Asignar oro al ganador y al perdedor
         asignarOro();
+    
+        // Mostrar las rondas
+        System.out.println("Rondas:");
+        for (int i = 0; i < rondas.size(); i++) {
+            System.out.println("Ronda " + (i + 1) + ": " + desafianteJugador.getNick() + ": " + rondas.get(i).getSaludDesafiado() + " puntos de vida, y " + desafiadoJugador.getNick() + ": " + rondas.get(i).getSaludDesafiante() + " puntos de vida");
+        }
     }
+    
+    
+    
+
+
 
     private void guardarRonda(Ronda ronda) {
         rondas.add(ronda); // Agregar la ronda al array
