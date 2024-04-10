@@ -47,11 +47,6 @@ public class Jugador extends Usuario {
         this.personaje = personaje;
     }
 
-    public void eliminarPersonaje() {
-        this.personaje = null;
-    }
-
-
     public void equipar(Personaje personaje) {
         Scanner scanner = new Scanner(System.in);
 
@@ -187,10 +182,6 @@ public class Jugador extends Usuario {
         desafiosPendientes.remove(seleccion - 1);
     }
 
-    public String getNumeroRegistro() {
-        return this.numeroRegistro;
-    }
-
     public LocalDateTime getUltimoCombatePerdido() {
         return this.ultimoCombatePerdido;
     }
@@ -207,9 +198,6 @@ public class Jugador extends Usuario {
         return this.personaje;
     }
 
-    public void setPersonaje(Personaje personaje) {
-        this.personaje = personaje;
-    }
 
     public void darBajaPersonaje() {
         if (this.personaje == null) {

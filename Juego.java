@@ -8,7 +8,6 @@ public class Juego {
     private ArrayList<Personaje> personajes = new ArrayList<>();
     private static final String Usuarios = "usuarios.dat"; // Nombre del archivo para guardar usuarios
     private static final String Personajes = "personajes.dat"; // Nombre del archivo para guardar personajes
-
     private ArrayList<Jugador> rankingGlobal = new ArrayList<>();
 
 
@@ -350,14 +349,9 @@ public class Juego {
                                         System.out.println("El personaje ya ha sido elegido por otro jugador. Elige otro.");
                                     } else {
                                         personaje.setOcupado(true);
+                                        jugador.registrarPersonaje(personaje);
                                     }
                                 }
-                            }
-
-
-                            if (opcionRegistrar.equals("1")) {
-                                jugador.registrarPersonaje(personaje);
-                                break;
                             }
                         }
                     }else{

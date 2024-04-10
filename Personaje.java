@@ -66,9 +66,6 @@ public class Personaje implements Serializable   {
     public ArrayList<Arma> getArmas(){
         return this.armas;
     }
-    public int getArmasActivas(){
-        return this.armasActivas;
-    }
 
     public void sumarArmasActivas(){
         this.armasActivas += 1;
@@ -86,9 +83,6 @@ public class Personaje implements Serializable   {
         return this.armaduras;
     }
 
-    public int getArmadurasActivas(){
-        return this.armadurasActivas;
-    }
     public void sumarArmadurasActivas(){
         this.armadurasActivas += 1;
     }
