@@ -344,7 +344,7 @@ public class Juego {
                                 if (personaje.getOcupado()) {
                                     System.out.println("El personaje ya ha sido elegido por otro jugador. Elige otro.");
                                 } else {
-                                    personaje.setOcupado();
+                                    personaje.setOcupado(true);
                                     elegido = true;
                                 }
                             }
@@ -360,13 +360,19 @@ public class Juego {
                     }
 
                 } else if (op.equals("6")) {
+                    Personaje personaje = jugador.getPersonaje();
                     jugador.darBajaPersonaje();
+                    personaje.setOcupado(false);
 
                 } else if (op.equals("7")) {
                     String nick = usuario.getNick();
+                    Personaje personaje = jugador.getPersonaje();
+                    jugador.darBajaPersonaje();
+                    personaje.setOcupado(false);
                     if (usuarios.containsKey(nick)) {
                         usuarios.remove(nick);
                         guardarUsuarios();
+
                         break;
                     }
 

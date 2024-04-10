@@ -151,9 +151,10 @@ public class Personaje implements Serializable   {
         this.oro += cantidad;
     }
     
-    public void setOcupado(){
-        this.ocupado = true;
+    public void setOcupado(Boolean valor){
+        this.ocupado = valor;
     }
+
 
     public boolean getOcupado(){
         return this.ocupado;
