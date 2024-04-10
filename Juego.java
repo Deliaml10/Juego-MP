@@ -94,7 +94,7 @@ public class Juego {
             guardarUsuarios();
             System.out.println("¡Administrador creado exitosamente!");
 
-        } else {
+        }else if (eleccion.equalsIgnoreCase("J")){
             String nombre;
             boolean existeNick;
             String nick;
@@ -106,7 +106,7 @@ public class Juego {
                 System.out.println("Ingresa tu nick:");
                 nick = scanner.nextLine();
                 existeNick = usuarios.containsKey(nick);
-                if (existeNick){
+                if (existeNick) {
                     System.out.println("El nick ya existe");
                 }
             } while (existeNick);
@@ -127,6 +127,8 @@ public class Juego {
             usuarios.put(nick, jugador);
             guardarUsuarios();
             System.out.println("¡Jugador creado exitosamente!");
+        }else{
+            System.out.println("Opcion no valida, seleccione 'A' o 'J'");
         }
     }
 
