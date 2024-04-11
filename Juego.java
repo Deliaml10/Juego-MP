@@ -13,7 +13,6 @@ public class Juego {
     private ArrayList<Personaje> personajes = new ArrayList<>();
     private static final String Usuarios = "usuarios.dat"; // Nombre del archivo para guardar usuarios
     private static final String Personajes = "personajes.dat"; // Nombre del archivo para guardar personajes
-    private ArrayList<Jugador> rankingGlobal = new ArrayList<>();
 
 
     public void start() {

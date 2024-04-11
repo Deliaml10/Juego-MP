@@ -61,8 +61,6 @@ public class Combate implements Serializable {
         // Asignar oro al ganador y al perdedor
         asignarOro();
 
-
-    
         // Mostrar las rondas
         System.out.println("Rondas:");
         for (int i = 0; i < rondas.size(); i++) {
@@ -73,11 +71,6 @@ public class Combate implements Serializable {
         desafiado.setSalud(5);
         desafiante.setSalud(5);
     }
-    
-    
-    
-
-
 
     private void guardarRonda(Ronda ronda) {
         rondas.add(ronda); // Agregar la ronda al array
@@ -104,10 +97,6 @@ public class Combate implements Serializable {
         return this.desafiadoJugador;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
     public Jugador getVencedor() {
         return vencedor;
     }
@@ -125,9 +114,6 @@ public class Combate implements Serializable {
         this.validado = b;
     }
 
-    public boolean getValidado() {
-        return validado;
-    }
     public boolean getVisto() {
         return visto;
     }

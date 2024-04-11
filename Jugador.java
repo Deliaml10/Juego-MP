@@ -5,9 +5,7 @@ import java.util.Scanner;
 
 public class Jugador extends Usuario {
     private final String numeroRegistro;
-    private String getUltimoCombatePerdidionumeroRegistro;
     private Personaje personaje;
-    private LocalDateTime ultimoCombatePerdido;
     private boolean bloqueado;
     private ArrayList<Combate> desafiosPendientes = new ArrayList<>();
     private ArrayList<Combate> combates = new ArrayList<>();
