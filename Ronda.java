@@ -168,6 +168,9 @@ public class Ronda implements Serializable {
         if (diferencia > 0) {
             int salud = (personaje.getSalud()- 1);
             personaje.setSalud(salud);
+            if (personaje instanceof Licantropo){
+                ((Licantropo) personaje).incrementarRabia(1);
+            }
         }
         return personaje.getSalud();
     }
