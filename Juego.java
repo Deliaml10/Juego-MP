@@ -315,7 +315,7 @@ public class Juego {
                 }
             String op = null;
             do {
-                System.out.println("¿Qué quieres hacer?\n 1. Elegir armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja el personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
+                System.out.println("¿Qué quieres hacer?\n 1. Modificar armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja el personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
                 op = scanner.nextLine();
                 if (op.equals("1")) {
                     Personaje personajeJugador = jugador.getPersonaje();
