@@ -46,14 +46,19 @@ public class Combate implements Serializable {
                 System.out.println("¡Has ganado: " + this.oroApostado + " monedas de oro" + "!");
                 vencedor = desafiadoJugador;
                 desafiadoJugador.getPersonaje().incrementarOroGanado(this.oroApostado);
+                desafiadoJugador.getPersonaje().incrementarOro(this.oroApostado);
                 desafianteJugador.getPersonaje().incrementarOroPerdido(this.oroApostado);
+                desafianteJugador.getPersonaje().incrementarOro(-this.oroApostado);
+
                 break;
             } else if (desafiado.getSalud() <= 0) {
                 System.out.println("¡El vencedor es: " + desafianteJugador.getNick() + "!");
                 System.out.println("¡Has perdido: " + this.oroApostado + " monedas de oro" + "!");
                 vencedor = desafianteJugador;
                 desafianteJugador.getPersonaje().incrementarOroGanado(this.oroApostado);
+                desafiadoJugador.getPersonaje().incrementarOro(-this.oroApostado);
                 desafiadoJugador.getPersonaje().incrementarOroPerdido(this.oroApostado);
+                desafianteJugador.getPersonaje().incrementarOro(-this.oroApostado);
                 break;
             }
         }

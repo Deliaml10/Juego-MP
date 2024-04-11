@@ -490,22 +490,37 @@ public class Juego {
         } catch (IOException | ClassNotFoundException e) {
         }
     }
-        public void mostrarRankingGlobal() {
-            // Ordenar la lista de personajes por la cantidad de oro que tienen
-            Collections.sort(personajes, new Comparator<Personaje>() {
-                @Override
-                public int compare(Personaje p1, Personaje p2) {
-                    return Integer.compare(p2.getOro(), p1.getOro()); // Orden descendente
-                }
-            });
-
-            // Mostrar el ranking por pantalla
-            System.out.println("Ranking Global:");
-            int posicion = 1;
-            for (Personaje personaje : personajes) {
-                System.out.println(posicion + "º. Personaje " + personaje.getNombrePersonaje() + "con " + personaje.getOro() + " monedas de oro");
-                posicion++;
+    public void mostrarRankingGlobal() {
+        // Crear una lista de jugadores
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+    
+        // Obtener todos los jugadores
+        for (Usuario usuario : usuarios.values()) {
+            if (usuario instanceof Jugador) {
+                Jugador jugador = (Jugador) usuario;
+                jugadores.add(jugador);
             }
         }
+    
+        // Ordenar la lista de jugadores por la cantidad de oro que tienen en sus personajes
+        Collections.sort(jugadores, new Comparator<Jugador>() {
+            @Override
+            public int compare(Jugador j1, Jugador j2) {
+                int oroJugador1 = (j1.getPersonaje() != null) ? j1.getPersonaje().getOro() : 0;
+                int oroJugador2 = (j2.getPersonaje() != null) ? j2.getPersonaje().getOro() : 0;
+                return Integer.compare(oroJugador2, oroJugador1); // Orden descendente
+            }
+        });
+    
+        // Mostrar el ranking por pantalla
+        System.out.println("Ranking Global:");
+        int posicion = 1;
+        for (Jugador jugador : jugadores) {
+            int oroJugador = (jugador.getPersonaje() != null) ? jugador.getPersonaje().getOro() : 0;
+            System.out.println(posicion + "º. Jugador " + jugador.getNick() + " con " + oroJugador + " monedas de oro");
+            posicion++;
+        }
+    }
+    
     }
 
