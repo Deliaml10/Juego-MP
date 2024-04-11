@@ -275,7 +275,8 @@ public class Juego {
             }
             for (Combate combate : jugador.getCombates()) {
                     if (!combate.getVisto()) {
-                        System.out.println("¡El vencedor es: " + combate.getVencedor() + "!");
+                        System.out.println(combate.getDesafiante().getNick() + "vs" + combate.getDesafiado().getNick());
+                        System.out.println("¡El vencedor es: " + combate.getVencedor().getNick() + "!");
                         System.out.println("Rondas:");
                         for (int i = 0; i < combate.getRondas().size(); i++) {
                             System.out.println("Ronda " + (i + 1) + ": " + combate.getDesafiante().getNick() + ": " + combate.getRondas().get(i).getSaludDesafiado() + " puntos de vida, y " + combate.getDesafiado().getNick() + ": " + combate.getRondas().get(i).getSaludDesafiante() + " puntos de vida");
