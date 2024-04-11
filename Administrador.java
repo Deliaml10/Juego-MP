@@ -338,7 +338,7 @@ public class Administrador extends Usuario {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Fortaleza> fortalezas = new ArrayList<>();
 
-        System.out.println("Escribe con un numero cuantas debilidades quieres anyadir al personaje");
+        System.out.println("Escribe con un numero cuantas fortalezas quieres anyadir al personaje");
                 int numFortalezas = scanner.nextInt();
         scanner.nextLine();
         System.out.print("Fortalezas: ");

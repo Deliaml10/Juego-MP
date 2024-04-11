@@ -13,11 +13,12 @@ public class Juego {
     private ArrayList<Personaje> personajes = new ArrayList<>();
     private static final String Usuarios = "usuarios.dat"; // Nombre del archivo para guardar usuarios
     private static final String Personajes = "personajes.dat"; // Nombre del archivo para guardar personajes
+    private ArrayList<Jugador> rankingGlobal = new ArrayList<>();
 
 
     public void start() {
-        cargarUsuarios(); // Cargar usuarios al inicio del juego
-        cargarPersonajes(); // Cargar personajes al inicio del juego
+        cargarUsuarios();
+        cargarPersonajes();
         // Mensaje de bienvenida
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Bienvenido a Sangre y Luna, serás vampiro, licántropo, o quizás... cazador.");
@@ -237,7 +238,7 @@ public class Juego {
                         // Pedir al administrador que elija un usuario para bloquear
                         System.out.println("Escribe el nick del usuario que quieres bloquear:");
                         String nickBloquear = scanner.nextLine();
-                
+
                         // Verificar si el usuario seleccionado existe y es un jugador desbloqueado
                         if (usuarios.containsKey(nickBloquear) && usuarios.get(nickBloquear) instanceof Jugador && !((Jugador) usuarios.get(nickBloquear)).getBloqueado()) {
                             Jugador jugadorBloquear = (Jugador) usuarios.get(nickBloquear);
@@ -263,7 +264,7 @@ public class Juego {
                         // Pedir al administrador que elija un usuario para desbloquear
                         System.out.println("Escribe el nick del usuario que quieres desbloquear:");
                         String nickDesbloquear = scanner.nextLine();
-                
+
                         // Verificar si el usuario seleccionado existe y es un jugador bloqueado
                         if (usuarios.containsKey(nickDesbloquear) && usuarios.get(nickDesbloquear) instanceof Jugador && ((Jugador) usuarios.get(nickDesbloquear)).getBloqueado()) {
                             Jugador jugadorDesbloquear = (Jugador) usuarios.get(nickDesbloquear);
@@ -274,10 +275,10 @@ public class Juego {
                         }
                     }
                 }   else if (opcion.equals("6")) {
-                        break;
+                    break;
                 }   else {
-                        System.out.println("Opción no válida");
-                        this.jugar(usuario, scanner);
+                    System.out.println("Opción no válida");
+                    this.jugar(usuario, scanner);
                 }
 
             }while (!opcion.equals("6"));
@@ -291,27 +292,27 @@ public class Juego {
                 guardarUsuarios();
             }
             for (Combate combate : jugador.getCombates()) {
-                    if (!combate.getVisto()) {
-                        System.out.println("Han tenido lugar un combate, veamos que ha pasado");
-                        System.out.println(combate.getDesafiante().getNick() + " VS " + combate.getDesafiado().getNick());
-                        if(!(combate.getVencedor() == null)){
-                            System.out.println("¡El vencedor es: " + combate.getVencedor().getNick() + "!");
-                            if(combate.getDesafiante() == combate.getVencedor()){
-                            System.out.println("¡Has ganado: " + combate.getOroApostado() + " monedas de oro" + "!");    
-                            } else {
-                                System.out.println("¡Has perdido: " + combate.getOroApostado() + " monedas de oro" + "!");  
-                            }
+                if (!combate.getVisto()) {
+                    System.out.println("Han tenido lugar un combate, veamos que ha pasado");
+                    System.out.println(combate.getDesafiante().getNick() + " VS " + combate.getDesafiado().getNick());
+                    if(!(combate.getVencedor() == null)){
+                        System.out.println("¡El vencedor es: " + combate.getVencedor().getNick() + "!");
+                        if(combate.getDesafiante() == combate.getVencedor()){
+                            System.out.println("¡Has ganado: " + combate.getOroApostado() + " monedas de oro" + "!");
                         } else {
-                            System.out.println("¡El combate ha quedado en empate, recuperas el oro apostado");
+                            System.out.println("¡Has perdido: " + combate.getOroApostado() + " monedas de oro" + "!");
                         }
-                        System.out.println("Rondas:");
-                        for (int i = 0; i < combate.getRondas().size(); i++) {
-                            System.out.println("Ronda " + (i + 1) + ": " + combate.getDesafiante().getNick() + ": " + combate.getRondas().get(i).getSaludDesafiado() + " puntos de vida, y " + combate.getDesafiado().getNick() + ": " + combate.getRondas().get(i).getSaludDesafiante() + " puntos de vida");
-                        }
-                        // Marcar el combate como visto
-                        combate.setVisto(true);
+                    } else {
+                        System.out.println("¡El combate ha quedado en empate, recuperas el oro apostado");
                     }
+                    System.out.println("Rondas:");
+                    for (int i = 0; i < combate.getRondas().size(); i++) {
+                        System.out.println("Ronda " + (i + 1) + ": " + combate.getDesafiante().getNick() + ": " + combate.getRondas().get(i).getSaludDesafiado() + " puntos de vida, y " + combate.getDesafiado().getNick() + ": " + combate.getRondas().get(i).getSaludDesafiante() + " puntos de vida");
+                    }
+                    // Marcar el combate como visto
+                    combate.setVisto(true);
                 }
+            }
             String op = null;
             do {
                 System.out.println("¿Qué quieres hacer?\n 1. Modificar armas y armaduras. \n 2. Desafiar. \n 3. Consultar oro ganado y perdido. \n 4. Consultar ranking global. \n 5. Registrar personaje. \n 6. Dar de baja el personaje. \n 7. Dar de baja la cuenta \n 8. Salir del juego ");
@@ -403,7 +404,7 @@ public class Juego {
                                         }
                                     }
                                 }
-                
+
                                 if (opcionRegistrar != null && opcionRegistrar.equals("1")) {
                                     jugador.registrarPersonaje(personaje);
                                     break;
@@ -497,7 +498,7 @@ public class Juego {
                     return Integer.compare(p2.getOro(), p1.getOro()); // Orden descendente
                 }
             });
-    
+
             // Mostrar el ranking por pantalla
             System.out.println("Ranking Global:");
             int posicion = 1;
@@ -507,3 +508,4 @@ public class Juego {
             }
         }
     }
+
