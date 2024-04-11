@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Administrador extends Usuario {
     private static ArrayList<Combate> desafiosPendientesComunes = new ArrayList<>();
@@ -393,7 +394,7 @@ public class Administrador extends Usuario {
     public void bloquearUsuario(Jugador jugador) {
         if (!jugador.getBloqueado()) {
             jugador.setBloqueado(true);
-            jugador.setTiempoBloqueo(LocalDateTime.now());
+            jugador.setTiempoBloqueo(LocalDateTime.now().plus(24, ChronoUnit.HOURS));
             System.out.println("El usuario " + jugador.getNick() + " ha sido bloqueado.");
         } else {
             System.out.println("El usuario " + jugador.getNick() + " ya está bloqueado.");
