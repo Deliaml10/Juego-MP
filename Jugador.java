@@ -45,11 +45,6 @@ public class Jugador extends Usuario {
     public void registrarPersonaje(Personaje personaje) {
         this.personaje = personaje;
     }
-    
-    public void eliminarPersonaje() {
-        this.personaje = null;
-    }
-
 
     public void equipar(Personaje personaje) {
         Scanner scanner = new Scanner(System.in);
@@ -281,10 +276,6 @@ public class Jugador extends Usuario {
         }
     }
 
-    public String getNumeroRegistro() {
-        return this.numeroRegistro;
-    }
-
     public boolean getBloqueado() {
         return this.bloqueado;
     }
@@ -297,9 +288,6 @@ public class Jugador extends Usuario {
         return this.personaje;
     }
 
-public void setPersonaje(Personaje personaje) {
-        this.personaje = personaje;
-    }
     
     public void darBajaPersonaje() {
         if (this.personaje == null) {
@@ -312,14 +300,6 @@ public void setPersonaje(Personaje personaje) {
 
     public ArrayList<Combate> getDesafiosPendientes() {
         return this.desafiosPendientes;
-    }
-
-    public Combate getFirstDesafioPendiente() {
-        return this.desafiosPendientes.get(0);
-    }
-
-    public void removeFirstDesafioPendiente() {
-        this.desafiosPendientes.remove(0);
     }
 
     public void consultarOro() {
