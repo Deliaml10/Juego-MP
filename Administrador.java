@@ -449,15 +449,4 @@ public class Administrador extends Usuario {
             System.out.println("Opción no válida.");
         }
     }
-    public static void eliminarCombatePendiente(Combate combate) {
-        if (desafiosPendientesComunes.contains(combate)) {
-            desafiosPendientesComunes.remove(combate);
-            System.out.println("Combate eliminado de la lista de desafíos pendientes del administrador.");
-        } else {
-            System.out.println("El combate especificado no se encuentra en la lista de desafíos pendientes.");
-        }
-    }
-    
-    
-    
 }
