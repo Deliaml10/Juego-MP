@@ -377,7 +377,7 @@ public class Juego {
 
                 } else if (op.equals("4")) {
                     // Ordenar el ranking global
-                    RankingGlobal();
+                    mostrarRankingGlobal();
 
                 } else if (op.equals("5")) {
                     if (personajes.isEmpty()) {
@@ -490,24 +490,21 @@ public class Juego {
         } catch (IOException | ClassNotFoundException e) {
         }
     }
-    private void RankingGlobal() {
-        cargarPersonajes(); // Cargar personajes desde el archivo
-        Collections.sort(personajes, new Comparator<Personaje>() {
-            @Override
-            public int compare(Personaje p1, Personaje p2) {
-                // Comparamos los valores de oro de los personajes p1 y p2
-                // El método compareTo de Integer devuelve un número negativo si el primer valor es menor, cero si son iguales y un número positivo si el primer valor es mayor
-                return Integer.compare(p2.getOro(), p1.getOro()); // Ordenamos de mayor a menor
-            }
-        });
-
-        // Imprimir el ranking global
-        System.out.println("Ranking Global de Personajes (Ordenado por Oro):");
-        for (Personaje personaje : personajes) {
-            if (personaje.getOcupado()) {
-                System.out.printf("- %s, Oro: %d\n", personaje.getNombrePersonaje(), personaje.getOro());
+        public void mostrarRankingGlobal() {
+            // Ordenar la lista de personajes por la cantidad de oro que tienen
+            Collections.sort(personajes, new Comparator<Personaje>() {
+                @Override
+                public int compare(Personaje p1, Personaje p2) {
+                    return Integer.compare(p2.getOro(), p1.getOro()); // Orden descendente
+                }
+            });
+    
+            // Mostrar el ranking por pantalla
+            System.out.println("Ranking Global:");
+            int posicion = 1;
+            for (Personaje personaje : personajes) {
+                System.out.println(posicion + ". " + personaje.getNombrePersonaje() + ": " + personaje.getOro() + " de oro");
+                posicion++;
             }
         }
     }
-
-}

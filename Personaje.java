@@ -166,6 +166,11 @@ public class Personaje implements Serializable   {
         return oroPerdido;
     }
 
+
+    public void restarOro(int cantidad) {
+        this.oro = this.oro - cantidad;
+    }
+
 }
 
 
