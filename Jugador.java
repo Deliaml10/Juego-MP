@@ -131,8 +131,11 @@ public class Jugador extends Usuario {
                                 System.out.println("No puedes ocupar mas de dos manos entre armas y armaduras");
                             }
                         }
+
+                    } else if (seleccionArmadura.equals("2")) {
+                        System.out.println("Enhorabuena, ya has terminado de equipar tus armas");
                     } else {
-                        System.out.println("Enhorabuena, ya has terminado de equipar tus armaduras");
+                        System.out.println("Opcion incorrecta");
                     }
                 } while (!seleccionArmadura.equals("2"));
                 break;
