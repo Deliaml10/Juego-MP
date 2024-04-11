@@ -45,11 +45,15 @@ public class Combate implements Serializable {
                 System.out.println("¡El vencedor es: " + desafiadoJugador.getNick() + "!");
                 System.out.println("¡Has ganado: " + this.oroApostado + " monedas de oro" + "!");
                 vencedor = desafiadoJugador;
+                desafiadoJugador.getPersonaje().incrementarOroGanado(this.oroApostado);
+                desafianteJugador.getPersonaje().incrementarOroPerdido(this.oroApostado);
                 break;
             } else if (desafiado.getSalud() <= 0) {
                 System.out.println("¡El vencedor es: " + desafianteJugador.getNick() + "!");
                 System.out.println("¡Has perdido: " + this.oroApostado + " monedas de oro" + "!");
                 vencedor = desafianteJugador;
+                desafianteJugador.getPersonaje().incrementarOroGanado(this.oroApostado);
+                desafiadoJugador.getPersonaje().incrementarOroPerdido(this.oroApostado);
                 break;
             }
         }
@@ -82,11 +86,11 @@ public class Combate implements Serializable {
     // Método para asignar oro al ganador y al perdedor
     private void asignarOro() {
         if (vencedor == desafianteJugador) {
-            desafiante.incrementarOro(oroApostado / 2);
-            desafiado.incrementarOro(-oroApostado / 2);
+            desafiante.incrementarOro(oroApostado);
+            desafiado.incrementarOro(-oroApostado);
         } else {
-            desafiante.incrementarOro(-oroApostado / 2);
-            desafiado.incrementarOro(oroApostado / 2);
+            desafiante.incrementarOro(-oroApostado);
+            desafiado.incrementarOro(oroApostado);
         }
     }
 

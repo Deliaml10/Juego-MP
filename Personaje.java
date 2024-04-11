@@ -12,6 +12,8 @@ public class Personaje implements Serializable   {
     private int manosOcupadas;
     private ArrayList<Esbirro> esbirros = new ArrayList<>();
     private int oro;
+    private int oroGanado;
+    private int oroPerdido;
     private int salud;
     private int poder;
     private ArrayList<Debilidad> debilidades = new ArrayList<>();
@@ -27,6 +29,8 @@ public class Personaje implements Serializable   {
         this.armaduras = armaduras;
         this.armasActivas = 0;
         this.armadurasActivas = 0;
+        this.oroGanado = 0;
+        this.oroPerdido = 0;
         for (Armadura armadura : this.armaduras) {
             if (armadura.getActiva()) {
                 this.armadurasActivas += 1;
@@ -117,6 +121,14 @@ public class Personaje implements Serializable   {
         this.fortalezas.addAll(fortalezas);
     }
 
+    public void incrementarOroGanado(int cantidad) {
+        this.oroGanado += cantidad;
+    }
+
+    public void incrementarOroPerdido(int cantidad) {
+        this.oroPerdido += cantidad;
+    }
+
     public int getPoder(){
         return this.poder;
     }
@@ -148,6 +160,14 @@ public class Personaje implements Serializable   {
 
     public boolean getOcupado(){
         return this.ocupado;
+    }
+
+    public int getOroGanado() {
+        return oroGanado;
+    }
+
+    public int getOroPerdido() {
+        return oroPerdido;
     }
 
 }

@@ -201,6 +201,7 @@ public class Jugador extends Usuario {
                 // Pagar el 10% del oro al jugador desafiante
                 this.personaje.restarOro(oroRechazar);
                 desafioSeleccionado.getDesafiante().getPersonaje().incrementarOro(oroRechazar);
+                desafioSeleccionado.getDesafiado().getPersonaje().incrementarOro(-oroRechazar);
                 System.out.println("Desafío de " + desafioSeleccionado.getDesafiante().getNombreUsuario() + " rechazado.");
                 desafiosPendientes.remove((desafioSeleccionado));
                 Jugador desafiante = desafioSeleccionado.getDesafiante();
@@ -255,7 +256,8 @@ public void setPersonaje(Personaje personaje) {
     }
 
     public void consultarOro() {
-        System.out.println("ESTO TODAVIA NO ESTA HECHO, HAZLOOOOO");
+        System.out.println("Oro ganado: " + this.personaje.getOroGanado());
+        System.out.println("Oro perdido: " + this.personaje.getOroPerdido());
     }
 
     public void desafiar(Jugador desafiante, Jugador desafiado, int oroApostado) {
