@@ -6,12 +6,11 @@ import java.util.Scanner;
 public class Jugador extends Usuario {
     private final String numeroRegistro;
     private Personaje personaje;
-    private LocalDateTime ultimoCombatePerdido;
     private boolean bloqueado;
     private ArrayList<Combate> desafiosPendientes = new ArrayList<>();
     private ArrayList<Combate> combates = new ArrayList<>();
     private LocalDateTime tiempoBloqueo;
-    private boolean elegido;
+
 
     public Jugador(String nombre, String contrasena, String nick) {
         super(nombre, contrasena, nick);
@@ -19,7 +18,6 @@ public class Jugador extends Usuario {
         this.personaje = null;
         this.bloqueado = false;
         this.desafiosPendientes = new ArrayList<>();
-        this.elegido = false;
     }
 
     public String crearNumeroRegistro() {
@@ -285,10 +283,6 @@ public class Jugador extends Usuario {
 
     public String getNumeroRegistro() {
         return this.numeroRegistro;
-    }
-
-    public LocalDateTime getUltimoCombatePerdido() {
-        return this.ultimoCombatePerdido;
     }
 
     public boolean getBloqueado() {
