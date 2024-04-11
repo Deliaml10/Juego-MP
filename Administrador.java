@@ -224,6 +224,11 @@ public class Administrador extends Usuario {
             String nombreEsbirro = scanner.nextLine();
             System.out.println("Cuanta salud tiene (del 1 al 5)");
             int saludEsbirro = scanner.nextInt();
+            if(saludEsbirro>5){
+                saludEsbirro = 5;
+            } else if (saludEsbirro<1){
+                saludEsbirro = 1;
+            }
             switch (tipoEsbirro) {
                 case 1:
                     int lealtad = 0;
@@ -240,6 +245,11 @@ public class Administrador extends Usuario {
                 case 2:
                     System.out.println("Escribe con un numero entre el 1 y el 5 el nivel de dependencia del Ghoul");
                     int dependencia = scanner.nextInt();
+                    if(dependencia>5){
+                        dependencia = 5;
+                    } else if (dependencia<1){
+                        dependencia = 1;
+                    }
                     Esbirro ghoul = new Ghoul(nombreEsbirro, saludEsbirro, dependencia);
                     esbirros.add(ghoul);
                     break;
@@ -269,8 +279,18 @@ public class Administrador extends Usuario {
             String nombreArma = scanner.nextLine();
             System.out.println("Escribe su valor (numero del 1 al 5)");
             int valor = scanner.nextInt();
+            if(valor>5){
+                valor = 5;
+            } else if (valor<1){
+                valor = 1;
+            }
             System.out.println("Manos que ocupa (1 o 2)");
             int manos = scanner.nextInt();
+            if(manos>2){
+                manos = 2;
+            } else if (manos<1){
+                manos = 1;
+            }
             scanner.nextLine();
             System.out.println("Si quieres que el arma esté activa escribe 1, sino pulsa otra tecla");
             String activaString = scanner.nextLine();
@@ -294,9 +314,19 @@ public class Administrador extends Usuario {
             String nombreArmadura = scanner.nextLine();
             System.out.println("Escribe su valor (numero del 1 al 5)");
             int valor = scanner.nextInt();
+            if(valor>5){
+                valor = 5;
+            } else if (valor<1){
+                valor = 1;
+            }
             scanner.nextLine(); // Consumir el salto de línea
             System.out.println("Manos que ocupa (1 o 2)");
             int manos = scanner.nextInt();
+            if(manos>2){
+                manos = 2;
+            } else if (manos<1){
+                manos = 1;
+            }
             scanner.nextLine(); // Consumir el salto de línea
             System.out.println("Si quieres que la armadura esté activa escribe 1, sino pulsa otra tecla");
             String activaString = scanner.nextLine();
@@ -321,6 +351,11 @@ public class Administrador extends Usuario {
             String nombreDebilidad = scanner.nextLine();
             System.out.println("Escribe su valor (numero del 1 al 5)");
             int valor = scanner.nextInt();
+            if(valor>5){
+                valor = 5;
+            } else if (valor<1){
+                valor = 1;
+            }
             scanner.nextLine();
             System.out.println("Quieres que el modificador este activado (contesta 1 o 2)");
             System.out.println("1. Si");
@@ -347,6 +382,11 @@ public class Administrador extends Usuario {
             String nombreFortaleza = scanner.nextLine();
             System.out.println("Escribe su valor (numero del 1 al 5)");
             int valor = scanner.nextInt();
+            if(valor>5){
+                valor = 5;
+            } else if (valor<1){
+                valor = 1;
+            }
             scanner.nextLine();
             System.out.println("Quieres que el modificador este activado (contesta 1 o 2)");
             System.out.println("1. Si");
