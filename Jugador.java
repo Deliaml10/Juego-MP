@@ -348,7 +348,6 @@ public class Jugador extends Usuario {
         }
     }
 
-
     public ArrayList<Combate> getDesafiosPendientes() {
         return this.desafiosPendientes;
     }
@@ -369,7 +368,6 @@ public class Jugador extends Usuario {
     public void setTiempoBloqueo(LocalDateTime tiempoBloqueo) {
         this.tiempoBloqueo = tiempoBloqueo;
     }
-
     public LocalDateTime getTiempoBloqueo() {
         return tiempoBloqueo;
     }
