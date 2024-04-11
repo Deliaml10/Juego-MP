@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Scanner;
 
 import static java.util.Collections.sort;
 
@@ -22,20 +23,26 @@ public class Juego {
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Bienvenido a Sangre y Luna, serás vampiro, licántropo, o quizás... cazador.");
             System.out.println("Adéntrate en esta aventura y desafía a otros jugadores.");
-            System.out.println("Presiona R para ver las reglas del juego o J para jugar:");
-            String opcion = scanner.nextLine();
-
-            if (opcion.equalsIgnoreCase("R")) {
-                System.out.println("El juego consiste en combates contra otros jugadores. Cada combate debe ser validado por un administrador.\nSi decides aceptar un desafío, podrás elegir tus armas y armaduras; el ganador se lleva el oro apostado.\nPor otro lado, si decides no aceptarlo, deberás pagar un 10% de lo que haya apostado el desafiante. ¡SUERTE! ");
-            } else if (opcion.equalsIgnoreCase("J")) {
-                System.out.println("Seleccionaste jugar.");
-            }
             String opcionJuego = null;
+            while (opcionJuego == null){
+                System.out.println("Presiona R para ver las reglas del juego o J para jugar:");
+                String opcion = scanner.nextLine();
 
+                if (!esEntero(opcion) && opcion.equalsIgnoreCase("R")) {
+                    System.out.println("El juego consiste en combates contra otros jugadores. Cada combate debe ser validado por un administrador.\nSi decides aceptar un desafío, podrás elegir tus armas y armaduras; el ganador se lleva el oro apostado.\nPor otro lado, si decides no aceptarlo, deberás pagar un 10% de lo que haya apostado el desafiante. ¡SUERTE! ");
+                    opcionJuego = "R";
+                } else if (!esEntero(opcion) && opcion.equalsIgnoreCase("J")) {
+                    System.out.println("Seleccionaste jugar.");
+                    opcionJuego = "J";
+                }
+                else {
+                    System.out.println("Opción no válida.");
+                }
+            }
             do {
                 System.out.println("Presiona C para crear un nuevo usuario, I para iniciar sesión o S para salir del juego:");
                 opcionJuego = scanner.nextLine();
-                if (opcionJuego.equalsIgnoreCase("C")) {
+                if (!esEntero(opcionJuego) && opcionJuego.equalsIgnoreCase("C")) {
                     crearCuenta(scanner);
 
                 } else if (opcionJuego.equalsIgnoreCase("I")) {      //OPCION DE INICIAR SESIÓN
@@ -51,6 +58,15 @@ public class Juego {
                     System.out.println("Opción no válida.");
                 }
             } while (!opcionJuego.equalsIgnoreCase("S"));
+        }
+    }
+
+    private boolean esEntero(String opcionJuego) {
+        try{
+            Integer.parseInt(opcionJuego);
+            return true;
+        } catch (NumberFormatException e){
+            return false;
         }
     }
 
