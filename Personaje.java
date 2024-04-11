@@ -143,15 +143,11 @@ public class Personaje implements Serializable   {
     }
 
     public int getOro(){
-        return this.oro = oro;
-    }
-
-    public void restarOro(int cantidad){
-        this.oro -= cantidad;
+        return this.oro;
     }
 
     public void incrementarOro(int cantidad) {
-        this.oro += cantidad;
+        this.oro = this.oro + cantidad;
     }
     
     public void setOcupado(Boolean valor){
