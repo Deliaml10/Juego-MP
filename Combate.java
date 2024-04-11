@@ -28,11 +28,6 @@ public class Combate implements Serializable {
 
     public void iniciarCombate() {
         System.out.println("¡El combate ha comenzado!");
-        
-        // Mostrar información de los jugadores antes de iniciar los combates
-        System.out.println("Desafiante: " + desafianteJugador.getNick() + " - Salud: " + desafiante.getSalud());
-        System.out.println("Desafiado: " + desafiadoJugador.getNick() + " - Salud: " + desafiado.getSalud());
-        System.out.println("Oro apostado: " + oroApostado);
     
         while (desafiante.getSalud() > 0 && desafiado.getSalud() > 0) {
             // Crear nueva ronda
@@ -48,10 +43,12 @@ public class Combate implements Serializable {
                 break;
             } else if (desafiante.getSalud() <= 0) {
                 System.out.println("¡El vencedor es: " + desafiadoJugador.getNick() + "!");
+                System.out.println("¡Has ganado: " + this.oroApostado + " monedas de oro" + "!");
                 vencedor = desafiadoJugador;
                 break;
             } else if (desafiado.getSalud() <= 0) {
                 System.out.println("¡El vencedor es: " + desafianteJugador.getNick() + "!");
+                System.out.println("¡Has perdido: " + this.oroApostado + " monedas de oro" + "!");
                 vencedor = desafianteJugador;
                 break;
             }

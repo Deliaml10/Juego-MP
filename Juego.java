@@ -291,8 +291,18 @@ public class Juego {
             }
             for (Combate combate : jugador.getCombates()) {
                     if (!combate.getVisto()) {
-                        System.out.println(combate.getDesafiante().getNick() + "vs" + combate.getDesafiado().getNick());
-                        System.out.println("¡El vencedor es: " + combate.getVencedor().getNick() + "!");
+                        System.out.println("Han tenido lugar un combate, veamos que ha pasado");
+                        System.out.println(combate.getDesafiante().getNick() + " VS " + combate.getDesafiado().getNick());
+                        if(!(combate.getVencedor() == null)){
+                            System.out.println("¡El vencedor es: " + combate.getVencedor().getNick() + "!");
+                            if(combate.getDesafiante() == combate.getVencedor()){
+                            System.out.println("¡Has ganado: " + combate.getOroApostado() + " monedas de oro" + "!");    
+                            } else {
+                                System.out.println("¡Has perdido: " + combate.getOroApostado() + " monedas de oro" + "!");  
+                            }
+                        } else {
+                            System.out.println("¡El combate ha quedado en empate, recuperas el oro apostado");
+                        }
                         System.out.println("Rondas:");
                         for (int i = 0; i < combate.getRondas().size(); i++) {
                             System.out.println("Ronda " + (i + 1) + ": " + combate.getDesafiante().getNick() + ": " + combate.getRondas().get(i).getSaludDesafiado() + " puntos de vida, y " + combate.getDesafiado().getNick() + ": " + combate.getRondas().get(i).getSaludDesafiante() + " puntos de vida");
