@@ -144,7 +144,8 @@ public class Juego {
             guardarUsuarios();
             System.out.println("¡Jugador creado exitosamente!");
         }else{
-            System.out.println("Opcion no valida, seleccione 'A' o 'J'");
+            System.out.println("Opcion no valida");
+            this.crearCuenta(scanner);
         }
     }
 
@@ -274,9 +275,10 @@ public class Juego {
                         }
                     }
                 }   else if (opcion.equals("6")) {
-
+                        break;
                 }   else {
-                    System.out.println("Opción no válida");
+                        System.out.println("Opción no válida");
+                        this.jugar(usuario, scanner);
                 }
 
             }while (!opcion.equals("6"));
@@ -416,9 +418,10 @@ public class Juego {
                 } else if (op.equals("6")) {
                     Personaje personaje = jugador.getPersonaje();
                     jugador.darBajaPersonaje();
-
-                    personaje.setOcupado(false);
-                    System.out.println("Se ha deseleccionado el personaje");
+                    if (personaje != null){
+                        personaje.setOcupado(false);
+                        System.out.println("Se ha deseleccionado el personaje");
+                    }
 
                     guardarUsuarios();
 
@@ -441,6 +444,7 @@ public class Juego {
 
                 } else {
                     System.out.println("Opción no válida");
+                    this.jugar(usuario, scanner);
                 }
             } while (!op.equals("8"));
         }
