@@ -155,6 +155,7 @@ public class Jugador extends Usuario {
                         this.equipar(personaje);
                         break;
                     }
+            break;
 
             //DESEQUIPAR
             case "2":
@@ -253,13 +254,13 @@ public class Jugador extends Usuario {
                         this.equipar(personaje);
                         break;
                 }
+            break;
 
             default:
                 System.out.println("Opción incorrecta.");
                 break;
         }
     }
-
 
     public void aceptarRechazarDesafio() {
         if (desafiosPendientes.isEmpty()) {
