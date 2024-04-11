@@ -56,9 +56,9 @@ public class Combate implements Serializable {
                 System.out.println("¡Has perdido: " + this.oroApostado + " monedas de oro" + "!");
                 vencedor = desafianteJugador;
                 desafianteJugador.getPersonaje().incrementarOroGanado(this.oroApostado);
-                desafiadoJugador.getPersonaje().incrementarOro(-this.oroApostado);
+                desafianteJugador.getPersonaje().incrementarOro(this.oroApostado);
                 desafiadoJugador.getPersonaje().incrementarOroPerdido(this.oroApostado);
-                desafianteJugador.getPersonaje().incrementarOro(-this.oroApostado);
+                desafiadoJugador.getPersonaje().incrementarOro(-this.oroApostado);
                 break;
             }
         }
@@ -89,16 +89,16 @@ public class Combate implements Serializable {
     }
 
     public Jugador getVencedor() {
-        return vencedor;
+        return this.vencedor;
     }
 
     public int getOroApostado() {
-        return oroApostado;
+        return this.oroApostado;
     }
 
     // Getter para obtener el array de rondas
     public ArrayList<Ronda> getRondas() {
-        return rondas;
+        return this.rondas;
     }
 
     public void setValidado(boolean b) {
