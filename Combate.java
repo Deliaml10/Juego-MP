@@ -57,9 +57,6 @@ public class Combate implements Serializable {
                 break;
             }
         }
-    
-        // Asignar oro al ganador y al perdedor
-        asignarOro();
 
         // Mostrar las rondas
         System.out.println("Rondas:");
@@ -74,17 +71,6 @@ public class Combate implements Serializable {
 
     private void guardarRonda(Ronda ronda) {
         rondas.add(ronda); // Agregar la ronda al array
-    }
-
-    // Método para asignar oro al ganador y al perdedor
-    private void asignarOro() {
-        if (vencedor == desafianteJugador) {
-            desafiante.incrementarOro(oroApostado);
-            desafiado.incrementarOro(-oroApostado);
-        } else {
-            desafiante.incrementarOro(-oroApostado);
-            desafiado.incrementarOro(oroApostado);
-        }
     }
 
     // Getters y setters
