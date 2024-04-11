@@ -48,7 +48,7 @@ public class Jugador extends Usuario {
 
     public void equipar(Personaje personaje) {
         Scanner scanner = new Scanner(System.in);
-
+    
         System.out.println("¿Qué deseas equipar o desequipar?");
         System.out.println("1. Equipar");
         System.out.println("2. Desequipar");
@@ -60,7 +60,7 @@ public class Jugador extends Usuario {
                 System.out.println("2. Armaduras");
                 System.out.print("Selecciona una opción: ");
                 String opcion = scanner.nextLine();
-
+    
                 switch (opcion) {
                     case "1":
                         System.out.println("Armas disponibles:");
@@ -91,7 +91,7 @@ public class Jugador extends Usuario {
                                         System.out.println("No puedes ocupar mas de dos manos entre armas y armaduras");
                                     }
                                 }
-
+    
                             } else if (seleccionArma.equals("2")) {
                                 System.out.println("Enhorabuena, ya has terminado de equipar tus armas");
                             } else {
@@ -99,7 +99,7 @@ public class Jugador extends Usuario {
                             }
                         } while (!seleccionArma.equals("2"));
                         break;
-
+    
                     case "2":
                         System.out.println("Armaduras disponibles:");
                         for (Armadura armadura : this.personaje.getArmaduras()) {
@@ -129,7 +129,7 @@ public class Jugador extends Usuario {
                                         System.out.println("No puedes ocupar mas de dos manos entre armas y armaduras");
                                     }
                                 }
-
+    
                             } else if (seleccionArmadura.equals("2")) {
                                 System.out.println("Enhorabuena, ya has terminado de equipar tus armas");
                             } else {
@@ -137,19 +137,21 @@ public class Jugador extends Usuario {
                             }
                         } while (!seleccionArmadura.equals("2"));
                         break;
-
+    
                     default:
                         System.out.println("Opción incorrecta.");
                         this.equipar(personaje);
                 }
-
-                case "2":
+    
+                break;
+    
+            case "2":
                 System.out.println("¿Qué deseas desequipar armas o armaduras?");
                 System.out.println("1. Armas");
                 System.out.println("2. Armaduras");
                 System.out.print("Selecciona una opción: ");
                 String opcion3 = scanner.nextLine();
-
+    
                 switch (opcion3) {
                     case "1":
                         // Mostrar armas equipadas
@@ -174,7 +176,7 @@ public class Jugador extends Usuario {
                             }
                         }
                         break;
-
+    
                     case "2":
                         // Mostrar armaduras equipadas
                         System.out.println("Armaduras equipadas:");
@@ -198,13 +200,13 @@ public class Jugador extends Usuario {
                             }
                         }
                         break;
-
+    
                     default:
                         System.out.println("Opción incorrecta.");
                         break;
                 }
                 break;
-
+    
             default:
                 System.out.println("Opción incorrecta.");
                 break;
@@ -212,7 +214,7 @@ public class Jugador extends Usuario {
     }
 
 
-
+    
     public void aceptarRechazarDesafio() {
         if (desafiosPendientes.isEmpty()) {
             System.out.println("No hay desafíos pendientes.");
