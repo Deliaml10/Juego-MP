@@ -503,7 +503,7 @@ public class Juego {
             System.out.println("Ranking Global:");
             int posicion = 1;
             for (Personaje personaje : personajes) {
-                System.out.println(posicion + ". " + personaje.getNombrePersonaje() + ": " + personaje.getOro() + " de oro");
+                System.out.println(posicion + "º. Personaje " + personaje.getNombrePersonaje() + "con " + personaje.getOro() + " monedas de oro");
                 posicion++;
             }
         }
