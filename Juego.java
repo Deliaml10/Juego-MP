@@ -92,15 +92,19 @@ public class Juego {
             } while (existeNick);
 
 
-            String contrasena1;
+            String contrasena1 = " ";
             String contrasena;
             do {
-                System.out.println("\nIngresa tu contraseña:");
+                System.out.println("\nIngresa tu contraseña de entre 8 y 12 caracteres:");
                 contrasena = scanner.nextLine();
-                System.out.println("\nRepite tu contreseña:");
-                contrasena1 = scanner.nextLine();
-                if (!contrasena1.equals(contrasena)) {
-                    System.out.println("\nLas contraseñas no coinciden");
+                if (contrasena.length() > 12 || contrasena.length() < 8) {
+                    System.out.println("La contraseña debe tener entre 8 y 12 caracteres");
+                }else{
+                        System.out.println("\nRepite tu contreseña:");
+                        contrasena1 = scanner.nextLine();
+                        if (!contrasena1.equals(contrasena)) {
+                            System.out.println("\nLas contraseñas no coinciden");
+                        }
                 }
             }
             while (!contrasena1.equals(contrasena));
@@ -126,15 +130,20 @@ public class Juego {
                     System.out.println("El nick ya existe");
                 }
             } while (existeNick);
-            String contrasena1;
+
+            String contrasena1 = " ";
             String contrasena;
             do {
-                System.out.println("Ingresa tu contraseña:");
+                System.out.println("\nIngresa tu contraseña de entre 8 y 12 caracteres:");
                 contrasena = scanner.nextLine();
-                System.out.println("Repite tu contreseña:");
-                contrasena1 = scanner.nextLine();
-                if (!contrasena1.equals(contrasena)) {
-                    System.out.println("Las contraseñas no coinciden");
+                if (contrasena.length() > 12 || contrasena.length() < 8) {
+                    System.out.println("La contraseña debe tener entre 8 y 12 caracteres");
+                }else{
+                    System.out.println("\nRepite tu contreseña:");
+                    contrasena1 = scanner.nextLine();
+                    if (!contrasena1.equals(contrasena)) {
+                        System.out.println("\nLas contraseñas no coinciden");
+                    }
                 }
             }
             while (!contrasena1.equals(contrasena));
