@@ -1,18 +1,14 @@
-import java.io.File;
 import java.time.LocalDateTime;
 import java.io.*;
 import java.util.*;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
 
 import static java.util.Collections.sort;
 
 public class Juego {
     private HashMap<String, Usuario> usuarios = new HashMap<>();
     private ArrayList<Personaje> personajes = new ArrayList<>();
-    private static final String Usuarios = "usuarios.dat"; // Nombre del archivo para guardar usuarios
-    private static final String Personajes = "personajes.dat"; // Nombre del archivo para guardar personajes
+    private static String Usuarios = "usuarios.dat"; // Nombre del archivo para guardar usuarios
+    private static String Personajes = "personajes.dat"; // Nombre del archivo para guardar personajes
     private ArrayList<Jugador> rankingGlobal = new ArrayList<>();
 
 
@@ -497,6 +493,7 @@ public class Juego {
         } catch (IOException | ClassNotFoundException e) {
         }
     }
+
     public void mostrarRankingGlobal() {
         // Crear una lista de jugadores
         ArrayList<Jugador> jugadores = new ArrayList<>();
@@ -528,15 +525,41 @@ public class Juego {
             posicion++;
         }
     }
-/*
-    public Usuario getUsuario(String nombre) {
+
+    public HashMap<String, Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuariosFile(String usuariosFile) {
+        this.Usuarios = usuariosFile;
+    }
+
+    public void setPersonajes(ArrayList<Personaje> personajes) {
+        this.personajes = personajes;
+    }
+
+    public String getPersonajesFile() {
+        return Personajes;
+    }
+
+    public void setPersonajesFile(String personajesFile) {
+        this.Personajes = personajesFile;
+    }
+
+    public ArrayList<Personaje> getPersonajes() {
+        return this.personajes;
+    }
+    
+    public Usuario getUsuarioPorNick(String nick) {
         for (Usuario usuario : usuarios.values()) {
-            if (usuario.getNombre().equals(nombre)) {
+            if (usuario.getNick().equals(nick)) {
                 return usuario;
             }
         }
-        return null; // Si no se encuentra el usuario, devolvemos null
+        return null; // Retorna null si no se encuentra ningún usuario con el nick especificado
     }
-    */
+    
+    
+    
     }
 

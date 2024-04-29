@@ -74,7 +74,7 @@ public class Combate implements Serializable {
         desafiante.setSalud(5);
     }
 
-    private void guardarRonda(Ronda ronda) {
+    void guardarRonda(Ronda ronda) {
         rondas.add(ronda); // Agregar la ronda al array
     }
 
