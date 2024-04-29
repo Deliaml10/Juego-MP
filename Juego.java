@@ -483,7 +483,6 @@ public class Juego {
         }
     }
 
-
     public void guardarPersonajes() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Personajes))) {
             oos.writeObject(personajes);
@@ -529,6 +528,13 @@ public class Juego {
             System.out.println(posicion + "º. Jugador " + jugador.getNick() + " con " + oroJugador + " monedas de oro");
             posicion++;
         }
+    }
+
+    public Usuario getUsuario(String nick){
+        if (usuarios.containsKey(nick)){
+            return usuarios.get(nick);
+        }
+        return null;
     }
     
     }
