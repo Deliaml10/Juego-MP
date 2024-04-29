@@ -175,6 +175,11 @@ public class Personaje implements Serializable   {
         return habilidades;
     }
 
+
+    public ArrayList<Esbirro> getEsbirros() {
+        return this.esbirros;
+    }
+
 }
 
 
