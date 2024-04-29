@@ -1,13 +1,19 @@
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import static org.junit.Assert.*;
 public class TestPersonaje {
-    public void TestHabilidadesDisicplina(){
-
-    }
+    @Test
+    public void TestHabilidadesDisicplina() {
 
         //HABILIDADES (disciplina)
         Disciplina disciplina1 = new Disciplina("disciplina1", 2, 4);
-        Disciplina disciplina2 = new Disciplina("disciplina2", 1, 2) ;
+        Disciplina disciplina2 = new Disciplina("disciplina2", 1, 2);
         ArrayList<Habilidad> habilidades1 = new ArrayList<>();
         habilidades1.add(disciplina1);
         habilidades1.add(disciplina2);
@@ -48,5 +54,5 @@ public class TestPersonaje {
 
         pepito.sumarArmasActivas();
         System.out.println(pepito.getNombrePersonaje());
-
+    }
 }
