@@ -160,10 +160,9 @@ public class Juego {
     }
 
     public Usuario iniciarSesion(Scanner scanner) {
-        // Iniciar sesión con un usuario existente
+
         System.out.println("Seleccionaste iniciar sesión.");
 
-        // Pedir datos al usuario para iniciar sesión
         System.out.println("Ingresa tu nick:");
         String nick = scanner.nextLine();
         boolean existeUsuario = usuarios.containsKey(nick);
@@ -529,13 +528,15 @@ public class Juego {
             posicion++;
         }
     }
-
-    public Usuario getUsuario(String nick){
-        if (usuarios.containsKey(nick)){
-            return usuarios.get(nick);
+/*
+    public Usuario getUsuario(String nombre) {
+        for (Usuario usuario : usuarios.values()) {
+            if (usuario.getNombre().equals(nombre)) {
+                return usuario;
+            }
         }
-        return null;
+        return null; // Si no se encuentra el usuario, devolvemos null
     }
-    
+    */
     }
 

@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import static org.junit.Assert.*;
@@ -38,9 +39,19 @@ public class TestJuego {
 
     @Test
     public void testCrearCuenta() {
+        // Simulamos la entrada del usuario
+        String input = "J\nNombre\nNick\n12345678\n12345678\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Usuario usuarioEsperado = new Usuario("Nombre", "Nick", "12345678");
+
         Juego juego = new Juego();
-        Scanner scanner = new Scanner(System.in);
-        juego.crearCuenta(scanner);
+        juego.crearCuenta(new Scanner(System.in));
+
+        Usuario usuarioCreado = juego.getUsuario("Nombre");
+
+        assertEquals(usuarioEsperado, usuarioCreado);
     }
 
     @Test
@@ -57,6 +68,7 @@ public class TestJuego {
         assertEquals(false,resultado );
     }
 
+    // LOS SIGUIENTES DOS SE REFIEREN AL MÉTODO START
     @Test
     public void testVerReglas() {
         String input = "R\nS\n";
