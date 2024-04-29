@@ -99,7 +99,6 @@ public class TestAdministrador {
     }
     
     @Test
-    public void TestCrearDisciplina() {
     public void TestCrearTalento() {
         String input = "2\n3\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
