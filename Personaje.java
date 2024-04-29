@@ -171,6 +171,10 @@ public class Personaje implements Serializable   {
         this.oro = this.oro - cantidad;
     }
 
+    public ArrayList<Habilidad> getHabilidades() {
+        return habilidades;
+    }
+
 }
 
 

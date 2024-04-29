@@ -18,6 +18,9 @@ public class Modificador implements Serializable  {
     public boolean getActivado(){
         return this.activado;
     }
+    public String getNombre() {
+        return nombre;
+    }
 }
 
 class Debilidad extends Modificador{
@@ -25,6 +28,7 @@ class Debilidad extends Modificador{
     public Debilidad(String nombre, int valor, boolean activado){
         super(nombre, valor, activado);
     }
+
 
 }
 

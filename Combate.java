@@ -66,7 +66,7 @@ public class Combate implements Serializable {
         // Mostrar las rondas
         System.out.println("Rondas:");
         for (int i = 0; i < rondas.size(); i++) {
-            System.out.println("Ronda " + (i + 1) + ": " + desafianteJugador.getNick() + ": " + rondas.get(i).getSaludDesafiado() + " puntos de vida, y " + desafiadoJugador.getNick() + ": " + rondas.get(i).getSaludDesafiante() + " puntos de vida");
+            System.out.println("Ronda " + (i + 1) + ": " + desafianteJugador.getNick() + ": " + rondas.get(i).getSaludDesafiante() + " puntos de vida, y " + desafiadoJugador.getNick() + ": " + rondas.get(i).getSaludDesafiado() + " puntos de vida");
         }
         visto = false;
         desafianteJugador.agregarCombate(this);

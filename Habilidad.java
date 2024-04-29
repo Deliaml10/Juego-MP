@@ -4,6 +4,10 @@ public class Habilidad {
     public Habilidad(String nombre){
         this.nombre = nombre;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
 }
 
 class Disciplina extends Habilidad {
