@@ -203,7 +203,7 @@ public class Administrador extends Usuario {
         }
     }
 
-    private ArrayList<Esbirro> crearEsbirros() {
+    public ArrayList<Esbirro> crearEsbirros() {
         ArrayList<Esbirro> esbirros = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
@@ -266,7 +266,7 @@ public class Administrador extends Usuario {
         return esbirros;
     }
 
-    private ArrayList<Arma> crearArmas() {
+    public ArrayList<Arma> crearArmas() {
         ArrayList<Arma> armas = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
@@ -301,7 +301,7 @@ public class Administrador extends Usuario {
         return armas;
     }
 
-    private ArrayList<Armadura> crearArmaduras() {
+    public ArrayList<Armadura> crearArmaduras() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Armadura> armaduras = new ArrayList<>();
     
@@ -338,7 +338,7 @@ public class Administrador extends Usuario {
     }
     
 
-    private ArrayList<Debilidad> crearDebilidades() {
+    public ArrayList<Debilidad> crearDebilidades() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Debilidad> debilidades = new ArrayList<>();
 
@@ -369,7 +369,7 @@ public class Administrador extends Usuario {
         return debilidades;
     }
 
-    private ArrayList<Fortaleza> crearFortalezas() {
+    public ArrayList<Fortaleza> crearFortalezas() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Fortaleza> fortalezas = new ArrayList<>();
 
@@ -400,7 +400,7 @@ public class Administrador extends Usuario {
         return fortalezas;
     }
 
-    private Disciplina crearDisciplina(String nombre) {
+    public Disciplina crearDisciplina(String nombre) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Escribe el valor de la disciplina");
         int valor = scanner.nextInt();
@@ -412,7 +412,7 @@ public class Administrador extends Usuario {
         return disciplina;
     }
 
-    private Don crearDon(String nombre) {
+    public Don crearDon(String nombre) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Escribe el valor del don");
         int valor = scanner.nextInt();
@@ -425,7 +425,7 @@ public class Administrador extends Usuario {
         return don;
     }
 
-    private Talento crearTalento(String nombre) {
+    public Talento crearTalento(String nombre) {
         Talento talento = new Talento(nombre);
 
         return talento;
