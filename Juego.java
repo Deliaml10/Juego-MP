@@ -61,16 +61,17 @@ public class Juego {
         }
     }
 
-    private boolean esEntero(String opcionJuego) {
+    public boolean esEntero(String opcionJuego) {
         try{
             Integer.parseInt(opcionJuego);
             return true;
         } catch (NumberFormatException e){
             return false;
         }
+
     }
 
-    private void crearCuenta(Scanner scanner){
+    public void crearCuenta(Scanner scanner){
         System.out.println("Seleccionaste crear un nuevo usuario.");
         //Pedir que elija entre ser un administrador o ser un jugador
         System.out.println("Presiona J para ser un jugador o A para ser un nuevo administrador");
@@ -158,7 +159,7 @@ public class Juego {
         }
     }
 
-    private Usuario iniciarSesion(Scanner scanner) {
+    public Usuario iniciarSesion(Scanner scanner) {
         // Iniciar sesión con un usuario existente
         System.out.println("Seleccionaste iniciar sesión.");
 
@@ -194,7 +195,7 @@ public class Juego {
         }
     }
 
-    private void jugar(Usuario usuario, Scanner scanner){
+    public void jugar(Usuario usuario, Scanner scanner){
         System.out.println("¡Empieza el juego!");
         if (usuario instanceof Administrador) {
             Administrador administrador = (Administrador)usuario;
@@ -458,7 +459,7 @@ public class Juego {
         }
     }
 
-    private void guardarUsuarios() {
+    public void guardarUsuarios() {
         try {
             // Borrar el archivo de usuarios si existe
             File file = new File(Usuarios);
@@ -473,7 +474,7 @@ public class Juego {
             e.printStackTrace(); // Imprime la traza de la excepción para ayudar a identificar el problema
         }
     }
-    private void cargarUsuarios() {
+    public void cargarUsuarios() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Usuarios))) {
             HashMap<String, Usuario> usuariosCargados = (HashMap<String, Usuario>) ois.readObject();
             usuarios.clear(); // Limpiar el HashMap actual
@@ -483,14 +484,14 @@ public class Juego {
     }
 
 
-    private void guardarPersonajes() {
+    public void guardarPersonajes() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Personajes))) {
             oos.writeObject(personajes);
         } catch (IOException e) {
         }
     }
 
-    private void cargarPersonajes() {
+    public void cargarPersonajes() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Personajes))) {
             ArrayList<Personaje> personajesCargados = (ArrayList<Personaje>) ois.readObject();
             personajes.clear(); // Limpiar la lista actual antes de cargar los personajes
