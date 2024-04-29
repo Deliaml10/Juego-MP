@@ -21,4 +21,8 @@ public class Licantropo extends Personaje{
     public void incrementarRabia(int incremento){
         this.rabia += incremento;
     }
+
+    public int getRabia() {
+        return rabia;
+    }
 }
