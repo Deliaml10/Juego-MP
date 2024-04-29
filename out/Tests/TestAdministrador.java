@@ -11,6 +11,38 @@ import static org.junit.Assert.*;
 public class TestAdministrador {
 
     @Test
+    public void testCrearArmas() {
+        // Simulación de entrada del usuario
+        String input = "2\n" + // Número de armas
+                       "Espada\n" + // Nombre de la primera arma
+                       "4\n" + // Valor de la primera arma
+                       "2\n" + // Manos que ocupa la primera arma
+                       "1\n" + // Activada (Sí)
+                       "Arco\n" + // Nombre de la segunda arma
+                       "3\n" + // Valor de la segunda arma
+                       "1\n" +  // Manos que ocupa la segunda arma
+                       "2\n";  // Activada (No)
+
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        // Llamada a la función que queremos probar
+        Administrador admin = new Administrador("Admin", "admin", "password");
+        ArrayList<Arma> armas = admin.crearArmas();
+
+        // Comprobación de que se crearon las armas correctamente
+        assertEquals(2, armas.size());
+        assertEquals("Espada", armas.get(0).getNombreEquipo());
+        assertEquals(4, armas.get(0).getValor());
+        assertEquals(2, armas.get(0).getManos());
+        assertEquals(true, armas.get(0).getActiva());
+        assertEquals("Arco", armas.get(1).getNombreEquipo());
+        assertEquals(3, armas.get(1).getValor());
+        assertEquals(1, armas.get(1).getManos());
+        assertEquals(false, armas.get(1).getActiva());
+    }
+
+    @Test
     public void testCrearArmaduras() {
         // Simulación de entrada del usuario
         String input = "2\n" + // Número de armaduras
@@ -25,12 +57,9 @@ public class TestAdministrador {
 
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
-
-        // Llamada a la función que queremos probar
         Administrador admin = new Administrador("Admin", "admin", "password");
         ArrayList<Armadura> armaduras = admin.crearArmaduras();
 
-        // Comprobación de que se crearon las armaduras correctamente
         assertEquals(2, armaduras.size());
         assertEquals("Armadura1", armaduras.get(0).getNombreEquipo());
         assertEquals(4, armaduras.get(0).getValor());
