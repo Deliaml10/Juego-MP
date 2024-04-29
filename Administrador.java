@@ -452,7 +452,11 @@ public class Administrador extends Usuario {
     }
 
     public static void addDesafioPendienteComun(Combate combate) {
+
         desafiosPendientesComunes.add(combate);
+    }
+    public ArrayList<Combate> getDesafiosPendientesComunes() {
+        return desafiosPendientesComunes;
     }
 
     public void validarCombate() {

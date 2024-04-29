@@ -48,4 +48,6 @@ class Talento extends Habilidad{
         super(nombre);
     }
 
+
+
 }
