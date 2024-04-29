@@ -53,6 +53,7 @@ public class Jugador extends Usuario {
         System.out.println("¿Qué deseas equipar o desequipar?");
         System.out.println("1. Equipar");
         System.out.println("2. Desequipar");
+        System.out.println("3. Salir");
         String opcion1 = scanner.nextLine();
         switch (opcion1) {
             //EQUIPAR
@@ -60,6 +61,7 @@ public class Jugador extends Usuario {
                 System.out.println("¿Qué deseas equipar armas o armaduras?");
                 System.out.println("1. Armas");
                 System.out.println("2. Armaduras");
+                System.out.println("3. Salir");
                 System.out.print("Selecciona una opción: ");
                 String opcion = scanner.nextLine();
                 switch (opcion) {
@@ -150,6 +152,11 @@ public class Jugador extends Usuario {
                         } while (!seleccionArmadura.equals("2"));
                         break;
 
+                    case "3":
+                        System.out.println("Volviendo al menú.");
+                        this.equipar(personaje);
+                        break;
+
                     default:
                         System.out.println("Opción incorrecta.");
                         this.equipar(personaje);
@@ -163,6 +170,7 @@ public class Jugador extends Usuario {
                 System.out.println("¿Qué deseas desequipar armas o armaduras?");
                 System.out.println("1. Armas");
                 System.out.println("2. Armaduras");
+                System.out.println("3. Salir");
                 System.out.print("Selecciona una opción: ");
                 String opcion2 = scanner.nextLine();
                 switch (opcion2) {
@@ -249,12 +257,21 @@ public class Jugador extends Usuario {
                         } while (!seleccionArmadura.equals("2"));
                         break;
 
+                    case "3":
+                        System.out.println("Volviendo al menú.");
+                        this.equipar(personaje);
+                        break;
+
                     default:
                         System.out.println("Opción incorrecta.");
                         this.equipar(personaje);
                         break;
                 }
             break;
+
+            case "3":
+                System.out.println("Volviendo al menú.");
+                break;
 
             default:
                 System.out.println("Opción incorrecta.");
