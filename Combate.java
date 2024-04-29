@@ -113,4 +113,7 @@ public class Combate implements Serializable {
         this.visto = v;
     }
 
+    public boolean isValidado() {
+        return validado;
+    }
 }
