@@ -12,6 +12,7 @@ public class Jugador extends Usuario {
     private LocalDateTime tiempoBloqueo;
     private boolean elegido;
 
+
     public Jugador(String nombre, String contrasena, String nick) {
         super(nombre, contrasena, nick);
         this.numeroRegistro = crearNumeroRegistro();
@@ -378,10 +379,21 @@ public class Jugador extends Usuario {
     public void desafiar(Jugador desafiante, Jugador desafiado, int oroApostado) {
         // Crear un nuevo desafío
         Combate combate = new Combate(desafiante, desafiado, oroApostado);
-
-        // Agregar el desafío a la lista de desafíos pendientes del jugador retador
-        this.addDesafioPendienteAdmin(combate);
+        if (personaje.getOro() < oroApostado){
+            System.out.println("No tiene suficiente oro para apostar, elija una cantidad correcta");
+            Scanner scanner = new Scanner(System.in);
+            int nuevoOroApostado;
+            do {
+                System.out.print("Ingrese la nueva cantidad de oro a apostar: ");
+                nuevoOroApostado = scanner.nextInt();
+            } while (nuevoOroApostado > personaje.getOro());
+            desafiar(desafiante, desafiado, nuevoOroApostado);
+        } else {
+            this.addDesafioPendienteAdmin(combate);
+            System.out.println("El desafío ha sido enviado al administrador para su validación.");
+        }
     }
+
 
     public void setTiempoBloqueo(LocalDateTime tiempoBloqueo) {
         this.tiempoBloqueo = tiempoBloqueo;

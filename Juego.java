@@ -372,7 +372,6 @@ public class Juego {
                                 jugador.desafiar(jugador, jugadorDesafiado, oroApostado);
 
                                 // Solicitar al administrador validar el desafío
-                                System.out.println("El desafío ha sido enviado al administrador para su validación.");
                                 guardarUsuarios();
                             } else {
                                 System.out.println("Opción no válida");
