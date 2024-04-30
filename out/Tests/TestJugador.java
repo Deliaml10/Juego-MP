@@ -70,4 +70,34 @@ public class TestJugador {
         jugador.registrarPersonaje(personaje);
         assertEquals(personaje, jugador.getPersonaje());
     }
+
+    @Test
+    public void testEquipar() {
+        Jugador jugador = new Jugador("Nombre", "Contraseña", "Nick");
+        Arma arma = new Arma("Espada", 1, 1, true);
+        Arma arma2 = new Arma("Daga", 1, 3, true);
+
+        ArrayList<Arma> armas = new ArrayList<>();
+        ArrayList<Armadura> armaduras = new ArrayList<>();
+
+        armas.add(arma);
+        armas.add(arma2);
+        arma.setEquipada(true);
+        arma2.setEquipada(true);
+
+        Personaje personaje = new Personaje("NombrePersonaje", 1, new ArrayList<>(), armas, armaduras, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        jugador.registrarPersonaje(personaje);
+
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n1\nEspada\n2\n2\n3\n3\n".getBytes());
+        System.setIn(in);
+
+        jugador.equipar(personaje);
+
+
+        assertTrue(arma.getEquipada());
+        assertTrue(arma2.getEquipada());
+
+    }
+
 }
+
