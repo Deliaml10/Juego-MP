@@ -123,5 +123,31 @@ public class TestJugador {
         System.setOut(System.out);
         assertTrue(outContent.toString().contains("El desafío ha sido enviado al administrador para su validación."));
     }
+    @Test
+    public void testAceptarRechazarDesafio() {
+        Jugador jugador1 = new Jugador("Nombre", "jugador1", "jugador1");
+        Jugador jugador2 = new Jugador("Nombre2", "jugador2", "jugador2");
+        Personaje personajeDesafiante = new Personaje("Desafiante", 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        Personaje personajeDesafiado = new Personaje("Desafiado", 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+
+        jugador1.registrarPersonaje(personajeDesafiante);
+        jugador2.registrarPersonaje(personajeDesafiado);
+
+        jugador1.desafiar(jugador1, jugador2, 33);
+
+        Administrador admin = new Administrador("Nombre", "Contraseña", "admin");
+
+        ByteArrayInputStream in1 = new ByteArrayInputStream("1\n".getBytes());
+        System.setIn(in1);
+
+        admin.validarCombate();
+
+        ByteArrayInputStream in2 = new ByteArrayInputStream("1\nA\n".getBytes());
+        System.setIn(in2);
+
+        jugador2.aceptarRechazarDesafio();
+
+        assertTrue(jugador2.getDesafiosPendientes().isEmpty());
+    }
 }
 
