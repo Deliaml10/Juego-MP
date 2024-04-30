@@ -180,6 +180,16 @@ public class Personaje implements Serializable   {
         return this.esbirros;
     }
 
+
+    public int getArmasActivas() {
+        return this.armasActivas;
+    }
+
+    public int getArmadurasActivas() {
+        return this.armadurasActivas;
+    }
+    
+
 }
 
 
