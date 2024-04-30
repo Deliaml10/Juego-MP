@@ -1,14 +1,46 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
 public class TestAdministrador {
+    @Test
+    public void testEditarPersonaje() {
+    // Simulación de entrada del usuario
+    String input = "1\nNuevoNombre\n" + // Opción 1: Cambiar nombre
+                   "2\n2\nNuevaHabilidad1\nNuevaHabilidad2\n" + // Opción 2: Añadir habilidades
+                   "3\n" + // Opción 3: Cambiar armas (se asume que crearArmas() maneja la entrada)
+                   "4\n" + // Opción 4: Cambiar armaduras (se asume que crearArmaduras() maneja la entrada)
+                   "5\n" + // Opción 5: Cambiar armas activas (se asume que maneja la entrada)
+                   "6\n" + // Opción 6: Cambiar armaduras activas (se asume que maneja la entrada)
+                   "7\n" + // Opción 7: Cambiar esbirros (se asume que crearEsbirros() maneja la entrada)
+                   "8\n" + // Opción 8: Cambiar debilidades (se asume que crearDebilidades() maneja la entrada)
+                   "9\n" + // Opción 9: Cambiar fortalezas (se asume que crearFortalezas() maneja la entrada)
+                   "10\n"; // Opción no válida
+
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+
+    // Creamos un administrador y un personaje de prueba
+    Administrador admin = new Administrador("admin", "admin", "123456789");
+    Personaje personaje = new Personaje("NombreInicial", 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+
+    // Llamamos al método de edición
+    admin.editarPersonaje(personaje);
+
+    // Verificamos que el nombre del personaje haya cambiado correctamente
+    assertEquals("NuevoNombre", personaje.getNombrePersonaje());
+}
+
 
     @Test
     public void testCrearArmas() {
