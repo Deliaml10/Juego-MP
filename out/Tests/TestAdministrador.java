@@ -273,7 +273,7 @@ public class TestAdministrador {
         System.setIn(in);
 
         ArrayList<Esbirro> esbirros = administrador.crearEsbirros();
-        Esbirro esbirro = esbirros.getFirst();
+        Esbirro esbirro = esbirros.get(0);
 
         System.setIn(System.in);
 
