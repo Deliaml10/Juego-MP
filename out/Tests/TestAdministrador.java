@@ -202,5 +202,55 @@ public class TestAdministrador {
     }
 
 
+    // ESTE TEST DA ERROR
+    /*
+    @Test
+    public void testCrearPersonaje() {
+        // Simular entrada del usuario
+        String input = "Dracula\n1\n2\nVolar\n1\n1\n0\n0\n0\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        // Crear administrador
+        Administrador administrador = new Administrador("Admin", "Admin", "12345678");
+
+        // Llamar al método crearPersonaje
+        Personaje personajeCreado = administrador.crearPersonaje();
+
+        // Verificar que el personaje creado no sea nulo
+        assertNotNull(personajeCreado);
+
+        // Verificar que el nombre del personaje sea correcto
+        assertEquals("Dracula", personajeCreado.getNombrePersonaje());
+
+        // Verificar que el tipo de personaje sea correcto
+        assertEquals(1, personajeCreado.getTipoPersonaje());
+
+        // Verificar que se hayan añadido habilidades al personaje
+        ArrayList<Habilidad> habilidades = personajeCreado.getHabilidades();
+        assertNotNull(habilidades);
+        assertEquals(1, habilidades.size());
+        assertEquals("Volar", habilidades.get(0).getNombre());
+
+        // Verificar que se hayan añadido armas al personaje (en este caso no se añade ninguna)
+        ArrayList<Arma> armas = personajeCreado.getArmas();
+        assertNotNull(armas);
+        assertEquals(0, armas.size());
+
+        ArrayList<Fortaleza> fortalezas = personajeCreado.getFortalezas();
+        assertNotNull(fortalezas);
+        assertEquals(1, fortalezas.size());
+        assertEquals("Fortaleza1", fortalezas.get(0).getNombre());
+        assertEquals(3, fortalezas.get(0).getValorModificador());
+
+        // Verificar que se hayan añadido debilidades al personaje
+        ArrayList<Debilidad> debilidades = personajeCreado.getDebilidades();
+        assertNotNull(debilidades);
+        assertEquals(1, debilidades.size());
+        assertEquals("Debilidad1", debilidades.get(0).getNombre());
+        assertEquals(4, debilidades.get(0).getValorModificador());
+    }*/
+
 
 }
+

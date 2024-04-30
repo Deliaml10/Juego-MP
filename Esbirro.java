@@ -11,6 +11,12 @@ public class Esbirro implements Serializable  {
         this.nombre = nombre;
         this.salud = salud;
     }
+    public String getNombre(){
+        return nombre;
+    }
+    public int getSalud(){
+        return salud;
+    }
 
 }
 
@@ -25,6 +31,15 @@ class Humano extends Esbirro {
     public Humano(String nombre, int salud, int lealtad){
         super(nombre, salud);
         this.lealtad = lealtad;
+    }
+    public String getNombreHumano(){
+        return getNombre();
+    }
+    public int getSaludHumano(){
+        return getSalud();
+    }
+    public int getLealtad(){
+        return lealtad;
     }
 }
 
