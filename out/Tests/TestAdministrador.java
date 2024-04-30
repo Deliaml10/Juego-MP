@@ -264,6 +264,26 @@ public class TestAdministrador {
         assertEquals("admin123", admin.getContrasena());
     }
 
+    @Test
+    public void testCrearEsbirros() {
+        Administrador administrador = new Administrador("Delia", "Delia", "12345678");
+
+        String input = "1\n1\nNombre\n3\n1\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        ArrayList<Esbirro> esbirros = administrador.crearEsbirros();
+        Esbirro esbirro = esbirros.getFirst();
+
+        System.setIn(System.in);
+
+        assertNotNull(esbirro);
+        assertEquals(3, esbirro.getSalud());
+        assertEquals("Nombre", esbirro.getNombre());
+        assertTrue(esbirro instanceof Humano);
+    }
+
+
     // ESTE TEST DA ERROR
     /*
     @Test
