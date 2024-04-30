@@ -255,6 +255,14 @@ public class TestAdministrador {
         assertFalse(admin.getDesafiosPendientesComunes().contains(combatePendiente));
     }
 
+    @Test
+    public void testConstructorAdministrador() {
+        Administrador admin = new Administrador("Admin", "admin", "admin123");
+
+        assertEquals("Admin", admin.getNombreUsuario());
+        assertEquals("admin", admin.getNick());
+        assertEquals("admin123", admin.getContrasena());
+    }
 
     // ESTE TEST DA ERROR
     /*
