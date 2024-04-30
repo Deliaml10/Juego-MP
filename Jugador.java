@@ -100,10 +100,10 @@ public class Jugador extends Usuario {
                                         System.out.println("Arma no registrada");
                                     }
                                 }
-                            // Salir de equipar armas
+                                // Salir de equipar armas
                             } else if (seleccionArma.equals("2")) {
                                 System.out.println("Enhorabuena, ya has terminado de equipar tus armas");
-                            // Nombre no existente
+                                // Nombre no existente
                             } else {
                                 System.out.println("Opcion incorrecta");
                             }
@@ -144,7 +144,7 @@ public class Jugador extends Usuario {
                                         System.out.println("Armadura no registrada");
                                     }
                                 }
-                            //Salir de equipar armaduras
+                                //Salir de equipar armaduras
                             } else if (seleccionArmadura.equals("2")) {
                                 System.out.println("Enhorabuena, ya has terminado de equipar tus armaduras");
                             } else {
@@ -162,8 +162,8 @@ public class Jugador extends Usuario {
                         System.out.println("Opción incorrecta.");
                         this.equipar(personaje);
                         break;
-                    }
-            break;
+                }
+                break;
 
             //DESEQUIPAR
             case "2":
@@ -268,7 +268,7 @@ public class Jugador extends Usuario {
                         this.equipar(personaje);
                         break;
                 }
-            break;
+                break;
 
             case "3":
                 System.out.println("Volviendo al menú.");
@@ -358,7 +358,7 @@ public class Jugador extends Usuario {
     public void setPersonaje(Personaje personaje) {
         this.personaje = personaje;
     }
-    
+
     public void darBajaPersonaje() {
         if (this.personaje == null) {
             System.out.println("No tienes ningun personaje registrado");
@@ -418,9 +418,10 @@ public class Jugador extends Usuario {
     public ArrayList<Combate> getCombates() {
         return this.combates;
     }
-    
+
     public void removeDesafioPendiente(Combate combate){
         this.desafiosPendientes.remove(combate);
     }
 
+    public boolean getElegido() { return this.elegido;}
 }

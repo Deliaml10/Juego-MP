@@ -137,6 +137,9 @@ public class TestJugador {
 
         Administrador admin = new Administrador("Nombre", "Contraseña", "admin");
 
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         ByteArrayInputStream in1 = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(in1);
 
@@ -147,8 +150,10 @@ public class TestJugador {
 
         jugador2.aceptarRechazarDesafio();
 
-        assertTrue(jugador2.getDesafiosPendientes().isEmpty());
+        String result = outputStream.toString();
+        assertTrue(result.contains("¡El combate ha comenzado!"));
     }
+
     @Test
     public void testAddDesafioPendienteAdmin() {
         Jugador jugador1 = new Jugador("Nombre", "jugador1", "jugador1");
@@ -243,6 +248,24 @@ public class TestJugador {
         jugador2.aceptarRechazarDesafio();
 
         assertTrue(jugador2.getDesafiosPendientes().isEmpty());
+    }
+
+    @Test
+    public void testConstructorJugador() {
+        String nombre = "Nombre";
+        String nick = "jugador1";
+        String contrasena = "contraseña";
+
+        Jugador jugador = new Jugador(nombre, nick, contrasena);
+
+        assertEquals(nombre, jugador.getNombreUsuario());
+        assertEquals(nick, jugador.getNick());
+        assertEquals(contrasena, jugador.getContrasena());
+        assertNull(jugador.getPersonaje());
+        assertTrue(jugador.getDesafiosPendientes().isEmpty());
+        assertFalse(jugador.getBloqueado());
+        assertTrue(jugador.getDesafiosPendientes().isEmpty());
+        assertFalse(jugador.getElegido());
     }
 }
 
