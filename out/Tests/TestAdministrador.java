@@ -233,6 +233,28 @@ public class TestAdministrador {
         assertEquals(true, desafiosPendientesComunes.contains(combate));
     }
 
+    @Test
+    public void testValidarCombate() {
+        Administrador admin = new Administrador("Admin", "admin123", "admin");
+        Jugador jugador1 = new Jugador("Jugador1", "jugador1", "jugador1");
+        Jugador jugador2 = new Jugador("Jugador2", "jugador2", "jugador2");
+
+        Combate combatePendiente = new Combate(jugador1, jugador2, 100);
+        admin.addDesafioPendienteComun(combatePendiente);
+
+        InputStream originalIn = System.in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n".getBytes());
+        System.setIn(in);
+
+        admin.validarCombate();
+
+        System.setIn(originalIn);
+
+        assertTrue(combatePendiente.isValidado());
+        assertTrue(jugador2.getDesafiosPendientes().contains(combatePendiente));
+        assertFalse(admin.getDesafiosPendientesComunes().contains(combatePendiente));
+    }
+
 
     // ESTE TEST DA ERROR
     /*
@@ -282,7 +304,6 @@ public class TestAdministrador {
         assertEquals("Debilidad1", debilidades.get(0).getNombre());
         assertEquals(4, debilidades.get(0).getValorModificador());
     }*/
-
 
 }
 
