@@ -25,4 +25,12 @@ public class Licantropo extends Personaje{
     public int getRabia() {
         return rabia;
     }
+
+    public int getEstatura(){
+        return estatura;
+    }
+
+    public int getPeso(){
+        return peso;
+    }
 }

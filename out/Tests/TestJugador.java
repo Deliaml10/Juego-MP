@@ -98,6 +98,19 @@ public class TestJugador {
 
     }
     @Test
+    public void testDarDeBajaPersonaje() {
+        Jugador jugador = new Jugador("Nombre", "Contraseña", "Nick");
+        Personaje personaje = new Personaje("NombrePersonaje", 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        jugador.registrarPersonaje(personaje);
+
+        assertEquals(personaje, jugador.getPersonaje());
+
+        jugador.darBajaPersonaje();
+
+        assertNull(jugador.getPersonaje());
+    }
+
+    @Test
     public void testDesafiar() {
         Jugador jugador1 = new Jugador("Nombre", "Contraseña", "juagdor1");
         Jugador jugador2 = new Jugador("Nombre2", "Contraseña", "jugador2");
