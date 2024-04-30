@@ -63,4 +63,11 @@ public class TestJugador {
         System.out.println("Las pruebas para el método consultarOro han pasado correctamente.");
     }
 
+    @Test
+    public void testRegistrarPersonaje() {
+        Jugador jugador = new Jugador("Nombre", "Contraseña", "Nick");
+        Personaje personaje = new Personaje("NombrePersonaje", 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        jugador.registrarPersonaje(personaje);
+        assertEquals(personaje, jugador.getPersonaje());
+    }
 }
