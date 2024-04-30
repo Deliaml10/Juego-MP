@@ -1,11 +1,8 @@
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 import static org.junit.Assert.assertTrue;
 import java.io.PrintStream;
 
@@ -48,7 +45,6 @@ public class TestJugador {
         int resultadoJugador2 = 0;
 
         if (resultadoJugador1 == 1) {
-            // Jugador 1 ganó el combate
             personaje1.incrementarOroGanado(30);
             personaje2.incrementarOroPerdido(30);
             personaje1.incrementarOroPerdido(0);
