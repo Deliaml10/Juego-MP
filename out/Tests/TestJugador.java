@@ -137,6 +137,9 @@ public class TestJugador {
 
         Administrador admin = new Administrador("Nombre", "Contraseña", "admin");
 
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
         ByteArrayInputStream in1 = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(in1);
 
@@ -147,8 +150,10 @@ public class TestJugador {
 
         jugador2.aceptarRechazarDesafio();
 
-        assertTrue(jugador2.getDesafiosPendientes().isEmpty());
+        String result = outputStream.toString();
+        assertTrue(result.contains("¡El combate ha comenzado!"));
     }
+
     @Test
     public void testAddDesafioPendienteAdmin() {
         Jugador jugador1 = new Jugador("Nombre", "jugador1", "jugador1");
