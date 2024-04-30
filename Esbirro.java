@@ -53,6 +53,9 @@ class Ghoul extends Esbirro {
         super(nombre, salud);
         this.dependencia = dependencia;
     }
+    public int getDependenciaGhoul(){
+        return dependencia;
+    }
 }
 
 // Clase Demonio
