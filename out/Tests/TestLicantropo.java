@@ -24,7 +24,7 @@ public class TestLicantropo {
         Licantropo licantropo = new Licantropo(nombre, tipo, habilidades, armas, armaduras, esbirros, debilidades, fortalezas, estatura, peso, rabia, don);
 
         assertEquals(nombre, licantropo.getNombrePersonaje());
-        assertEquals("2", licantropo.getTipoPersonaje());
+        assertEquals(2, licantropo.getTipoPersonaje());
         assertEquals(habilidades, licantropo.getHabilidades());
         assertEquals(armas, licantropo.getArmas());
         assertEquals(armaduras, licantropo.getArmaduras());
