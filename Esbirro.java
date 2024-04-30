@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Esbirro implements Serializable  {
@@ -64,5 +65,20 @@ class Demonio extends Esbirro{
         super(nombre, salud);
         this.pacto = pacto;
         this.esbirros = esbirros;
+    }
+    public String getNombreDemonio(){
+        return getNombre();
+    }
+
+    public int getSaludDemonio(){
+        return getSalud();
+    }
+
+    public String getPacto(){
+        return pacto;
+    }
+
+    public ArrayList<Esbirro> getEsbirros(){
+        return esbirros;
     }
 }
