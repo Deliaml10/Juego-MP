@@ -54,4 +54,7 @@ class Armadura extends Equipo{
     public Armadura(String nombre, int manos, int valor, boolean activa){
         super(nombre, manos, valor, activa);
     }
+    public Boolean getActivaArmadura(){
+        return getActiva();
+    }
 }

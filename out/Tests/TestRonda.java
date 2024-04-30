@@ -350,6 +350,7 @@ public class TestRonda {
         return personaje.getSalud();
     }
 
+
     private static int exitosAtaque(int ataque) {
         java.util.Random rand = new java.util.Random();
         int suma = 0;
