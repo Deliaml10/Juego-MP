@@ -17,4 +17,8 @@ public class Vampiro extends Personaje{
         return this.disciplina;
     }
 
+    public int getSangre() {
+        return this.puntosSangre;
+    }
+
 }

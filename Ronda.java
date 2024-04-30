@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Ronda implements Serializable {
@@ -59,29 +60,39 @@ public class Ronda implements Serializable {
             Vampiro vampiro = (Vampiro) personaje;
             Disciplina disciplina = vampiro.getDisciplina();
             int valorArmas = 0;
-            for (Arma arma : vampiro.getArmas()){
+            ArrayList<Arma> armasEquipadas = personaje.getArmasEquipadas();
+            for (Arma arma : armasEquipadas){
                 if (arma.getEquipada()){
                     valorArmas += arma.getValor();
                 }
             }
-            potencialAtaque = potencialAtaque + disciplina.getValorDisciplina() + valorArmas;
-            if (disciplina.getSangreNecesaria() >= 5) {
-                potencialAtaque += 2;
+            potencialAtaque += valorArmas;
+
+            if (vampiro.getSangre() >= disciplina.getSangreNecesaria()) {
+                potencialAtaque += disciplina.getValorDisciplina();
+                if (disciplina.getSangreNecesaria() >= 5) {
+                    potencialAtaque += 2;
+                }
             }
+            
         } else if (personaje instanceof Licantropo) {
             Licantropo licantropo = (Licantropo) personaje;
             Don don = licantropo.getDon();
             int valorArmas = 0;
-            for (Arma arma : licantropo.getArmas()){
+            for (Arma arma : licantropo.getArmasEquipadas()){
                 if (arma.getEquipada()){
                     valorArmas += arma.getValor();
                 }
             }
-            potencialAtaque = potencialAtaque + don.getValorDon() + don.getRabia() + valorArmas;
+            potencialAtaque += licantropo.getRabia() + valorArmas;
+            if (licantropo.getRabia() >= don.getRabiaNecesaria()) {
+                potencialAtaque += don.getValorDon();
+            }
+
         } else if (personaje instanceof Cazador) {
             Cazador cazador = (Cazador) personaje;
             int valorArmas = 0;
-            for (Arma arma : cazador.getArmas()){
+            for (Arma arma : cazador.getArmasEquipadas()){
                 if (arma.getEquipada()){
                     valorArmas += arma.getValor();
                 }
@@ -113,29 +124,35 @@ public class Ronda implements Serializable {
             Vampiro vampiro = (Vampiro) personaje;
             Disciplina disciplina = vampiro.getDisciplina();
             int valorArmaduras = 0;
-            for (Armadura armadura : vampiro.getArmaduras()){
+            for (Armadura armadura : vampiro.getArmadurasEquipadas()){
                 if (armadura.getEquipada()){
                     valorArmaduras += armadura.getValor();
                 }
             }
-            potencialDefensa = potencialDefensa + disciplina.getValorDisciplina() + valorArmaduras;
-            if (disciplina.getSangreNecesaria() >= 5) {
-                potencialDefensa += 2;
+            potencialDefensa += valorArmaduras;
+            if (vampiro.getSangre() >= disciplina.getSangreNecesaria()) {
+                potencialDefensa += disciplina.getValorDisciplina();
+                if (disciplina.getSangreNecesaria() >= 5) {
+                    potencialDefensa += 2;
+                }
             }
         } else if (personaje instanceof Licantropo) {
             Licantropo licantropo = (Licantropo) personaje;
             Don don = licantropo.getDon();
             int valorArmaduras = 0;
-            for (Armadura armadura : licantropo.getArmaduras()){
+            for (Armadura armadura : licantropo.getArmadurasEquipadas()){
                 if (armadura.getEquipada()){
                     valorArmaduras += armadura.getValor();
                 }
             }
-            potencialDefensa = potencialDefensa + don.getValorDon() + don.getRabia() + valorArmaduras;
+            potencialDefensa += licantropo.getRabia() + valorArmaduras;
+            if (licantropo.getRabia() >= don.getRabiaNecesaria()) {
+                potencialDefensa += don.getValorDon();
+            }
         } else if (personaje instanceof Cazador) {
             Cazador cazador = (Cazador) personaje;
             int valorArmaduras = 0;
-            for (Armadura armadura : cazador.getArmaduras()){
+            for (Armadura armadura : cazador.getArmadurasEquipadas()){
                 if (armadura.getEquipada()){
                     valorArmaduras += armadura.getValor();
                 }
