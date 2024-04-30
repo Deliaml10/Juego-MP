@@ -261,7 +261,7 @@ public class TestJugador {
         assertEquals(nombre, jugador.getNombreUsuario());
         assertEquals(nick, jugador.getNick());
         assertEquals(contrasena, jugador.getContrasena());
-        assertEquals(null, jugador.getPersonaje());
+        assertNull(jugador.getPersonaje());
         assertTrue(jugador.getDesafiosPendientes().isEmpty());
         assertFalse(jugador.getBloqueado());
         assertTrue(jugador.getDesafiosPendientes().isEmpty());
