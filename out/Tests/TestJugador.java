@@ -2,9 +2,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import static org.junit.Assert.assertTrue;
+import java.io.PrintStream;
 
 import static org.junit.Assert.*;
 
@@ -98,6 +101,27 @@ public class TestJugador {
         assertTrue(arma2.getEquipada());
 
     }
+    @Test
+    public void testDesafiar() {
+        Jugador jugador1 = new Jugador("Nombre", "Contraseña", "juagdor1");
+        Jugador jugador2 = new Jugador("Nombre2", "Contraseña", "jugador2");
 
+        Personaje personajeDesafiante = new Personaje("Desafiante", 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        Personaje personajeDesafiado = new Personaje("Desafiado", 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+
+        jugador1.registrarPersonaje(personajeDesafiante);
+        jugador2.registrarPersonaje(personajeDesafiado);
+
+
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n1\n1\n1\n".getBytes());
+        System.setIn(in);
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        jugador1.desafiar(jugador1, jugador2, 33);
+        System.setOut(System.out);
+        assertTrue(outContent.toString().contains("El desafío ha sido enviado al administrador para su validación."));
+    }
 }
 
