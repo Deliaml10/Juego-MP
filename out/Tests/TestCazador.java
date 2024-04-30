@@ -22,7 +22,7 @@ public class TestCazador {
         Cazador cazador = new Cazador(nombre, tipo, habilidades, armas, armaduras, esbirros, debilidades, fortalezas, puntosVoluntad, talento);
 
         assertEquals(nombre, cazador.getNombrePersonaje());
-        assertEquals("3", cazador.getTipoPersonaje());
+        assertEquals(3, cazador.getTipoPersonaje());
         assertEquals(habilidades, cazador.getHabilidades());
         assertEquals(armas, cazador.getArmas());
         assertEquals(armaduras, cazador.getArmaduras());

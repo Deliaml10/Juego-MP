@@ -14,4 +14,8 @@ public class Cazador extends Personaje{
         return this.puntosVoluntad;
     }
 
+    public Talento getTalento(){
+        return talento;
+    }
+
 }

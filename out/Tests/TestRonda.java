@@ -119,14 +119,16 @@ public class TestRonda {
     }
 
     @Test
-    public void testCalcularPotencialAtaque() {
+    public void testCalcularPotencial() {
         // Crear habilidades para el vampiro
         Habilidad disciplina = new Disciplina("Dominate", 1, 5);
         
         // Crear armas y armaduras para el vampiro
         Arma arma = new Arma("Colmillos", 1, 1, true);
+        arma.setEquipada(true);
         Armadura armadura = new Armadura("Túnica de la noche", 1, 1, true);
-        
+        armadura.setEquipada(true);
+
         // Crear listas de habilidades, armas y armaduras
         ArrayList<Habilidad> habilidadesVampiro = new ArrayList<>();
         habilidadesVampiro.add(disciplina);
@@ -149,7 +151,7 @@ public class TestRonda {
         
         // Crear un objeto Vampiro
         Vampiro vampiro = new Vampiro("Drácula", 1, habilidadesVampiro, armasVampiro, armadurasVampiro, esbirrosVampiro, debilidadesVampiro, fortalezasVampiro, 3, poderVampirico, 200);
-
+        
 
 
         // Crear habilidades para el licántropo
@@ -157,7 +159,9 @@ public class TestRonda {
         
         // Crear armas y armaduras para el licántropo
         Arma garra = new Arma("Garra afilada", 1, 1, true);
+        garra.setEquipada(true);
         Armadura pielDura = new Armadura("Piel dura", 1, 1, true);
+        pielDura.setEquipada(true);
         
         // Crear listas de habilidades, armas y armaduras
         ArrayList<Habilidad> habilidadesLicantropo = new ArrayList<>();
@@ -191,7 +195,9 @@ public class TestRonda {
         
         // Crear armas y armaduras para el cazador
         Arma arco = new Arma("Arco", 1, 1, true);
+        arco.setEquipada(true);
         Armadura cuero = new Armadura("Armadura de cuero", 1, 5, true);
+        cuero.setEquipada(true);
         
         // Crear listas de habilidades, armas y armaduras
         ArrayList<Habilidad> habilidadesCazador = new ArrayList<>();

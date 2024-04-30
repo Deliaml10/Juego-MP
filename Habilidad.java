@@ -46,6 +46,10 @@ class Don extends Habilidad{
     public int getValorDon(){
         return this.valor;
     }
+
+    public int getRabiaNecesaria() {
+        return this.rabiaNecesaria;
+    }
 }
 
 class Talento extends Habilidad{
