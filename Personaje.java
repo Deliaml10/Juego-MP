@@ -189,6 +189,25 @@ public class Personaje implements Serializable   {
         return this.armadurasActivas;
     }
     
+    public ArrayList<Arma> getArmasEquipadas() {
+        ArrayList<Arma> armasEquipadas = new ArrayList<>();
+        for (Arma arma : armas) {
+            if (arma.getEquipada()) {
+                armasEquipadas.add(arma);
+            }
+        }
+        return armasEquipadas;
+    }
+
+    public ArrayList<Armadura> getArmadurasEquipadas() {
+        ArrayList<Armadura> armadurasEquipadas = new ArrayList<>();
+        for (Armadura armadura : armaduras) {
+            if (armadura.getEquipada()) {
+                armadurasEquipadas.add(armadura);
+            }
+        }
+        return armadurasEquipadas;
+    }
 
 }
 

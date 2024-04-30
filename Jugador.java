@@ -372,8 +372,12 @@ public class Jugador extends Usuario {
     }
 
     public void consultarOro() {
-        System.out.println("Oro ganado: " + this.personaje.getOroGanado());
-        System.out.println("Oro perdido: " + this.personaje.getOroPerdido());
+        if (this.getPersonaje() != null){
+            System.out.println("Oro ganado: " + this.personaje.getOroGanado());
+            System.out.println("Oro perdido: " + this.personaje.getOroPerdido());
+        }else{
+            System.out.println("Para consultar el oro antes necesitas registrar un personaje");
+        }
     }
 
     public void desafiar(Jugador desafiante, Jugador desafiado, int oroApostado) {
