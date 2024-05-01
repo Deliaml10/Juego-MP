@@ -86,6 +86,7 @@ public class Administrador extends Usuario {
         System.out.println("7. Esbirros");
         System.out.println("8. Debilidades");
         System.out.println("9. Fortalezas");
+        System.out.println("10. Salir");
 
         opcion = scanner.nextInt();
         scanner.nextLine(); // Limpiar el buffer
@@ -96,6 +97,7 @@ public class Administrador extends Usuario {
                 String nombre = scanner.nextLine().trim();
                 personaje.setNombrePersonaje(nombre);
                 System.out.println("Nombre del personaje cambiado correctamente a: " + nombre);
+                editarPersonaje(personaje);
                 break;
             case 2:
                 System.out.print("Nuevas habilidades: ");
@@ -119,18 +121,21 @@ public class Administrador extends Usuario {
                     }
                 }
                 System.out.println("Habilidades del personaje cambiadas correctamente");
+                editarPersonaje(personaje);
                 break;
             case 3:
                 System.out.print("Nuevas armas: ");
                 ArrayList<Arma> nuevasArmas = crearArmas();
                 personaje.setArmas(nuevasArmas);
                 System.out.println("Armas del personaje cambiadas correctamente");
+                editarPersonaje(personaje);
                 break;
             case 4:
                 System.out.print("Nuevas armaduras: ");
                 ArrayList<Armadura> nuevasArmaduras = crearArmaduras();
                 personaje.setArmaduras(nuevasArmaduras);
                 System.out.println("Armaduras del personaje cambiadas correctamente");
+                editarPersonaje(personaje);
                 break;
             case 5:
                 System.out.print("Nuevas armas activas: ");
@@ -152,8 +157,9 @@ public class Administrador extends Usuario {
                         }
                     }
                 }
+                editarPersonaje(personaje);
                 break;
-                case 6:
+            case 6:
                 System.out.print("Nuevas armaduras activas: ");
                 ArrayList<Armadura> armaduras = personaje.getArmaduras();
                 for (Armadura armadura : armaduras) {
@@ -177,29 +183,35 @@ public class Administrador extends Usuario {
                         }
                     }
                 }
+                editarPersonaje(personaje);
                 break;
-
-            
             case 7:
                 System.out.print("Nuevos esbirros: ");
                 ArrayList<Esbirro> nuevosEsbirros = crearEsbirros();
                 personaje.setEsbirros(nuevosEsbirros);
                 System.out.println("Esbirros del personaje cambiados correctamente");
+                editarPersonaje(personaje);
                 break;
             case 8:
                 System.out.print("Nuevas debilidades: ");
                 ArrayList<Debilidad> debilidades = crearDebilidades();
                 personaje.setDebilidades(debilidades);
                 System.out.println("Debilidades del personaje cambiadas correctamente");
+                editarPersonaje(personaje);
                 break;
             case 9:
                 System.out.print("Nuevas fortalezas: ");
                 ArrayList<Fortaleza> fortalezas = crearFortalezas();
                 personaje.setFortalezas(fortalezas);
                 System.out.println("Fortalezas del personaje cambiadas correctamente");
+                editarPersonaje(personaje);
+                break;
+            case 10:
+                System.out.print("Saliendo de editar personaje\n");
                 break;
             default:
                 System.out.println("Opción incorrecta.");
+                editarPersonaje(personaje);
         }
     }
 

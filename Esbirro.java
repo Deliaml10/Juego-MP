@@ -32,6 +32,14 @@ class Humano extends Esbirro {
     public Humano(String nombre, int salud, int lealtad){
         super(nombre, salud);
         this.lealtad = lealtad;
+        switch (lealtad){
+            case 1:
+                tipoLealtad = new String[]{"baja"};
+            case 2:
+                tipoLealtad = new String[]{"media"};
+            case 3:
+                tipoLealtad = new String[]{"alta"};
+        }
     }
     public String getNombreHumano(){
         return getNombre();
